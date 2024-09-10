@@ -1,7 +1,6 @@
 ﻿using Bogus;
 using ecms.Infrastructure.Database;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IntegrationTests.Abstractions;
@@ -9,8 +8,6 @@ namespace IntegrationTests.Abstractions;
 public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestWebAppFactory>, IDisposable
 {
     private readonly IServiceScope _scope;
-
-    private readonly Guid TestDbName = Guid.NewGuid();
 
     protected BaseIntegrationTest(IntegrationTestWebAppFactory factory)
     {
@@ -27,13 +24,11 @@ public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestWebAppF
 
     private void CreateDb()
     {
-        ApplicationDbContext.Database.SetConnectionString(string.Format(TestConnectionString.testConnectionStringTemplate, TestDbName));
         ApplicationDbContext.Database.EnsureCreated();
     }
 
     public void Dispose()
     {
-        ApplicationDbContext.Database.SetConnectionString(string.Format(TestConnectionString.testConnectionStringTemplate, TestDbName));
         ApplicationDbContext.Database.EnsureDeleted();
         _scope.Dispose();
         GC.SuppressFinalize(this);
