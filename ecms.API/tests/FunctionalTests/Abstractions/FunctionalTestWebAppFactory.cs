@@ -1,6 +1,7 @@
 ﻿using ecms.Infrastructure.Database;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -14,6 +15,19 @@ public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>
     {
         builder.UseEnvironment("Testing");
 
+        builder.ConfigureAppConfiguration((context, config) =>
+        {
+            var testDbName = $"EcmsDbTests_{Guid.NewGuid()}";
+            var testConnectionString = $"Server=(localdb)\\mssqllocaldb;Database={testDbName};Trusted_Connection=True;MultipleActiveResultSets=true";
+
+            var customSettings = new Dictionary<string, string>
+            {
+                { "ConnectionStrings:Database", testConnectionString }
+            };
+
+            config.AddInMemoryCollection(customSettings);
+        });
+
         builder.ConfigureServices(services =>
         {
             services.Configure<TestAuthHandlerOptions>(options => options.DefaultUserId = "1");
@@ -25,12 +39,28 @@ public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>
                 options.DefaultChallengeScheme = TestAuthHandler.AuthenticationScheme;
             }).AddScheme<TestAuthHandlerOptions, TestAuthHandler>(TestAuthHandler.AuthenticationScheme, options => { });
 
+            var descriptor = services.SingleOrDefault(
+                d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
+
+            if (descriptor != null)
+            {
+                services.Remove(descriptor);
+            }
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(services.BuildServiceProvider()
+                    .GetRequiredService<IConfiguration>()
+                    .GetConnectionString("Database"), conf => conf.UseHierarchyId());
+            });
+
             var sp = services.BuildServiceProvider();
             using (var scope = sp.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<ApplicationDbContext>();
                 db.Database.EnsureDeleted();
+                db.Database.EnsureCreated();
             }
         });
     }
