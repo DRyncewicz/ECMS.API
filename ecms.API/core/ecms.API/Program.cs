@@ -16,7 +16,23 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenWithAuth();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+    options.AddPolicy("ProductionCors", builder =>
+    {
+        builder.WithOrigins("*/ecms.ovh")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
 builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration));
 
@@ -53,6 +69,12 @@ if (app.Environment.IsDevelopment())
             options.SwaggerEndpoint(url, name);
         }
     });
+    app.UseCors("AllowAll");
+}
+
+if (app.Environment.IsProduction())
+{
+    app.UseCors("ProductionCors");
 }
 
 app.UseHttpsRedirection();
