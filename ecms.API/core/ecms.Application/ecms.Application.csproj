@@ -18,8 +18,4 @@
     <ProjectReference Include="..\ecms.Domain\ecms.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handlers\Commands\" />
-  </ItemGroup>
-
 </Project>
