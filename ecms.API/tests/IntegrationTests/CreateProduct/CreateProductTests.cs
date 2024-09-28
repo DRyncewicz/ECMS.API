@@ -1,5 +1,4 @@
 ﻿using ecms.Application.Handlers.Commands.CreateProduct;
-using ecms.Application.Handlers.Commands.DeleteProduct;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;

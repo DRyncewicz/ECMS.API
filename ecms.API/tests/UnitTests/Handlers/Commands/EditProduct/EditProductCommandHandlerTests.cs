@@ -5,6 +5,7 @@ using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
@@ -46,6 +47,9 @@ public class EditProductCommandHandlerTests : IClassFixture<MappingTestFixture>
             }
         };
         _applicationDbContext.Setup(p => p.ProductVariants).Returns(_variants.AsQueryable().BuildMock().Object);
+        _applicationDbContext.Setup(p => p.Products).Returns(new Mock<DbSet<ProductEntity>>().Object);
+        _applicationDbContext.Setup(p => p.ProductHistories).Returns(new Mock<DbSet<ProductHistoryEntity>>().Object);
+        _applicationDbContext.Setup(p => p.ProductVariantHistories).Returns(new Mock<DbSet<ProductVariantHistoryEntity>>().Object);
     }
 
     [Fact]
@@ -72,10 +76,7 @@ public class EditProductCommandHandlerTests : IClassFixture<MappingTestFixture>
                 }
             }
         };
-        _applicationDbContext.Setup(p => p.Products).Returns(new Mock<DbSet<ProductEntity>>().Object);
-        _applicationDbContext.Setup(p => p.ProductHistories.AddAsync(It.IsAny<ProductHistoryEntity>(), It.IsAny<CancellationToken>())).Returns(new ValueTask<EntityEntry<ProductHistoryEntity>>());
-        _applicationDbContext.Setup(p => p.ProductVariantHistories.AddRangeAsync(It.IsAny<IEnumerable<ProductVariantHistoryEntity>>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(new ValueTask<EntityEntry<ProductVariantHistoryEntity>>()));
-
+        
         //Act
         var result = await _handler.Handle(request, default);
 
@@ -84,5 +85,80 @@ public class EditProductCommandHandlerTests : IClassFixture<MappingTestFixture>
         _applicationDbContext.Verify(p => p.ProductVariants.AddRangeAsync(It.IsAny<IEnumerable<ProductVariantEntity>>(), It.IsAny<CancellationToken>()), Times.Once());
         _applicationDbContext.Verify(p => p.ProductVariantHistories.AddRangeAsync(It.IsAny<IEnumerable<ProductVariantHistoryEntity>>(), It.IsAny<CancellationToken>()), Times.Once());
         _transaction.Verify(p => p.Commit(), Times.Once);
+    }
+
+    [Fact]
+    public async Task Handle_ShouldEditProductAndProductVariants_OnValidRequest()
+    {
+        //Arrange
+        var request = new EditProductCommand()
+        {
+            Id = 1,
+            ProductVariants = new List<ProductVariantDto>()
+            {              
+                new()
+                {
+                Id = 1,
+                Name = "EditedTest1",
+                Price = new ecms.Domain.ValueObjects.Price(1, ecms.Domain.ValueObjects.Currency.Eur),
+                ProductId = 1
+                }
+            }
+        };
+
+        //Act
+        var result = await _handler.Handle(request, default);
+
+        //Assert
+        _applicationDbContext.Verify(p => p.Products.Update(It.IsAny<ProductEntity>()), Times.Once());
+        _applicationDbContext.Verify(p => p.ProductVariants.UpdateRange(It.IsAny<IEnumerable<ProductVariantEntity>>()), Times.Once());
+        _applicationDbContext.Verify(p => p.ProductVariantHistories.AddRangeAsync(It.IsAny<IEnumerable<ProductVariantHistoryEntity>>(), It.IsAny<CancellationToken>()), Times.Once());
+        _transaction.Verify(p => p.Commit(), Times.Once);
+    }
+
+    [Fact]
+    public async Task Handle_ShouldDeleteOldVariant_OnValidRequest()
+    {
+        //Arrange
+        var request = new EditProductCommand()
+        {
+            Id = 1,
+            ProductVariants = new List<ProductVariantDto>()
+            {
+                new()
+                {
+                Id = 4,
+                Name = "EditedTest1",
+                Price = new ecms.Domain.ValueObjects.Price(1, ecms.Domain.ValueObjects.Currency.Eur),
+                ProductId = 1
+                }
+            }
+        };
+
+        //Act
+        var result = await _handler.Handle(request, default);
+
+        //Assert
+        _applicationDbContext.Verify(p => p.Products.Update(It.IsAny<ProductEntity>()), Times.Once());
+        _applicationDbContext.Verify(p => p.ProductVariants.UpdateRange(It.IsAny<IEnumerable<ProductVariantEntity>>()), Times.Once());
+        _applicationDbContext.Verify(p => p.ProductVariantHistories.AddRangeAsync(It.IsAny<IEnumerable<ProductVariantHistoryEntity>>(), It.IsAny<CancellationToken>()), Times.Once());
+        _transaction.Verify(p => p.Commit(), Times.Once);
+    }
+
+    [Fact]
+    public async Task Handle_ShouldRollBackTransaction_WhenExceptionOccurs()
+    {
+        // Arrange
+        var request = new EditProductCommand();
+
+        _applicationDbContext.Setup(p => p.ProductHistories.AddAsync(It.IsAny<ProductHistoryEntity>(), It.IsAny<CancellationToken>()))
+                             .ThrowsAsync(new Exception("Simulated exception"));
+
+        // Act
+        Func<Task> act = async () => await _handler.Handle(request, default);
+
+        // Assert
+        await act.Should().ThrowAsync<Exception>();
+        _transaction.Verify(p => p.Rollback(), Times.Once);
     }
 }

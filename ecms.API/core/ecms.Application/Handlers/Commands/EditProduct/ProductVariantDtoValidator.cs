@@ -16,6 +16,6 @@ public class ProductVariantDtoValidator : AbstractValidator<ProductVariantDto>
         RuleFor(p => p.ProductId)
             .NotEmpty().WithErrorCode(ProductVariantErrorCodes.MissingProductId);
         RuleFor(p => p.Id)
-            .NotEmpty().WithErrorCode(ProductVariantErrorCodes.MissingId);
+            .NotNull().WithErrorCode(ProductVariantErrorCodes.MissingId);
     }
 }

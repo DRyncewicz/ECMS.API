@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Auth;
 using ecms.Application.Abstractions.Data;
-using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +30,7 @@ public class EditProductCommandHandler(IApplicationDbContext _applicationDbConte
             await _applicationDbContext.ProductHistories.AddAsync(productHistory, ct);
             await _applicationDbContext.SaveChangesAsync(ct);
 
-            var oldProductVariants = _applicationDbContext.ProductVariants.Where(p => p.ProductId == request.Id).AsNoTracking().ToList();
+            var oldProductVariants = _applicationDbContext.ProductVariants.Where(p => p.ProductId == request.Id && p.IsDeleted == false).AsNoTracking().ToList();
 
             if (request.ProductVariants.Select(variant => variant.Id).Any(x => x == 0))
             {

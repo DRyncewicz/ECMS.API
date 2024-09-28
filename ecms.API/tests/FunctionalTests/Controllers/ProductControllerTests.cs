@@ -1,4 +1,5 @@
 ﻿using ecms.Application.Handlers.Commands.CreateProduct;
+using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Application.Models.ViewModels.Products;
 using ecms.Domain.Entities;
@@ -33,7 +34,7 @@ public class ProductControllerTests : BaseFunctionalTest
         var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Product/1");
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);       
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]
@@ -65,6 +66,43 @@ public class ProductControllerTests : BaseFunctionalTest
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
 
+    [Fact]
+    public async Task EditProduct_ShouldEditProduct_OnValidRequest()
+    {
+        //Arrange
+        var command = new EditProductRequest()
+        {
+            Name = "NameTest",
+            CategoryId = 1,
+            AlcoholContent = ecms.Domain.Enums.AlcoholContentType.Between4AndAHalfAnd18ExceptBeer,
+            Description = "Description",
+            Unit = ecms.Domain.Enums.UnitType.Portion,
+            Vat = 8,
+            ProductVariants = new List<ProductVariantDto>()
+            {
+                new ProductVariantDto()
+                {
+                    Id = 1,
+                    ProductId = 1,
+                    Name = "Nejm",
+                    Price = new ecms.Domain.ValueObjects.Price(22, ecms.Domain.ValueObjects.Currency.Pln)
+                },
+                new()
+                {
+                    Id = 0,
+                    ProductId = 1,
+                    Name = "Test",
+                    Price = new ecms.Domain.ValueObjects.Price(22, ecms.Domain.ValueObjects.Currency.Usd)
+                }
+            }
+        };
+
+        //Act
+        var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Product/1", command);
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
     private void Seed()
     {
         var products = new List<ProductEntity>

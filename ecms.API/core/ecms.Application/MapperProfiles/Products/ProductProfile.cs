@@ -47,6 +47,9 @@ public class ProductProfile : Profile
             .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
             .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Product, opt => opt.Ignore())
+            .ForMember(dest => dest.ProductVariantHistories, opt => opt.Ignore())
+            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
             .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
 
 
