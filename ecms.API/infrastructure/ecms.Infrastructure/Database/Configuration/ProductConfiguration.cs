@@ -40,6 +40,9 @@ internal class ProductConfiguration : IEntityTypeConfiguration<ProductEntity>
                .HasMaxLength(450)
                .IsRequired();
 
+        builder.Property(p => p.IsDeleted)
+               .IsRequired();
+
         builder.HasOne(p => p.Category)
                .WithMany(p => p.Products)
                .HasForeignKey(p => p.CategoryId);

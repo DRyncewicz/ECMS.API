@@ -10,7 +10,7 @@ public class BaseFunctionalTest : IClassFixture<FunctionalTestWebAppFactory>, ID
     {
         _scope = factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
         ApplicationDbContext = _scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        HttpClient = factory.GetClient(false);
+        HttpClient = factory.CreateClient();
         AuthorizedHttpClient = factory.GetClient(true);
         CreateDb();
     }

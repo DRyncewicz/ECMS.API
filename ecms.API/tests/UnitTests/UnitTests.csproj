@@ -28,8 +28,4 @@
     <ProjectReference Include="..\..\core\ecms.Application\ecms.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handlers\Commands\" />
-  </ItemGroup>
-
 </Project>

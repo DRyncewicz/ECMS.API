@@ -1,11 +1,9 @@
 ﻿using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Enums;
-using MediatR;
-using SharedKernel;
 
-namespace ecms.Application.Handlers.Commands.CreateProduct;
+namespace ecms.Application.Handlers.Commands.EditProduct;
 
-public class CreateProductCommand : IRequest<Result<int>>
+public class EditProductRequest
 {
     public string Name { get; set; } = string.Empty;
 
@@ -22,7 +20,6 @@ public class CreateProductCommand : IRequest<Result<int>>
     public GtuCodeType? GtuCode { get; set; }
 
     public Guid? FileGuid { get; set; }
-  
-    public List<CreateProductVariantDto> ProductVariants { get; set; } = [];
 
+    public List<ProductVariantDto> ProductVariants { get; set; }
 }

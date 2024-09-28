@@ -24,6 +24,8 @@ public class ProductEntity : Entity
 
     public int CategoryId { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual ICollection<ProductHistoryEntity> ProductHistories { get; set; }
 
     public virtual CategoryEntity Category { get; set; }

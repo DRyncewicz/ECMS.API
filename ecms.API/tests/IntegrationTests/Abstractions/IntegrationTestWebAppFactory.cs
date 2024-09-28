@@ -1,9 +1,14 @@
-﻿using ecms.Infrastructure.Database;
+﻿using ecms.Application.Abstractions.Auth;
+using ecms.Infrastructure.Authorization;
+using ecms.Infrastructure.Database;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
+using System.Security.Claims;
 
 namespace IntegrationTests.Abstractions;
 
@@ -51,6 +56,34 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
                 db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
             }
+
+            var descriptorCurrentUserService = services.SingleOrDefault(
+                d => d.ServiceType == typeof(ICurrentUserService));
+
+            if (descriptorCurrentUserService != null)
+            {
+                services.Remove(descriptorCurrentUserService);
+            }
+
+            var descriptorHttpAccessor = services.SingleOrDefault(
+                    d => d.ServiceType == typeof(IHttpContextAccessor));
+
+            if (descriptorHttpAccessor != null)
+            {
+                services.Remove(descriptorHttpAccessor);
+            }
+
+            var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, "test-user-id")
+        };
+            var identity = new ClaimsIdentity(claims);
+            var principal = new ClaimsPrincipal(identity);
+            var context = new DefaultHttpContext { User = principal };
+            httpContextAccessorMock.Setup(_ => _.HttpContext).Returns(context);
+            services.AddSingleton(httpContextAccessorMock.Object);
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
         });
     }
 }

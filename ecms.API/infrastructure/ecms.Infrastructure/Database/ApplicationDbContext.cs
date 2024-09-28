@@ -7,7 +7,7 @@ using System.Data;
 namespace ecms.Infrastructure.Database;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
-{
+{  
     public DbSet<ProductEntity> Products { get; set; }
 
     public DbSet<CategoryEntity> Categories { get; set; }

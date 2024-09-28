@@ -15,9 +15,9 @@ namespace ecms.Application.Handlers.Queries.GetProductsByFilters;
 public class GetProductsByFiltersQueryHandler(IApplicationDbContext _applicationDbContext,
                                               IMapper _mapper) : IRequestHandler<GetProductsByFiltersQuery, Result<FilteredProductsViewModel>>
 {
-    public async Task<Result<FilteredProductsViewModel>> Handle(GetProductsByFiltersQuery request, CancellationToken cancellationToken)
+    public async Task<Result<FilteredProductsViewModel>> Handle(GetProductsByFiltersQuery request, CancellationToken ct)
     {
-        var products = _applicationDbContext.Products.Include(p => p.ProductVariants).AsQueryable();
+        var products = _applicationDbContext.Products.Include(p => p.ProductVariants).Where(p => p.IsDeleted != true).AsQueryable();
         var model = new FilteredProductsViewModel();
 
         if (!string.IsNullOrEmpty(request.Name))
