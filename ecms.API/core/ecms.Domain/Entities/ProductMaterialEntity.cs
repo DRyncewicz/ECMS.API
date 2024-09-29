@@ -11,4 +11,6 @@ public class ProductMaterialEntity : Entity
     public double Quantity { get; set; }
 
     public virtual ProductEntity Product { get; set; }
+
+    public ICollection<ProductMaterialHistoryEntity> ProductMaterialHistories { get; set; }
 }

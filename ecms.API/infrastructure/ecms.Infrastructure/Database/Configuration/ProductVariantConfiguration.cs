@@ -26,6 +26,9 @@ internal class ProductVariantConfiguration : IEntityTypeConfiguration<ProductVar
                .HasMaxLength(60)
                .IsRequired();
 
+        builder.Property(p => p.IsDeleted)
+               .IsRequired();
+
         builder.HasOne(p => p.Product)
                .WithMany(p => p.ProductVariants)
                .HasForeignKey(p => p.ProductId);

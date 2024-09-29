@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.SqlServer.Types;
 using ecms.Infrastructure.Database;
@@ -12,9 +13,11 @@ using ecms.Infrastructure.Database;
 namespace ecms.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240909204007_AddDbSet")]
+    partial class AddDbSet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +48,7 @@ namespace ecms.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", "ecms");
+                    b.ToTable("Categoires", "ecms");
                 });
 
             modelBuilder.Entity("ecms.Domain.Entities.ProductEntity", b =>
@@ -73,9 +76,6 @@ namespace ecms.Infrastructure.Migrations
 
                     b.Property<string>("GtuCode")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -185,43 +185,6 @@ namespace ecms.Infrastructure.Migrations
                     b.ToTable("ProductMaterialEntity", "ecms");
                 });
 
-            modelBuilder.Entity("ecms.Domain.Entities.ProductMaterialHistoryEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreateDateTimeUtc")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatorUsedId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductMaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductMaterialId");
-
-                    b.ToTable("ProductMaterialHistoryEntity", "ecms");
-                });
-
             modelBuilder.Entity("ecms.Domain.Entities.ProductVariantEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -229,9 +192,6 @@ namespace ecms.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -319,17 +279,6 @@ namespace ecms.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ecms.Domain.Entities.ProductMaterialHistoryEntity", b =>
-                {
-                    b.HasOne("ecms.Domain.Entities.ProductMaterialEntity", "ProductMaterial")
-                        .WithMany("ProductMaterialHistories")
-                        .HasForeignKey("ProductMaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProductMaterial");
-                });
-
             modelBuilder.Entity("ecms.Domain.Entities.ProductVariantEntity", b =>
                 {
                     b.HasOne("ecms.Domain.Entities.ProductEntity", "Product")
@@ -414,11 +363,6 @@ namespace ecms.Infrastructure.Migrations
                     b.Navigation("ProductMaterials");
 
                     b.Navigation("ProductVariants");
-                });
-
-            modelBuilder.Entity("ecms.Domain.Entities.ProductMaterialEntity", b =>
-                {
-                    b.Navigation("ProductMaterialHistories");
                 });
 
             modelBuilder.Entity("ecms.Domain.Entities.ProductVariantEntity", b =>
