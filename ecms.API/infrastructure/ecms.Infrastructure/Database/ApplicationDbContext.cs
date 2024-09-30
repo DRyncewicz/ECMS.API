@@ -1,5 +1,6 @@
 ﻿using ecms.Application.Abstractions.Data;
 using ecms.Domain.Entities;
+using ecms.Infrastructure.Database.Seeds;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
@@ -23,6 +24,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.HasDefaultSchema(Schema.Ecms);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+        modelBuilder.DataSeed();
     }
 
     public async Task<IDbTransaction> BeginTransactionAsync(CancellationToken ct)
