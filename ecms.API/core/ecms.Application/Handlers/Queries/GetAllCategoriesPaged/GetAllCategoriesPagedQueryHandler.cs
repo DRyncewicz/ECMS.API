@@ -23,14 +23,15 @@ public class GetAllCategoriesPagedQueryHandler(IApplicationDbContext _applicatio
                     .Take(request.PageSize).ToList();
         }
 
-        model.Categories = _mapper.Map<List<CategoryDto>>(categories.ToList());
-
-        //var categoryDtos = _mapper.Map<List<CategoryDto>>(categories.ToList());
-        //foreach (var categoryDto in categoryDtos)
-        //{
-        //    categoryDto.AncestorName = categories.FirstOrDefault(p => )
-        //}
-        //model.Categories = categoryDtos;
+        var categoryDtos = _mapper.Map<List<CategoryDto>>(categories.ToList());
+        foreach (var categoryDto in categoryDtos)
+        {
+            var ancestorId = categoryDto.HierarchyId.GetAncestor(1);
+            categoryDto.AncestorName = categories.Where(p => p.HierarchyId == ancestorId)
+                                                 .Select(p => p.Name)
+                                                 .FirstOrDefault();
+        }
+        model.Categories = categoryDtos;
 
         return Result.Success(model);
     }

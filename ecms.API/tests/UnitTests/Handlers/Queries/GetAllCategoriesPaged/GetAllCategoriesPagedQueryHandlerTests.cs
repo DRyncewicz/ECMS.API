@@ -15,10 +15,10 @@ public class GetAllCategoriesPagedQueryHandlerTests : IClassFixture<MappingTestF
     private readonly GetAllCategoriesPagedQueryHandler _handler;
     private readonly List<CategoryEntity> _categories = new List<CategoryEntity>
         {
-            new CategoryEntity { Id = 1, Name = "Test1" },
-            new CategoryEntity { Id = 2, Name = "Test2" },
-            new CategoryEntity { Id = 3, Name = "Test3" },
-            new CategoryEntity { Id = 4, Name = "Test4" }
+            new CategoryEntity { Id = 1, Name = "Test1", HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/") },
+            new CategoryEntity { Id = 2, Name = "Test2", HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/") },
+            new CategoryEntity { Id = 3, Name = "Test3", HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/2/") },
+            new CategoryEntity { Id = 4, Name = "Test4", HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/20/") }
         };
     public GetAllCategoriesPagedQueryHandlerTests(MappingTestFixture fixture)
     {
@@ -38,9 +38,13 @@ public class GetAllCategoriesPagedQueryHandlerTests : IClassFixture<MappingTestF
         //Act
         var result = await _handler.Handle(request, default);
 
-        //Assert
+        //Assert       
         result.Value.TotalCount.Should().Be(4);
         result.Value.Categories.Should().HaveCount(4);
+        result.Value.Categories.FirstOrDefault(p => p.CategoryId == 1).AncestorName.Should().Be(null);
+        result.Value.Categories.FirstOrDefault(p => p.CategoryId == 2).AncestorName.Should().Be("Test1");
+        result.Value.Categories.FirstOrDefault(p => p.CategoryId == 3).AncestorName.Should().Be("Test1");
+        result.Value.Categories.FirstOrDefault(p => p.CategoryId == 4).AncestorName.Should().Be("Test2");
     }
 
     [Fact]
