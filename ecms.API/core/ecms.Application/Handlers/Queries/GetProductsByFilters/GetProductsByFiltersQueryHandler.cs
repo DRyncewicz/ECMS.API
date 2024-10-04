@@ -39,6 +39,7 @@ public class GetProductsByFiltersQueryHandler(IApplicationDbContext _application
         }
 
         model.Products = _mapper.Map<IEnumerable<ProductDto>>(products.ToList());
+        
         return Result.Success(model);
     }
 }
