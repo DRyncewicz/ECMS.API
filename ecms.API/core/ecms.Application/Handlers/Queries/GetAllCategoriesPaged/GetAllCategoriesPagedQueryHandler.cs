@@ -27,7 +27,10 @@ public class GetAllCategoriesPagedQueryHandler(IApplicationDbContext _applicatio
         foreach (var categoryDto in categoryDtos)
         {
             var ancestorId = categoryDto.HierarchyId.GetAncestor(1);
-            categoryDto.AncestorName = categories.FirstOrDefault(p => p.HierarchyId == ancestorId).Name;                                                                                               
+            if (ancestorId != null)
+            {
+                categoryDto.AncestorName = categories.FirstOrDefault(p => p.HierarchyId == ancestorId).Name;
+            }
         }
         model.Categories = categoryDtos;
 
