@@ -24,7 +24,7 @@ public class DeleteProductCommandHandler(IApplicationDbContext _applicationDbCon
             Ensure.NotNull(product);
             product.IsDeleted = true;
             _applicationDbContext.Products.Update(product);
-            await _applicationDbContext.SaveChangesAsync(ct);
+            await _applicationDbContext.SaveChangesAsync(ct);           
 
             var productHistory = _mapper.Map<ProductHistoryEntity>(product);
             productHistory.IsDeleted = true;

@@ -16,13 +16,28 @@ public class CategoryControllerTests : BaseFunctionalTest
 
     private void Seed()
     {
-        var category = new CategoryEntity
+        var categories = new List<CategoryEntity>
         {
-            HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
-            Name = "TestCategory1",
+            new()
+            {
+                HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/"),
+                Name = "TestCategory2",
+            },
+
+            new()
+            {
+                HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/2/"),
+                Name = "TestCategory3",
+            },
+
+            new()
+            {
+                HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/20/"),
+                Name = "TestCategory4",
+            }
         };
 
-        ApplicationDbContext.Categories.Add(category);
+        ApplicationDbContext.Categories.AddRange(categories);
         ApplicationDbContext.SaveChanges();
     }
 
@@ -52,5 +67,15 @@ public class CategoryControllerTests : BaseFunctionalTest
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task DeleteCategory_ShouldDeleteCategory_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Category/1");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);        
     }
 }
