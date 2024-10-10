@@ -4,6 +4,8 @@ using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateCategory;
 using ecms.Application.Handlers.Commands.DeleteCategory;
 using ecms.Application.Handlers.Commands.DeleteProduct;
+using ecms.Application.Handlers.Commands.EditCategory;
+using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Handlers.Queries.GetAllCategoriesPaged;
 using ecms.Application.Handlers.Queries.GetProductsByFilters;
 using ecms.Application.Models.ViewModels.Categories;
@@ -55,6 +57,21 @@ public class CategoryController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(command, ct);
         return Result.Success(result).Match(
             onSuccess: isDeleted => Ok(isDeleted),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpPut("{CategoryId}")]
+    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+
+    public async Task<IActionResult> EditAsync([FromRoute] int CategoryId, [FromBody] EditCategoryRequest request, CancellationToken ct)
+    {
+        var command = new EditCategoryCommand(request, CategoryId);
+        var result = await _mediator.Send(command, ct);
+        return Result.Success(result).Match(
+            onSuccess: CategoryId => NoContent(),
             onFailure: CustomResults.Problem);
     }
 }

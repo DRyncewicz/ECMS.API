@@ -1,4 +1,6 @@
 ﻿using ecms.Application.Handlers.Commands.CreateCategory;
+using ecms.Application.Handlers.Commands.EditCategory;
+using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
@@ -77,5 +79,22 @@ public class CategoryControllerTests : BaseFunctionalTest
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);        
+    }
+
+    [Fact]
+    public async Task EditCategory_ShouldEditCategory_OnValidRequest()
+    {
+        //Arrange
+        var command = new EditCategoryRequest()
+        {
+            Name = "Test",
+            AncestorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
+        };
+
+        //Act
+        var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Category/1", command);
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

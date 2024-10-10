@@ -33,6 +33,18 @@ public class EditCategoryCommandHandlerTests : IClassFixture<MappingTestFixture>
                 HierarchyId = new HierarchyId("/1/1/"),
                 Name = "Main2",
             },
+            new CategoryEntity
+            {
+                Id = 3,
+                HierarchyId = new HierarchyId("/4/"),
+                Name = "Main2",
+            },
+            new CategoryEntity
+            {
+                Id = 4,
+                HierarchyId = new HierarchyId("/4/1/"),
+                Name = "Main2",
+            },
         };
         _applicationDbContext.Setup(p => p.Categories).Returns(categories.AsQueryable().BuildMock().Object);
     }
@@ -44,8 +56,8 @@ public class EditCategoryCommandHandlerTests : IClassFixture<MappingTestFixture>
         var request = new EditCategoryCommand()
         {
             Name = "Name",
-            CategoryId = 1,
-            AncestorHierarchyId = new HierarchyId("/1/")
+            CategoryId = 2,
+            AncestorHierarchyId = new HierarchyId("/4/")
         };
 
         //Act
@@ -63,7 +75,7 @@ public class EditCategoryCommandHandlerTests : IClassFixture<MappingTestFixture>
         {
             Name = "Name",
             CategoryId = 2,
-            AncestorHierarchyId = new HierarchyId("/1/1/"),
+            AncestorHierarchyId = new HierarchyId("/1/"),
         };       
                          
         //Act

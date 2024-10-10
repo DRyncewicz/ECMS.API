@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using ecms.Application.Handlers.Commands.EditProduct;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
@@ -11,4 +12,16 @@ public class EditCategoryCommand : IRequest<Result<int>>
 
     public string Name { get; set; } = string.Empty;
     public Guid? FileGuid { get; set; }
+
+    public EditCategoryCommand(EditCategoryRequest request, int id)
+    {
+        AncestorHierarchyId = request.AncestorHierarchyId;
+        Name = request.Name;        
+        FileGuid = request.FileGuid;        
+    }
+
+    public EditCategoryCommand()
+    {
+
+    }
 }
