@@ -20,7 +20,7 @@ public class CategoryProfileTests : IClassFixture<MappingTestFixture>
         //Arrange
         var command = new CreateCategoryCommand()
         {
-            AncenstorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
+            AncestorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
             Name = "Name",
             FileGuid = Guid.NewGuid(),
         };

@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
-namespace ecms.Application.Handlers.Commands.CreateCategory;
+namespace ecms.Application.Handlers.Commands.EditCategory;
 
-public class CreateCategoryCommand : IRequest<Result<int>>
+public class EditCategoryCommand : IRequest<Result<int>>
 {
+    public int CategoryId { get; set; }
     public HierarchyId AncestorHierarchyId { get; set; } = new HierarchyId();
 
     public string Name { get; set; } = string.Empty;
-
     public Guid? FileGuid { get; set; }
 }

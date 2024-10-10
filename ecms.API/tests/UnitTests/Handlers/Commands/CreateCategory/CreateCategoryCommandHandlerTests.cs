@@ -59,7 +59,7 @@ public class CreateCategoryCommandHandlerTests : IClassFixture<MappingTestFixtur
         var request = new CreateCategoryCommand()
         {
             Name = "name",
-            AncenstorHierarchyId = new HierarchyId(),
+            AncestorHierarchyId = new HierarchyId(),
             FileGuid = Guid.NewGuid()
         };       
 

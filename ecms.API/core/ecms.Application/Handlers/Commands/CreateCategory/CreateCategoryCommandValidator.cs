@@ -9,7 +9,7 @@ public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCo
     private const int MaximumLengthName = 40;
     public CreateCategoryCommandValidator()
     {
-        RuleFor(p => p.AncenstorHierarchyId)
+        RuleFor(p => p.AncestorHierarchyId)
             .NotEmpty().WithErrorCode(CategoryErrorCodes.MissingHierarchyId);
         RuleFor(p => p.Name)
             .Length(MinimumLengthName, MaximumLengthName).WithErrorCode(CategoryErrorCodes.InvalidLengthName)

@@ -55,7 +55,7 @@ public class CreateCategoryTests : BaseIntegrationTest
         //Arrange
         var command = new CreateCategoryCommand()
         {
-            AncenstorHierarchyId = new HierarchyId(),
+            AncestorHierarchyId = new HierarchyId(),
             Name = "Test",
             FileGuid = Guid.NewGuid(),
         };

@@ -47,7 +47,7 @@ public class CategoryControllerTests : BaseFunctionalTest
         //Arrange
         var command = new CreateCategoryCommand()
         {
-            AncenstorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
+            AncestorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
             Name = "Test",
             FileGuid = Guid.NewGuid(),
         };
