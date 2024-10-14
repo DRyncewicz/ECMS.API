@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
-using ecms.Application.MapperProfiles.Products;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using UnitTests.Mapping;
-using Xunit;
 
 namespace ecms.Application.Tests.MapperProfiles.Products
 {
@@ -148,7 +146,7 @@ namespace ecms.Application.Tests.MapperProfiles.Products
         [Fact]
         public void Should_Map_ProductEntity_To_ProductHistoryEntity()
         {
-            // Arrange 
+            // Arrange
             var productEntity = new ProductEntity
             {
                 Id = 1,
@@ -163,10 +161,10 @@ namespace ecms.Application.Tests.MapperProfiles.Products
                 IsDeleted = false
             };
 
-            // Act 
+            // Act
             var historyResult = _mapper.Map<ProductHistoryEntity>(productEntity);
 
-            // Assert 
+            // Assert
             historyResult.Should().NotBeNull();
             historyResult.ProductId.Should().Be(productEntity.Id);
             historyResult.FileGuid.Should().Be(productEntity.FileGuid);
@@ -183,7 +181,7 @@ namespace ecms.Application.Tests.MapperProfiles.Products
         [Fact]
         public void Should_Map_ProductVariantEntity_To_ProductVariantHistoryEntity()
         {
-            // Arrange  
+            // Arrange
             var variantEntity = new ProductVariantEntity
             {
                 Id = 1,
@@ -193,10 +191,10 @@ namespace ecms.Application.Tests.MapperProfiles.Products
                 IsDeleted = false
             };
 
-            // Act  
+            // Act
             var variantHistoryResult = _mapper.Map<ProductVariantHistoryEntity>(variantEntity);
 
-            // Assert  
+            // Assert
             variantHistoryResult.Should().NotBeNull();
             variantHistoryResult.ProductVariantId.Should().Be(variantEntity.Id);
             variantHistoryResult.ProductId.Should().Be(variantEntity.ProductId);
@@ -204,6 +202,5 @@ namespace ecms.Application.Tests.MapperProfiles.Products
             variantHistoryResult.Price.Should().Be(variantEntity.Price);
             variantHistoryResult.IsDeleted.Should().Be(variantEntity.IsDeleted);
         }
-
     }
 }

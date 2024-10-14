@@ -1,5 +1,4 @@
-﻿using ecms.Application.Handlers.Commands.CreateCategory;
-using ecms.Application.Handlers.Commands.EditCategory;
+﻿using ecms.Application.Handlers.Commands.EditCategory;
 using ecms.Domain.Errors.Categories;
 using FluentValidation.TestHelper;
 
@@ -88,4 +87,3 @@ public class EditCategoryCommandValidatorTests
         result.ShouldNotHaveAnyValidationErrors();
     }
 }
-

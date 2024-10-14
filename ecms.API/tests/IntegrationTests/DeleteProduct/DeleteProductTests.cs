@@ -1,9 +1,7 @@
-﻿using Bogus;
-using ecms.Application.Handlers.Commands.DeleteProduct;
+﻿using ecms.Application.Handlers.Commands.DeleteProduct;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using IntegrationTests.Abstractions;
-using System.Net;
 
 namespace IntegrationTests.DeleteProduct;
 
@@ -48,5 +46,5 @@ public class DeleteProductTests : BaseIntegrationTest
         //Assert
         result.Value.Should().Be(true);
         ApplicationDbContext.Products.FirstOrDefault(p => p.Id == 1).IsDeleted.Should().Be(true);
-    }   
+    }
 }

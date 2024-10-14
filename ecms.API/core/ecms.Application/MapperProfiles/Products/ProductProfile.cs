@@ -52,7 +52,6 @@ public class ProductProfile : Profile
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
             .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
 
-
         CreateMap<CreateProductCommand, ProductEntity>()
             .ForMember(dest => dest.FileGuid, opt => opt.MapFrom(src => src.FileGuid))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -107,6 +106,5 @@ public class ProductProfile : Profile
             .ForMember(dest => dest.CreatorUserId, opt => opt.Ignore())
             .ForMember(dest => dest.ProductVariant, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore());
-
     }
 }

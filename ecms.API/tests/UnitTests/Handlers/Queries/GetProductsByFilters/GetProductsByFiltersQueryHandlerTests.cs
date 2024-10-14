@@ -13,6 +13,7 @@ public class GetProductsByFiltersQueryHandlerTests : IClassFixture<MappingTestFi
     private readonly IMapper _mapper;
     private readonly Mock<IApplicationDbContext> _applicationDbContext;
     private readonly GetProductsByFiltersQueryHandler _handler;
+
     private readonly List<ProductEntity> _products = new List<ProductEntity>
         {
             new ProductEntity { Id = 1, Name = "Test1", CategoryId = 1},
@@ -20,6 +21,7 @@ public class GetProductsByFiltersQueryHandlerTests : IClassFixture<MappingTestFi
             new ProductEntity { Id = 3, Name = "Test3", CategoryId = 2},
             new ProductEntity { Id = 4, Name = "Test4", CategoryId = 2}
         };
+
     public GetProductsByFiltersQueryHandlerTests(MappingTestFixture fixture)
     {
         _mapper = fixture.Mapper;

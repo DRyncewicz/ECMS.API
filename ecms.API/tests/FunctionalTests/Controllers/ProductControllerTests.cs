@@ -1,11 +1,9 @@
 ﻿using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Models.Dtos.Products;
-using ecms.Application.Models.ViewModels.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
-using SharedKernel;
 using System.Net;
 
 namespace FunctionalTests.Controllers;
@@ -103,6 +101,7 @@ public class ProductControllerTests : BaseFunctionalTest
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
+
     private void Seed()
     {
         var products = new List<ProductEntity>

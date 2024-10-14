@@ -16,5 +16,4 @@ public enum GtuCodeType
     TradingInGreenhouseGasEmissionAllowances11 = 12,
     IntangibleServices12 = 13,
     TransportingAndWarehousingServices13 = 14,
-
 }

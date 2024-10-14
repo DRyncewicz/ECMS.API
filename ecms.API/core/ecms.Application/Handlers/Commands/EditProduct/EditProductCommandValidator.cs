@@ -1,7 +1,6 @@
 ﻿using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Domain.Errors.Products;
 using FluentValidation;
-using FluentValidation.Validators;
 
 namespace ecms.Application.Handlers.Commands.CreateProduct;
 
@@ -11,6 +10,7 @@ public class EditProductCommandValidator : AbstractValidator<EditProductCommand>
     private const int MinimumLengthName = 2;
     private const int MaximumLengthName = 40;
     private const int MaximumLengthDescription = 1000;
+
     public EditProductCommandValidator()
     {
         RuleFor(p => p.Name)

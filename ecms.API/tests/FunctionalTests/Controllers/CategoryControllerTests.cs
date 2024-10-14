@@ -1,11 +1,9 @@
 ﻿using ecms.Application.Handlers.Commands.CreateCategory;
 using ecms.Application.Handlers.Commands.EditCategory;
-using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace FunctionalTests.Controllers;
 
@@ -78,7 +76,7 @@ public class CategoryControllerTests : BaseFunctionalTest
         var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Category/1");
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);        
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
     [Fact]

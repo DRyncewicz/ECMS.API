@@ -1,23 +1,21 @@
-﻿using ecms.Application.Handlers.Commands.CreateCategory;
-using ecms.Application.Handlers.Commands.DeleteCategory;
+﻿using ecms.Application.Handlers.Commands.DeleteCategory;
 using ecms.Domain.Entities;
 using ecms.Infrastructure.Database;
 using FluentAssertions;
 using IntegrationTests.Abstractions;
-using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.DeleteCategory;
 
-    public class DeleteCategoryTests : BaseIntegrationTest
+public class DeleteCategoryTests : BaseIntegrationTest
+{
+    public DeleteCategoryTests(IntegrationTestWebAppFactory factory) : base(factory)
     {
-        public DeleteCategoryTests(IntegrationTestWebAppFactory factory) : base(factory)
-        {
-            Seed();
-        }
+        Seed();
+    }
 
-        private void Seed()
-        {
-            var categories = new List<CategoryEntity>
+    private void Seed()
+    {
+        var categories = new List<CategoryEntity>
         {
             new()
             {
@@ -38,9 +36,9 @@ namespace IntegrationTests.DeleteCategory;
             }
         };
 
-            ApplicationDbContext.Categories.AddRange(categories);
-            ApplicationDbContext.SaveChanges();
-        }
+        ApplicationDbContext.Categories.AddRange(categories);
+        ApplicationDbContext.SaveChanges();
+    }
 
     [Fact]
     public async Task DeleteCategoryCommand_ShouldDeleteCategory_OnValidRequest()
@@ -53,6 +51,5 @@ namespace IntegrationTests.DeleteCategory;
 
         //Assert
         result.Value.Should().Be("");
-
     }
 }

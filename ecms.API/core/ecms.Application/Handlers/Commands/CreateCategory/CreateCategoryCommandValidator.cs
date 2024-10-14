@@ -7,6 +7,7 @@ public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCo
 {
     private const int MinimumLengthName = 2;
     private const int MaximumLengthName = 40;
+
     public CreateCategoryCommandValidator()
     {
         RuleFor(p => p.AncestorHierarchyId)

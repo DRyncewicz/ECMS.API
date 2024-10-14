@@ -2,7 +2,6 @@
 using ecms.Application.Abstractions.Auth;
 using ecms.Application.Abstractions.Data;
 using ecms.Domain.Entities;
-using FluentValidation.Validators;
 using MediatR;
 using SharedKernal;
 using SharedKernel;
@@ -24,7 +23,7 @@ public class CreateProductCommandHandler(IApplicationDbContext _applicationDbCon
             await _applicationDbContext.Products.AddAsync(productEntity, ct);
             await _applicationDbContext.SaveChangesAsync(ct);
 
-            var productHistory = _mapper.Map<ProductHistoryEntity>(productEntity);           
+            var productHistory = _mapper.Map<ProductHistoryEntity>(productEntity);
             productHistory.CreateDateTimeUtc = _dateTimeProvider.UtcNow;
             productHistory.CreatorUserId = _userService.UserId;
             await _applicationDbContext.ProductHistories.AddAsync(productHistory, ct);
@@ -33,7 +32,7 @@ public class CreateProductCommandHandler(IApplicationDbContext _applicationDbCon
             var productVariants = _mapper.Map<List<ProductVariantEntity>>(request.ProductVariants);
             productVariants.ForEach(p => p.ProductId = productEntity.Id);
             await _applicationDbContext.ProductVariants.AddRangeAsync(productVariants);
-            await _applicationDbContext.SaveChangesAsync(ct);            
+            await _applicationDbContext.SaveChangesAsync(ct);
 
             var productVariantHistory = _mapper.Map<List<ProductVariantHistoryEntity>>(productVariants);
             productVariantHistory.ForEach(p => { p.CreatorUserId = _userService.UserId; p.CreateDateTimeUtc = _dateTimeProvider.UtcNow; });
@@ -48,8 +47,5 @@ public class CreateProductCommandHandler(IApplicationDbContext _applicationDbCon
             transaction.Rollback();
             throw;
         }
-
     }
-
 }
-

@@ -12,7 +12,7 @@ public class CreateCategoryCommandValidatorTests
     {
         _validator = new CreateCategoryCommandValidator();
     }
-   
+
     [Fact]
     public void Should_Have_Error_When_Name_Is_Empty()
     {

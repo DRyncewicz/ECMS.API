@@ -1,6 +1,4 @@
-﻿using Azure.Core;
-using Bogus;
-using ecms.Application.Handlers.Commands.EditProduct;
+﻿using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;

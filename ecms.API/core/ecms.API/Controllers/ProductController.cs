@@ -61,8 +61,7 @@ public class ProductController(IMediator _mediator) : BaseController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-
-    public async Task<IActionResult> EditAsync([FromRoute]int ProductId, [FromBody] EditProductRequest request, CancellationToken ct)
+    public async Task<IActionResult> EditAsync([FromRoute] int ProductId, [FromBody] EditProductRequest request, CancellationToken ct)
     {
         var command = new EditProductCommand(request, ProductId);
         var result = await _mediator.Send(command, ct);

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
-using ecms.Domain.Entities;
 using MediatR;
 using SharedKernel;
 
@@ -11,7 +10,6 @@ public class EditCategoryCommandHandler(IApplicationDbContext _applicationDbCont
 {
     public async Task<Result<int>> Handle(EditCategoryCommand request, CancellationToken ct)
     {
-
         var categoryToEdit = _applicationDbContext.Categories.FirstOrDefault(p => p.Id == request.CategoryId);
         _mapper.Map(request, categoryToEdit);
         var existingAncestorHierarchyId = _applicationDbContext.Categories.FirstOrDefault(p => p.Id == request.CategoryId).HierarchyId.GetAncestor(1);

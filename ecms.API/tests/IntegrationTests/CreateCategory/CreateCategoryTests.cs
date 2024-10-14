@@ -1,11 +1,9 @@
 ﻿using ecms.Application.Handlers.Commands.CreateCategory;
-using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Domain.Entities;
 using ecms.Infrastructure.Database;
 using FluentAssertions;
 using IntegrationTests.Abstractions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace IntegrationTests.CreateCategory;
 
@@ -69,6 +67,5 @@ public class CreateCategoryTests : BaseIntegrationTest
         category.HierarchyId.Should().Be(HierarchyId.Parse("/3/"));
         category.Name.Should().Be("Test");
         category.FileGuid.Should().NotBeNull();
-
     }
 }

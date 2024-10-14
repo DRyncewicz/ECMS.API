@@ -2,10 +2,12 @@
 using FluentValidation;
 
 namespace ecms.Application.Handlers.Commands.EditCategory;
+
 public class EditCategoryCommandValidator : AbstractValidator<EditCategoryCommand>
 {
     private const int MinimumLengthName = 2;
     private const int MaximumLengthName = 40;
+
     public EditCategoryCommandValidator()
     {
         RuleFor(p => p.CategoryId)

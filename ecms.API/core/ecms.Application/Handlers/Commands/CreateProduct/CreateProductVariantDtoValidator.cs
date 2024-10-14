@@ -8,6 +8,7 @@ public class CreateProductVariantDtoValidator : AbstractValidator<CreateProductV
 {
     private const int MinimumLengthName = 2;
     private const int MaximumLengthName = 60;
+
     public CreateProductVariantDtoValidator()
     {
         RuleFor(p => p.Name)

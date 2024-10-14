@@ -11,6 +11,7 @@ namespace UnitTests.MapperProfiles.Categories;
 public class CategoryProfileTests : IClassFixture<MappingTestFixture>
 {
     private readonly IMapper _mapper;
+
     public CategoryProfileTests(MappingTestFixture fixture)
     {
         _mapper = fixture.Mapper;
@@ -57,7 +58,7 @@ public class CategoryProfileTests : IClassFixture<MappingTestFixture>
         //Assert
         result.Id.Should().Be(command.CategoryId);
         result.Name.Should().Be(command.Name);
-        result.FileGuid.Should().Be(command.FileGuid);        
+        result.FileGuid.Should().Be(command.FileGuid);
         result.Products.Should().BeNull();
         result.HierarchyId.Should().BeNull();
         result.DomainEvents.Should().BeEmpty();
@@ -78,9 +79,9 @@ public class CategoryProfileTests : IClassFixture<MappingTestFixture>
         var result = _mapper.Map<CategoryDto>(command);
 
         //Assert
-        result.Name.Should().Be(command.Name);        
-        result.CategoryId.Should().Be(1);        
+        result.Name.Should().Be(command.Name);
+        result.CategoryId.Should().Be(1);
         result.HierarchyId.Should().Be(command.HierarchyId);
-        result.AncestorName.Should().BeEmpty();        
+        result.AncestorName.Should().BeEmpty();
     }
 }

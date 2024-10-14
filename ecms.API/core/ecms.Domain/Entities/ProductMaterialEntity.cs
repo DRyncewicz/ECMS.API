@@ -6,7 +6,7 @@ public class ProductMaterialEntity : Entity
 {
     public int ProductId { get; set; }
 
-    public int MaterialId {  get; set; }
+    public int MaterialId { get; set; }
 
     public double Quantity { get; set; }
 

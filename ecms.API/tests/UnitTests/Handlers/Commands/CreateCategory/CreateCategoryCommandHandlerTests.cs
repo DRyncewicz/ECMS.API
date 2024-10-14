@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
 using ecms.Application.Handlers.Commands.CreateCategory;
-using ecms.Application.Handlers.Commands.CreateProduct;
-using ecms.Application.Handlers.Commands.DeleteProduct;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
-using SharedKernal;
 using System.Data;
 using UnitTests.Mapping;
 
@@ -18,7 +14,7 @@ public class CreateCategoryCommandHandlerTests : IClassFixture<MappingTestFixtur
 {
     private readonly IMapper _mapper;
     private readonly Mock<IApplicationDbContext> _applicationDbContext;
-    private readonly CreateCategoryCommandHandler _handler;   
+    private readonly CreateCategoryCommandHandler _handler;
     private readonly Mock<IDbTransaction> _transaction;
     public CreateCategoryCommandHandlerTests(MappingTestFixture fixture)
     {
@@ -47,7 +43,6 @@ public class CreateCategoryCommandHandlerTests : IClassFixture<MappingTestFixtur
                 HierarchyId = new HierarchyId("/1/2/"),
                 Name = "Main3"
             }
-
         };
         _applicationDbContext.Setup(p => p.Categories).Returns(categories.AsQueryable().BuildMock().Object);
     }
@@ -61,12 +56,12 @@ public class CreateCategoryCommandHandlerTests : IClassFixture<MappingTestFixtur
             Name = "name",
             AncestorHierarchyId = new HierarchyId(),
             FileGuid = Guid.NewGuid()
-        };       
+        };
 
         //Act
         var result = await _handler.Handle(request, default);
 
-        //Assert        
+        //Assert
         _transaction.Verify(p => p.Commit(), Times.Once);
     }
 

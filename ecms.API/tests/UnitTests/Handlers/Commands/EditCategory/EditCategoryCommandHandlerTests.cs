@@ -76,8 +76,8 @@ public class EditCategoryCommandHandlerTests : IClassFixture<MappingTestFixture>
             Name = "Name",
             CategoryId = 2,
             AncestorHierarchyId = new HierarchyId("/1/"),
-        };       
-                         
+        };
+
         //Act
         var result = await _handler.Handle(request, default);
 

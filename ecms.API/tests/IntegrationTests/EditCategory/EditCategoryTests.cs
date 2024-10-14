@@ -66,6 +66,3 @@ public class EditCategoryTests : BaseIntegrationTest
         editedCategory.HierarchyId.IsDescendantOf(command.AncestorHierarchyId);
     }
 }
-
-
-
