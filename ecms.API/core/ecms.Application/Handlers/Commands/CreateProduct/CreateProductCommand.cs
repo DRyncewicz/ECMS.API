@@ -22,7 +22,6 @@ public class CreateProductCommand : IRequest<Result<int>>
     public GtuCodeType? GtuCode { get; set; }
 
     public Guid? FileGuid { get; set; }
-  
-    public List<CreateProductVariantDto> ProductVariants { get; set; } = [];
 
+    public List<CreateProductVariantDto> ProductVariants { get; set; } = [];
 }

@@ -89,7 +89,6 @@ public class EditProductCommandHandler(IApplicationDbContext _applicationDbConte
                 productVariantHistory.ForEach(p => { p.CreatorUserId = _userService.UserId; p.CreateDateTimeUtc = _dateTimeProvider.UtcNow; });
                 await _applicationDbContext.ProductVariantHistories.AddRangeAsync(productVariantHistory);
                 await _applicationDbContext.SaveChangesAsync(ct);
-
             }
             transaction.Commit();
             return Result.Success(productToEdit.Id);
@@ -101,5 +100,3 @@ public class EditProductCommandHandler(IApplicationDbContext _applicationDbConte
         }
     }
 }
-
-

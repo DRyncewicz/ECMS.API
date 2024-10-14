@@ -1,6 +1,5 @@
 ﻿using ecms.Domain.Errors.Products;
 using FluentValidation;
-using FluentValidation.Validators;
 
 namespace ecms.Application.Handlers.Commands.CreateProduct;
 
@@ -10,6 +9,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     private const int MinimumLengthName = 2;
     private const int MaximumLengthName = 40;
     private const int MaximumLengthDescription = 1000;
+
     public CreateProductCommandValidator()
     {
         RuleFor(p => p.Name)
@@ -26,7 +26,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
             .NotEmpty().WithErrorCode(ProductErrorCodes.MissingAlcoholContent);
         RuleFor(p => p.AlcoholContent)
             .NotEmpty().WithErrorCode(ProductErrorCodes.MissingAlcoholContent);
-        RuleFor(p => p.ProductVariants).Must(p => p.Count >= MinimalProductVariantQuantity).WithErrorCode(ProductErrorCodes.EmptyVariants);       
+        RuleFor(p => p.ProductVariants).Must(p => p.Count >= MinimalProductVariantQuantity).WithErrorCode(ProductErrorCodes.EmptyVariants);
 
         RuleForEach(p => p.ProductVariants).SetValidator(new CreateProductVariantDtoValidator());
     }

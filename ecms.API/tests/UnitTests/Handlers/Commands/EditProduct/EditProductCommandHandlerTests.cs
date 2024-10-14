@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Auth;
 using ecms.Application.Abstractions.Data;
-using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using SharedKernal;
 using System.Data;
@@ -24,6 +22,7 @@ public class EditProductCommandHandlerTests : IClassFixture<MappingTestFixture>
     private readonly Mock<IDateTimeProvider> _dateTimeProvider;
     private readonly Mock<IDbTransaction> _transaction;
     private readonly List<ProductVariantEntity> _variants;
+
     public EditProductCommandHandlerTests(MappingTestFixture fixture)
     {
         _mapper = fixture.Mapper;
@@ -76,7 +75,7 @@ public class EditProductCommandHandlerTests : IClassFixture<MappingTestFixture>
                 }
             }
         };
-        
+
         //Act
         var result = await _handler.Handle(request, default);
 
@@ -95,7 +94,7 @@ public class EditProductCommandHandlerTests : IClassFixture<MappingTestFixture>
         {
             Id = 1,
             ProductVariants = new List<ProductVariantDto>()
-            {              
+            {
                 new()
                 {
                 Id = 1,

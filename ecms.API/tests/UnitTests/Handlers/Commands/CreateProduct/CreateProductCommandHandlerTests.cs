@@ -2,7 +2,6 @@
 using ecms.Application.Abstractions.Auth;
 using ecms.Application.Abstractions.Data;
 using ecms.Application.Handlers.Commands.CreateProduct;
-using ecms.Application.Handlers.Commands.DeleteProduct;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -48,7 +47,7 @@ public class CreateProductCommandHandlerTests : IClassFixture<MappingTestFixture
         //Act
         var result = await _handler.Handle(request, default);
 
-        //Assert        
+        //Assert
         _transaction.Verify(p => p.Commit(), Times.Once);
     }
 

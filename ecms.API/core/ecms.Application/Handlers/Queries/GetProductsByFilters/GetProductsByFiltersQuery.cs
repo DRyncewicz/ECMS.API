@@ -13,6 +13,4 @@ public class GetProductsByFiltersQuery : IRequest<Result<FilteredProductsViewMod
     public int CurrentPage { get; set; }
 
     public int PageSize { get; set; }
-
-
 }

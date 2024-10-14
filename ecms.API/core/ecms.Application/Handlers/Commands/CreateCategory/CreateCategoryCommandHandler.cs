@@ -15,16 +15,16 @@ public class CreateCategoryCommandHandler(IApplicationDbContext _applicationDbCo
         try
         {
             var categoryEntity = _mapper.Map<CategoryEntity>(request);
-            var children = _applicationDbContext.Categories.Where(p => p.HierarchyId.IsDescendantOf(request.AncenstorHierarchyId) && p.HierarchyId.GetLevel() == request.AncenstorHierarchyId.GetLevel() + 1);
+            var children = _applicationDbContext.Categories.Where(p => p.HierarchyId.IsDescendantOf(request.AncestorHierarchyId) && p.HierarchyId.GetLevel() == request.AncestorHierarchyId.GetLevel() + 1);
 
             if (children.Any())
             {
                 var highestChild = children.OrderBy(p => p.HierarchyId).Last();
-                categoryEntity.HierarchyId = request.AncenstorHierarchyId.GetDescendant(highestChild.HierarchyId);
+                categoryEntity.HierarchyId = request.AncestorHierarchyId.GetDescendant(highestChild.HierarchyId);
             }
             else
             {
-                categoryEntity.HierarchyId = request.AncenstorHierarchyId.GetDescendant(null);
+                categoryEntity.HierarchyId = request.AncestorHierarchyId.GetDescendant(null);
             }
 
             await _applicationDbContext.Categories.AddAsync(categoryEntity, ct);
@@ -40,4 +40,3 @@ public class CreateCategoryCommandHandler(IApplicationDbContext _applicationDbCo
         }
     }
 }
-

@@ -6,7 +6,7 @@ namespace ecms.Application.Handlers.Commands.CreateCategory;
 
 public class CreateCategoryCommand : IRequest<Result<int>>
 {
-    public HierarchyId AncenstorHierarchyId { get; set; } = new HierarchyId();
+    public HierarchyId AncestorHierarchyId { get; set; } = new HierarchyId();
 
     public string Name { get; set; } = string.Empty;
 

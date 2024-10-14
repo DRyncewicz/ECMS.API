@@ -2,7 +2,7 @@
 
 public static class ProductVariantErrorCodes
 {
-    public const string InvalidLengthName = nameof(InvalidLengthName);  
+    public const string InvalidLengthName = nameof(InvalidLengthName);
 
     public const string MissingName = nameof(MissingName);
 

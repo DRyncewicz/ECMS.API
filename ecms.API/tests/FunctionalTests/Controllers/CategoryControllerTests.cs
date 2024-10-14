@@ -1,9 +1,9 @@
 ﻿using ecms.Application.Handlers.Commands.CreateCategory;
+using ecms.Application.Handlers.Commands.EditCategory;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace FunctionalTests.Controllers;
 
@@ -47,7 +47,7 @@ public class CategoryControllerTests : BaseFunctionalTest
         //Arrange
         var command = new CreateCategoryCommand()
         {
-            AncenstorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
+            AncestorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
             Name = "Test",
             FileGuid = Guid.NewGuid(),
         };
@@ -76,6 +76,23 @@ public class CategoryControllerTests : BaseFunctionalTest
         var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Category/1");
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);        
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task EditCategory_ShouldEditCategory_OnValidRequest()
+    {
+        //Arrange
+        var command = new EditCategoryRequest()
+        {
+            Name = "Test",
+            AncestorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
+        };
+
+        //Act
+        var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Category/1", command);
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

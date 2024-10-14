@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Auth;
 using ecms.Application.Abstractions.Data;
-using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SharedKernal;
 using SharedKernel;
 
@@ -24,7 +22,7 @@ public class DeleteProductCommandHandler(IApplicationDbContext _applicationDbCon
             Ensure.NotNull(product);
             product.IsDeleted = true;
             _applicationDbContext.Products.Update(product);
-            await _applicationDbContext.SaveChangesAsync(ct);           
+            await _applicationDbContext.SaveChangesAsync(ct);
 
             var productHistory = _mapper.Map<ProductHistoryEntity>(product);
             productHistory.IsDeleted = true;
@@ -48,6 +46,6 @@ public class DeleteProductCommandHandler(IApplicationDbContext _applicationDbCon
         {
             transaction.Rollback();
             throw;
-        }        
+        }
     }
 }

@@ -36,7 +36,6 @@ public class DeleteCategoryCommandHandlerTests
                 HierarchyId = new HierarchyId("/1/2/"),
                 Name = "Main3"
             }
-
         };
         _applicationDbContext.Setup(p => p.Categories).Returns(categories.AsQueryable().BuildMock().Object);
     }
@@ -46,11 +45,11 @@ public class DeleteCategoryCommandHandlerTests
     {
         //Arrange
         var request = new DeleteCategoryCommand(3);
-        
+
         //Act
         var result = await _handler.Handle(request, default);
 
-        //Assert        
+        //Assert
         result.Value.Should().Be("");
     }
 
@@ -63,7 +62,7 @@ public class DeleteCategoryCommandHandlerTests
         //Act
         var result = await _handler.Handle(request, default);
 
-        //Assert        
+        //Assert
         result.Value.Should().Be("Unable to delete category because there are sub categories, delete or change parent categories first");
     }
 
@@ -71,12 +70,12 @@ public class DeleteCategoryCommandHandlerTests
     public async Task Handle_ShouldReturnException_IfCategoryIsNotFound()
     {
         //Arrange
-        var request = new DeleteCategoryCommand(999);                                          
+        var request = new DeleteCategoryCommand(999);
 
         // Act
         Func<Task> act = async () => await _handler.Handle(request, default);
 
         // Assert
-        await act.Should().ThrowAsync<Exception>();        
+        await act.Should().ThrowAsync<Exception>();
     }
 }

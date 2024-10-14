@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
 using ecms.Application.Handlers.Queries.GetAllCategoriesPaged;
-using ecms.Application.Models.Dtos.Categories;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using Moq;

@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SharedKernal;
-using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace ecms.Infrastructure;
 
@@ -33,7 +32,7 @@ public static class DependencyInjection
         string? connectionString = configuration.GetConnectionString("Database");
         Ensure.NotNullOrEmpty(connectionString);
 
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString, conf => conf.UseHierarchyId()));      
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString, conf => conf.UseHierarchyId()));
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
     }
 

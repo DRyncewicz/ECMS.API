@@ -1,6 +1,5 @@
 ﻿using ecms.Domain.Enums;
 using SharedKernel;
-using System.Diagnostics;
 
 namespace ecms.Domain.Entities;
 

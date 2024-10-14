@@ -8,7 +8,7 @@ public class ProductDto
 
     public int CategoryId { get; set; }
 
-    public IEnumerable<ProductVariantDto> ProductVariants { get; set; } = [];    
+    public IEnumerable<ProductVariantDto> ProductVariants { get; set; } = [];
 
     public int Vat { get; set; }
 

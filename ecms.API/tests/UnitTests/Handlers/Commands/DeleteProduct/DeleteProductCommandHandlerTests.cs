@@ -2,14 +2,12 @@
 using ecms.Application.Abstractions.Auth;
 using ecms.Application.Abstractions.Data;
 using ecms.Application.Handlers.Commands.DeleteProduct;
-using ecms.Application.Handlers.Queries.GetProductsByFilters;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using SharedKernal;
 using System.Data;
-using System.Transactions;
 using UnitTests.Mapping;
 
 namespace UnitTests.Handlers.Commands.DeleteProduct;
@@ -49,7 +47,7 @@ public class DeleteProductCommandHandlerTests : IClassFixture<MappingTestFixture
         var dbContextResponseVariants = _productVariants.AsQueryable().BuildMock();
         _applicationDbContext.Setup(p => p.ProductVariants).Returns(dbContextResponseVariants.Object);
         _userService.Setup(p => p.UserId).Returns("TestUserId");
-        _dateTimeProvider.Setup(p => p.UtcNow).Returns(new DateTime(2024,09,22));
+        _dateTimeProvider.Setup(p => p.UtcNow).Returns(new DateTime(2024, 09, 22));
     }
 
     [Fact]
@@ -68,12 +66,12 @@ public class DeleteProductCommandHandlerTests : IClassFixture<MappingTestFixture
         _transaction.Verify(p => p.Commit(), Times.Once);
     }
 
-    [Fact]    
+    [Fact]
     public async Task Handle_ShouldRollBackTransaction_WhenExceptionOccurs()
     {
         // Arrange
         var request = new DeleteProductCommand(1);
-       
+
         _applicationDbContext.Setup(p => p.ProductHistories.AddAsync(It.IsAny<ProductHistoryEntity>(), It.IsAny<CancellationToken>()))
                              .ThrowsAsync(new Exception("Simulated exception"));
 

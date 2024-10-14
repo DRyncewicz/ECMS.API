@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using ecms.Application.Abstractions.Data;
-using ecms.Application.Handlers.Commands.DeleteProduct;
+﻿using ecms.Application.Abstractions.Data;
 using MediatR;
 using SharedKernel;
 
@@ -10,6 +8,7 @@ public class DeleteCategoryCommandHandler(IApplicationDbContext _applicationDbCo
 {
     private const string result = "Unable to delete category because there are sub categories, delete or change parent categories first";
     private const string empty = "";
+
     public async Task<Result<string>> Handle(DeleteCategoryCommand request, CancellationToken ct)
     {
         var categoryToDelete = _applicationDbContext.Categories.FirstOrDefault(p => p.Id == request.CategoryId);

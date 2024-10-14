@@ -1,5 +1,4 @@
 ﻿using ecms.Application.Models.Dtos.Products;
-using ecms.Domain.Entities;
 
 namespace ecms.Application.Models.ViewModels.Products;
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateCategory;
+using ecms.Application.Handlers.Commands.EditCategory;
 using ecms.Application.Models.Dtos.Categories;
 using ecms.Domain.Entities;
 
@@ -21,6 +22,14 @@ public class CategoryProfile : Profile
             .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.HierarchyId, opt => opt.MapFrom(src => src.HierarchyId))
-            .ForMember(dest => dest.AncestorName, opt => opt.Ignore());          
+            .ForMember(dest => dest.AncestorName, opt => opt.Ignore());
+
+        CreateMap<EditCategoryCommand, CategoryEntity>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.CategoryId))
+            .ForMember(dest => dest.FileGuid, opt => opt.MapFrom(src => src.FileGuid))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Products, opt => opt.Ignore())
+            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
+            .ForMember(dest => dest.HierarchyId, opt => opt.Ignore());
     }
 }

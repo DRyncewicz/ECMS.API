@@ -19,6 +19,7 @@ public sealed record Price
         return $"{Amount} {Currency}";
     }
 }
+
 public enum Currency
 {
     Pln = 1,
@@ -26,7 +27,3 @@ public enum Currency
     Eur = 3,
     Gbp = 4,
 }
-
-
-
-

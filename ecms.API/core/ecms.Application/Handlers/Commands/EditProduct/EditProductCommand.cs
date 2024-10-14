@@ -43,6 +43,5 @@ public class EditProductCommand : IRequest<Result<int>>
 
     public EditProductCommand()
     {
-        
     }
 }

@@ -1,15 +1,13 @@
-﻿using ecms.Application.Handlers.Commands.CreateCategory;
+﻿using ecms.Application.Handlers.Commands.EditCategory;
 using ecms.Domain.Entities;
-using ecms.Infrastructure.Database;
 using FluentAssertions;
 using IntegrationTests.Abstractions;
-using Microsoft.EntityFrameworkCore;
 
-namespace IntegrationTests.CreateCategory;
+namespace IntegrationTests.EditCategory;
 
-public class CreateCategoryTests : BaseIntegrationTest
+public class EditCategoryTests : BaseIntegrationTest
 {
-    public CreateCategoryTests(IntegrationTestWebAppFactory factory) : base(factory)
+    public EditCategoryTests(IntegrationTestWebAppFactory factory) : base(factory)
     {
         Seed();
     }
@@ -48,24 +46,23 @@ public class CreateCategoryTests : BaseIntegrationTest
     }
 
     [Fact]
-    public async Task CreateCategoryCommand_ShouldCreateCategory_OnValidRequest()
+    public async Task EditCategoryCommand_ShouldEditCategory_OnValidRequest()
     {
         //Arrange
-        var command = new CreateCategoryCommand()
+        var command = new EditCategoryCommand()
         {
-            AncestorHierarchyId = new HierarchyId(),
-            Name = "Test",
-            FileGuid = Guid.NewGuid(),
+            CategoryId = 5,
+            Name = "ChangedName",
+            AncestorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/"),
         };
 
         //Act
         var result = await Sender.Send(command);
 
         //Assert
-        result.Value.Should().BeGreaterThan(0);
-        var category = ApplicationDbContext.Categories.FirstOrDefault(p => p.Id == result.Value);
-        category.HierarchyId.Should().Be(HierarchyId.Parse("/3/"));
-        category.Name.Should().Be("Test");
-        category.FileGuid.Should().NotBeNull();
+        var editedCategory = ApplicationDbContext.Categories.FirstOrDefault(p => p.Id == 5);
+        editedCategory.Name.Should().Be(command.Name);
+        editedCategory.Id.Should().Be(5);
+        editedCategory.HierarchyId.IsDescendantOf(command.AncestorHierarchyId);
     }
 }
