@@ -14,11 +14,35 @@ public class EditCategoryTests : BaseIntegrationTest
 
     private void Seed()
     {
-        var category = new CategoryEntity
-        {           
-            HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/"),
-            Name = "TestCategory1",
+        var categories = new List<CategoryEntity>
+        {
+            new CategoryEntity()
+            {
+                HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
+                Name = "TestCategory1",
+            },
+
+            new()
+            {
+                HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/"),
+                Name = "TestCategory2",
+            },
+
+            new()
+            {
+                HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/2/"),
+                Name = "TestCategory3",
+            },
+
+            new()
+            {
+                HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/20/"),
+                Name = "TestCategory4",
+            }
         };
+
+        ApplicationDbContext.Categories.AddRange(categories);
+        ApplicationDbContext.SaveChanges();
     }
 
     [Fact]
@@ -27,21 +51,21 @@ public class EditCategoryTests : BaseIntegrationTest
         //Arrange
         var command = new EditCategoryCommand()
         {
-            CategoryId = 1,
+            CategoryId = 5,
             Name = "ChangedName",
-            AncestorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/1/"),                     
+            AncestorHierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId("/1/"),
         };
 
         //Act
         var result = await Sender.Send(command);
 
         //Assert
-        var editedCategory = ApplicationDbContext.Categories.FirstOrDefault(p => p.Id == 1);
+        var editedCategory = ApplicationDbContext.Categories.FirstOrDefault(p => p.Id == 5);
         editedCategory.Name.Should().Be(command.Name);
-        editedCategory.Id.Should().Be(1);
+        editedCategory.Id.Should().Be(5);
         editedCategory.HierarchyId.IsDescendantOf(command.AncestorHierarchyId);
     }
 }
 
 
-        
+
