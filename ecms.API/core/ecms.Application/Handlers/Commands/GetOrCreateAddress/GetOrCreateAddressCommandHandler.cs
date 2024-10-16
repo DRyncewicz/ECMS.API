@@ -24,10 +24,10 @@ public class GetOrCreateAddressCommandHandler(IApplicationDbContext _application
         else
         {
             var newAddress = _mapper.Map<AddressEntity>(request);
-                       
+
             await _applicationDbContext.Addresses.AddAsync(newAddress, ct);
             await _applicationDbContext.SaveChangesAsync(ct);
-            
+
             return Result.Success(newAddress.Id);
         }
     }

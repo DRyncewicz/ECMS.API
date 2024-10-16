@@ -1,5 +1,4 @@
 ﻿using SharedKernel;
-using Microsoft.EntityFrameworkCore;
 
 namespace ecms.Domain.Entities;
 

@@ -13,8 +13,8 @@ using ecms.Infrastructure.Database;
 namespace ecms.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241015195050_CreatedAddressEntity")]
-    partial class CreatedAddressEntity
+    [Migration("20241016182545_AddressConfiguration")]
+    partial class AddressConfiguration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,27 +36,33 @@ namespace ecms.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApartmentNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("BuildingNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 

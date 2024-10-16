@@ -20,6 +20,7 @@ public class DeleteProductCommandHandlerTests : IClassFixture<MappingTestFixture
     private readonly Mock<ICurrentUserService> _userService;
     private readonly Mock<IDateTimeProvider> _dateTimeProvider;
     private readonly Mock<IDbTransaction> _transaction;
+
     private readonly List<ProductEntity> _products = new List<ProductEntity>
         {
             new ProductEntity { Id = 1, Name = "Test1", CategoryId = 1},
@@ -27,6 +28,7 @@ public class DeleteProductCommandHandlerTests : IClassFixture<MappingTestFixture
             new ProductEntity { Id = 3, Name = "Test3", CategoryId = 2},
             new ProductEntity { Id = 4, Name = "Test4", CategoryId = 2}
         };
+
     private readonly List<ProductVariantEntity> _productVariants = new List<ProductVariantEntity>
         {
             new ProductVariantEntity { Id = 1, Name = "Test1", ProductId = 1},

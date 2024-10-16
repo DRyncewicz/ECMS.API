@@ -1,4 +1,4 @@
-﻿namespace ecms.Domain.Errors.Categories;
+﻿namespace ecms.Domain.Errors.Addresses;
 
 public static class AddressErrorCodes
 {

@@ -5,7 +5,7 @@
 namespace ecms.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatedAddressEntity : Migration
+    public partial class AddressConfiguration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,12 +17,12 @@ namespace ecms.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApartmentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Country = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    BuildingNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    ApartmentNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true)
                 },
                 constraints: table =>
                 {

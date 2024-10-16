@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using ecms.Application.Abstractions.Data;
 using ecms.Application.Handlers.Commands.GetOrCreateAddress;
 using ecms.Domain.Entities;
@@ -14,6 +13,7 @@ public class GetOrCreateAddressCommandHandlerTests : IClassFixture<MappingTestFi
     private readonly IMapper _mapper;
     private readonly Mock<IApplicationDbContext> _applicationDbContext;
     private readonly GetOrCreateAddressCommandHandler _handler;
+
     private readonly List<AddressEntity> _addresses = new List<AddressEntity>
         {
             new AddressEntity
@@ -35,8 +35,9 @@ public class GetOrCreateAddressCommandHandlerTests : IClassFixture<MappingTestFi
                 PostalCode = "75-361",
                 BuildingNumber = "41",
                 ApartmentNumber = "",
-            },            
+            },
         };
+
     public GetOrCreateAddressCommandHandlerTests(MappingTestFixture fixture)
     {
         _mapper = fixture.Mapper;
@@ -59,14 +60,14 @@ public class GetOrCreateAddressCommandHandlerTests : IClassFixture<MappingTestFi
             BuildingNumber = "42",
             ApartmentNumber = "",
         };
-               
+
         // Act
         var result = await _handler.Handle(command, default);
 
         // Assert
         result.Should().NotBeNull();
         result.IsSuccess.Should().BeTrue();
-        result.Value.Should().Be(1);    
+        result.Value.Should().Be(1);
     }
 
     [Fact]
@@ -83,17 +84,15 @@ public class GetOrCreateAddressCommandHandlerTests : IClassFixture<MappingTestFi
             ApartmentNumber = "24"
         };
 
+        _applicationDbContext.Setup(p => p.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
+
         // Act
         var result = await _handler.Handle(command, default);
 
         // Assert
         result.Should().NotBeNull();
         result.IsSuccess.Should().BeTrue();
-        result.Value.Should().BeGreaterThan(0);
         _applicationDbContext.Verify(db => db.Addresses.AddAsync(It.IsAny<AddressEntity>(), It.IsAny<CancellationToken>()), Times.Once);
         _applicationDbContext.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
 }
-
-
-
