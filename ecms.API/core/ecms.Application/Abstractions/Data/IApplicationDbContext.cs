@@ -19,4 +19,6 @@ public interface IApplicationDbContext
     DbSet<ProductVariantEntity> ProductVariants { get; set; }
 
     DbSet<ProductVariantHistoryEntity> ProductVariantHistories { get; set; }
+
+    DbSet<AddressEntity> Addresses { get; set; }
 }

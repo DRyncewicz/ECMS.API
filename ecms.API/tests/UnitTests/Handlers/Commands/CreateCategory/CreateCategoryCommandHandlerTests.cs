@@ -16,6 +16,7 @@ public class CreateCategoryCommandHandlerTests : IClassFixture<MappingTestFixtur
     private readonly Mock<IApplicationDbContext> _applicationDbContext;
     private readonly CreateCategoryCommandHandler _handler;
     private readonly Mock<IDbTransaction> _transaction;
+
     public CreateCategoryCommandHandlerTests(MappingTestFixture fixture)
     {
         _mapper = fixture.Mapper;

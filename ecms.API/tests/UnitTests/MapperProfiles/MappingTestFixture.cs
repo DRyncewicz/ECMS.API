@@ -16,6 +16,7 @@ public class MappingTestFixture
         {
             cfg.AddProfile<ProductProfile>();
             cfg.AddProfile<CategoryProfile>();
+            cfg.AddProfile<AddressProfile>();
         });
 
         Mapper = ConfigurationProvider.CreateMapper();

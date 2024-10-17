@@ -19,6 +19,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<ProductVariantHistoryEntity> ProductVariantHistories { get; set; }
 
+    public DbSet<AddressEntity> Addresses { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schema.Ecms);
