@@ -15,5 +15,5 @@ public class GetOrCreateAddressCommand : IRequest<Result<int>>
 
     public string BuildingNumber { get; set; } = string.Empty;
 
-    public string ApartmentNumber { get; set; } = string.Empty;
+    public string? ApartmentNumber { get; set; } = string.Empty;
 }
