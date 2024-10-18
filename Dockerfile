@@ -13,7 +13,7 @@ COPY ["core/ecms.API/ecms.API.csproj", "core/ecms.API/"]
 COPY ["infrastructure/ecms.Infrastructure/ecms.Infrastructure.csproj", "infrastructure/ecms.Infrastructure/"]
 COPY ["core/ecms.Application/ecms.Application.csproj", "core/ecms.Application/"]
 COPY ["core/ecms.Domain/ecms.Domain.csproj", "core/ecms.Domain/"]
-COPY ["/SharedKernal/SharedKernal.csproj", "SharedKernal/"]
+COPY ["SharedKernal/SharedKernal.csproj", "SharedKernal/"]
 RUN dotnet restore "./core/ecms.API/./ecms.API.csproj"
 COPY . .
 WORKDIR "/src/core/ecms.API"
