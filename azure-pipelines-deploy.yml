@@ -29,6 +29,7 @@ steps:
     sshEndpoint: 'debiantesting' 
     runOptions: 'commands'
     commands: |
+      docker login -u ryncewicz -p dckr_pat_SnOw_jXE9WYg3U8bS2V5iZLe0yU
       docker pull ryncewicz/ecmswebapi:$(Build.BuildId)
       docker stop ecms-api || true
       docker rm ecms-api || true
