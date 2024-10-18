@@ -29,7 +29,6 @@ steps:
     sshEndpoint: 'debiantesting' 
     runOptions: 'commands'
     commands: |
-      cat /home/debian/password.txt | docker login -u ryncewicz --password-stdin
       docker pull ryncewicz/ecmswebapi:$(Build.BuildId)
       docker stop ecms-api || true
       docker rm ecms-api || true
