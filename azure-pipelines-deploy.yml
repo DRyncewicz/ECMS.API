@@ -21,6 +21,7 @@ steps:
     repository: 'ryncewicz/ecmswebapi'
     tags: |
       $(Build.BuildId)
+    containerRegistry: 'DockerHubConnection' 
 
 - script: |
     ssh -o StrictHostKeyChecking=no username@your-vps-ip 'docker pull ryncewicz/ecmswebapi:$(Build.BuildId) && docker stop ecms-api || true && docker rm ecms-api || true && docker run -d -p 8080:8080 --name ecms-api dockerhubusername/ecms-api:$(Build.BuildId)'
