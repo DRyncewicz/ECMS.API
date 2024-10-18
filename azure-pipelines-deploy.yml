@@ -23,6 +23,13 @@ steps:
       $(Build.BuildId)
     containerRegistry: 'DockerHubConnection' 
 
-- script: |
-    ssh -o StrictHostKeyChecking=no username@your-vps-ip 'docker pull ryncewicz/ecmswebapi:$(Build.BuildId) && docker stop ecms-api || true && docker rm ecms-api || true && docker run -d -p 8080:8080 --name ecms-api dockerhubusername/ecms-api:$(Build.BuildId)'
+- task: SSH@0
   displayName: 'Deploy Docker Image to VPS'
+  inputs:
+    sshEndpoint: 'debiantesting' 
+    runOptions: 'commands'
+    commands: |
+      docker pull ryncewicz/ecmswebapi:$(Build.BuildId)
+      docker stop ecms-api || true
+      docker rm ecms-api || true
+      docker run -d -p 8080:8080 --name ecms-api ryncewicz/ecmswebapi:$(Build.BuildId)
