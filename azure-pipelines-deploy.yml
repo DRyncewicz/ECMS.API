@@ -10,7 +10,7 @@ steps:
   inputs:
     command: 'build'
     repository: 'ryncewicz/ecmswebapi' 
-    dockerfile: 'core/ecms.API/Dockerfile'
+    dockerfile: 'ecms.API/Dockerfile'
     tags: |
       $(Build.BuildId)
 
