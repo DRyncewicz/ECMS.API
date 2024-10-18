@@ -26,12 +26,6 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader();
         });
-    options.AddPolicy("ProductionCors", builder =>
-    {
-        builder.WithOrigins("*/ecms.ovh")
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-    });
 });
 builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration));
@@ -70,11 +64,6 @@ if (app.Environment.IsDevelopment())
         }
     });
     app.UseCors("AllowAll");
-}
-
-if (app.Environment.IsProduction())
-{
-    app.UseCors("ProductionCors");
 }
 
 app.UseHttpsRedirection();

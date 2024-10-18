@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "tests\I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{74D1E5D8-CCC6-4207-83F7-9923977D3E2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernal", "SharedKernal\SharedKernal.csproj", "{6D1C27EE-2C9D-43E1-83EF-AE8DAF51F28F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernal", "SharedKernal\SharedKernal.csproj", "{6D1C27EE-2C9D-43E1-83EF-AE8DAF51F28F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
