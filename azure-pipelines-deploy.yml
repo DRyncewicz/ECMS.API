@@ -1,0 +1,27 @@
+trigger:
+- develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  displayName: 'Build Docker Image'
+  inputs:
+    command: 'build'
+    repository: 'ryncewicz/ecmswebapi' 
+    dockerfile: 'core/ecms.API/Dockerfile'
+    tags: |
+      $(Build.BuildId)
+
+- task: Docker@2
+  displayName: 'Push Docker Image to Docker Hub'
+  inputs:
+    command: 'push'
+    repository: 'ryncewicz/ecmswebapi'
+    tags: |
+      $(Build.BuildId)
+
+- script: |
+    ssh -o StrictHostKeyChecking=no username@your-vps-ip 'docker pull ryncewicz/ecmswebapi:$(Build.BuildId) && docker stop ecms-api || true && docker rm ecms-api || true && docker run -d -p 8080:8080 --name ecms-api dockerhubusername/ecms-api:$(Build.BuildId)'
+  displayName: 'Deploy Docker Image to VPS'
