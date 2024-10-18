@@ -16,7 +16,7 @@ COPY ["ecms.API/core/ecms.Domain/ecms.Domain.csproj", "ecms.API/core/ecms.Domain
 COPY ["ecms.API/SharedKernal/SharedKernal.csproj", "ecms.API/SharedKernal/"]
 RUN dotnet restore "./ecms.API/core/ecms.API/./ecms.API.csproj"
 COPY . .
-WORKDIR "/src/core/ecms.API"
+WORKDIR "/src/ecms.API/core/ecms.API"
 RUN dotnet build "./ecms.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
