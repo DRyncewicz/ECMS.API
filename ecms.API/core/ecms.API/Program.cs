@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.API.OpenApi;
 using ecms.Application;
@@ -64,6 +65,10 @@ if (app.Environment.IsDevelopment())
         }
     });
     app.UseCors("AllowAll");
+}
+if (builder.Environment.EnvironmentName != "Testing")
+{
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();

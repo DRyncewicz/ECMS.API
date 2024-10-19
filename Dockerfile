@@ -9,14 +9,14 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["core/ecms.API/ecms.API.csproj", "core/ecms.API/"]
-COPY ["infrastructure/ecms.Infrastructure/ecms.Infrastructure.csproj", "infrastructure/ecms.Infrastructure/"]
-COPY ["core/ecms.Application/ecms.Application.csproj", "core/ecms.Application/"]
-COPY ["core/ecms.Domain/ecms.Domain.csproj", "core/ecms.Domain/"]
-COPY ["../SharedKernal/SharedKernal.csproj", "SharedKernal/"]
-RUN dotnet restore "./core/ecms.API/./ecms.API.csproj"
+COPY ["ecms.API/core/ecms.API/ecms.API.csproj", "ecms.API/core/ecms.API/"]
+COPY ["ecms.API/infrastructure/ecms.Infrastructure/ecms.Infrastructure.csproj", "ecms.API/infrastructure/ecms.Infrastructure/"]
+COPY ["ecms.API/core/ecms.Application/ecms.Application.csproj", "ecms.API/core/ecms.Application/"]
+COPY ["ecms.API/core/ecms.Domain/ecms.Domain.csproj", "ecms.API/core/ecms.Domain/"]
+COPY ["ecms.API/SharedKernal/SharedKernal.csproj", "ecms.API/SharedKernal/"]
+RUN dotnet restore "./ecms.API/core/ecms.API/./ecms.API.csproj"
 COPY . .
-WORKDIR "/src/core/ecms.API"
+WORKDIR "/src/ecms.API/core/ecms.API"
 RUN dotnet build "./ecms.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
