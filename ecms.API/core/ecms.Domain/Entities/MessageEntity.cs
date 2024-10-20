@@ -10,7 +10,7 @@ public class MessageEntity : Entity
 
     public string Content { get; set; }
 
-    public Price Subject { get; set; }
+    public string Subject { get; set; }
 
     public DateTimeOffset SentDateTimeUtc { get; set; }
 

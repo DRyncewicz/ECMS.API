@@ -13,7 +13,7 @@ public class StockTransactionEntity : Entity
 
     public TransactionType TransactionType { get; set; }
 
-    public int? SupplierOrderId { get; set; }
+    public int? SupplierOrderMaterialId { get; set; }
 
     public int? OrderId { get; set; }
 

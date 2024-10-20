@@ -1,4 +1,5 @@
 ﻿using ecms.Domain.Enums;
+using ecms.Domain.ValueObjects;
 using SharedKernel;
 
 namespace ecms.Domain.Entities;
@@ -15,7 +16,7 @@ public class OrderEntity : Entity
 
     public int? TableNumber { get; set; }
 
-    public double TotalPrice { get; set; }
+    public Price TotalPrice { get; set; }
 
     public string UserId { get; set; }
 

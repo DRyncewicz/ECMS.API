@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.SqlServer.Types;
 using ecms.Infrastructure.Database;
@@ -12,9 +13,11 @@ using ecms.Infrastructure.Database;
 namespace ecms.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020212830_InicializedAllergen_Invoice_Materials_Message_Orders_Products_Stocks_Suppliers_EntitiesAndTheirEnums")]
+    partial class InicializedAllergen_Invoice_Materials_Message_Orders_Products_Stocks_Suppliers_EntitiesAndTheirEnums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

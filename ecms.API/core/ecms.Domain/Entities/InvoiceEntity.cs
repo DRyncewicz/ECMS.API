@@ -13,5 +13,5 @@ public class InvoiceEntity : Entity
 
     public Guid FileGuid { get; set; }
 
-    public virtual ICollection<SupplierOrderEntity> SupplierOrders { get; set; }
+    public virtual SupplierOrderEntity SupplierOrder { get; set; }
 }

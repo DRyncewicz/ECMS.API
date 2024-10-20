@@ -13,9 +13,9 @@ public class SupplierOrderEntity : Entity
 
     public StatusType Status { get; set; }
 
-    public virtual MaterialEntity Material { get; set; }
+    public virtual SupplierEntity Supplier { get; set; }
 
     public virtual InvoiceEntity Invoice { get; set; }
 
-    public virtual StockTransactionEntity StockTransaction { get; set; }
+    public virtual ICollection<SupplierOrderMaterialEntity> SupplierOrderMaterials { get; set; }
 }

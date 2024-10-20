@@ -1,4 +1,5 @@
-﻿using SharedKernel;
+﻿using ecms.Domain.ValueObjects;
+using SharedKernel;
 
 namespace ecms.Domain.Entities;
 
@@ -10,7 +11,7 @@ public class SupplierOrderMaterialEntity : Entity
 
     public bool IsDelivered { get; set; }
 
-    public double PricePerUnit { get; set; }
+    public Price PricePerUnit { get; set; }
 
     public int Quantity { get; set; }
 
