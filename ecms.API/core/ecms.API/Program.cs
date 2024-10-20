@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.API.OpenApi;
 using ecms.Application;
@@ -26,12 +27,6 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader();
         });
-    options.AddPolicy("ProductionCors", builder =>
-    {
-        builder.WithOrigins("*/ecms.ovh")
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-    });
 });
 builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration));
@@ -71,10 +66,9 @@ if (app.Environment.IsDevelopment())
     });
     app.UseCors("AllowAll");
 }
-
-if (app.Environment.IsProduction())
+if (builder.Environment.EnvironmentName != "Testing")
 {
-    app.UseCors("ProductionCors");
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();
