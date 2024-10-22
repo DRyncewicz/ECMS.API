@@ -21,41 +21,41 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<AddressEntity> Addresses { get; set; }
 
-    public DbSet<AllergenEntity> Allergen { get; set; }
+    public DbSet<AllergenEntity> Allergens { get; set; }
 
-    public DbSet<InvoiceEntity> Invoice { get; set; }
+    public DbSet<InvoiceEntity> Invoices { get; set; }
 
-    public DbSet<MaterialEntity> Material { get; set; }
+    public DbSet<MaterialEntity> Materials { get; set; }
 
-    public DbSet<MaterialHistoryEntity> MaterialHistory { get; set; }
+    public DbSet<MaterialHistoryEntity> MaterialHistories { get; set; }
 
-    public DbSet<MessageEntity> Message { get; set; }
+    public DbSet<MessageEntity> Messages { get; set; }
 
-    public DbSet<OrderEntity> Order { get; set; }
+    public DbSet<OrderEntity> Orders { get; set; }
 
-    public DbSet<OrderProductVariantEntity> OrderProductVariant { get; set; }
+    public DbSet<OrderProductVariantEntity> OrderProductVariants { get; set; }
 
-    public DbSet<ProductMaterialEntity> ProductMaterial { get; set; }
+    public DbSet<ProductMaterialEntity> ProductMaterials { get; set; }
 
-    public DbSet<ProductMaterialHistoryEntity> ProductMaterialHistory { get; set; }
+    public DbSet<ProductMaterialHistoryEntity> ProductMaterialHistories { get; set; }
 
-    public DbSet<ProductVariantAllergenEntity> ProductVariantAllergen { get; set; }
+    public DbSet<ProductVariantAllergenEntity> ProductVariantAllergens { get; set; }
 
-    public DbSet<StockEntity> Stock { get; set; }
+    public DbSet<StockEntity> Stocks { get; set; }
 
-    public DbSet<StockLevelEntity> StockLevel { get; set; }
+    public DbSet<StockLevelEntity> StockLevels { get; set; }
 
-    public DbSet<StockTransactionEntity> StockTransaction { get; set; }
+    public DbSet<StockTransactionEntity> StockTransactions { get; set; }
 
-    public DbSet<SupplierContactEntity> SupplierContact { get; set; }
+    public DbSet<SupplierContactEntity> SupplierContacts { get; set; }
 
-    public DbSet<SupplierEntity> Supplier { get; set; }
+    public DbSet<SupplierEntity> Suppliers { get; set; }
 
-    public DbSet<SupplierHistoryEntity> SupplierHistory { get; set; }
+    public DbSet<SupplierHistoryEntity> SupplierHistories { get; set; }
 
-    public DbSet<SupplierOrderEntity> SupplierOrder { get; set; }
+    public DbSet<SupplierOrderEntity> SupplierOrders { get; set; }
 
-    public DbSet<SupplierOrderMaterialEntity> SupplierOrderMaterial { get; set; }
+    public DbSet<SupplierOrderMaterialEntity> SupplierOrderMaterials { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

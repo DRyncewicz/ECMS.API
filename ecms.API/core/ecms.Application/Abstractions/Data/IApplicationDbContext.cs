@@ -21,4 +21,40 @@ public interface IApplicationDbContext
     DbSet<ProductVariantHistoryEntity> ProductVariantHistories { get; set; }
 
     DbSet<AddressEntity> Addresses { get; set; }
+
+    DbSet<AllergenEntity> Allergens { get; set; }
+
+    DbSet<InvoiceEntity> Invoices { get; set; }
+
+    DbSet<MaterialEntity> Materials { get; set; }
+
+    DbSet<MaterialHistoryEntity> MaterialHistories { get; set; }
+
+    DbSet<MessageEntity> Messages { get; set; }
+
+    DbSet<OrderEntity> Orders { get; set; }
+
+    DbSet<OrderProductVariantEntity> OrderProductVariants { get; set; }
+
+    DbSet<ProductMaterialEntity> ProductMaterials { get; set; }
+
+    DbSet<ProductMaterialHistoryEntity> ProductMaterialHistories { get; set; }
+
+    DbSet<ProductVariantAllergenEntity> ProductVariantAllergens { get; set; }
+
+    DbSet<StockEntity> Stocks { get; set; }
+
+    DbSet<StockLevelEntity> StockLevels { get; set; }
+
+    DbSet<StockTransactionEntity> StockTransactions { get; set; }
+
+    DbSet<SupplierContactEntity> SupplierContacts { get; set; }
+
+    DbSet<SupplierEntity> Suppliers { get; set; }
+
+    DbSet<SupplierHistoryEntity> SupplierHistories { get; set; }
+
+    DbSet<SupplierOrderEntity> SupplierOrders { get; set; }
+
+    DbSet<SupplierOrderMaterialEntity> SupplierOrderMaterials { get; set; }
 }

@@ -16,6 +16,9 @@ public class AddressProfile : Profile
             .ForMember(dest => dest.BuildingNumber, opt => opt.MapFrom(src => src.BuildingNumber))
             .ForMember(dest => dest.ApartmentNumber, opt => opt.MapFrom(src => src.ApartmentNumber))
             .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Stocks, opt => opt.Ignore())
+            .ForMember(dest => dest.Suppliers, opt => opt.Ignore())
+            .ForMember(dest => dest.Orders, opt => opt.Ignore())
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
     }
 }
