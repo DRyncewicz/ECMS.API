@@ -15,17 +15,23 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
         RuleFor(p => p.Name)
             .Length(MinimumLengthName, MaximumLengthName).WithErrorCode(ProductErrorCodes.InvalidLengthName)
             .NotEmpty().WithErrorCode(ProductErrorCodes.MissingName);
+
         RuleFor(p => p.Description)
-            .MaximumLength(MaximumLengthDescription).WithErrorCode(ProductErrorCodes.MissingDescription)
-            .NotEmpty().WithErrorCode(ProductErrorCodes.InvalidLengthDescription);
+            .MaximumLength(MaximumLengthDescription).WithErrorCode(ProductErrorCodes.InvalidLengthDescription)
+            .NotEmpty().WithErrorCode(ProductErrorCodes.MissingDescription);
+
         RuleFor(p => p.CategoryId)
             .NotEmpty().WithErrorCode(ProductErrorCodes.MissingCategoryId);
+
         RuleFor(p => p.Vat)
             .NotEmpty().WithErrorCode(ProductErrorCodes.MissingVat);
+
         RuleFor(p => p.Unit)
-            .NotEmpty().WithErrorCode(ProductErrorCodes.MissingAlcoholContent);
+            .NotEmpty().WithErrorCode(ProductErrorCodes.MissingUnit);
+
         RuleFor(p => p.AlcoholContent)
             .NotEmpty().WithErrorCode(ProductErrorCodes.MissingAlcoholContent);
+
         RuleFor(p => p.ProductVariants).Must(p => p.Count >= MinimalProductVariantQuantity).WithErrorCode(ProductErrorCodes.EmptyVariants);
 
         RuleForEach(p => p.ProductVariants).SetValidator(new CreateProductVariantDtoValidator());
