@@ -49,25 +49,7 @@ public class CreateStockCommandValidatorTests
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Name)
               .WithErrorCode(StockErrorCodes.InvalidLengthName);
-    }
-
-    [Fact]
-    public void ShouldNotHaveErrorWhenNameIsValid()
-    {
-        // Arrange
-        var command = new CreateStockCommand
-        {
-            Name = "Dupa",
-            Description = "Dupa",
-            AddressId = 1           
-        };
-
-        // Act
-        var result = _validator.TestValidate(command);
-
-        // Assert
-        result.ShouldNotHaveAnyValidationErrors();
-    }
+    }    
 
     [Fact]
     public void ShouldHaveErrorWhenDescriptionExceedsMaximumLength()
@@ -86,25 +68,7 @@ public class CreateStockCommandValidatorTests
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Description)
               .WithErrorCode(StockErrorCodes.InvalidLengthDescription);
-    }
-
-    [Fact]
-    public void ShouldNotHaveErrorWhenDescriptionIsValid()
-    {
-        // Arrange
-        var command = new CreateStockCommand
-        {
-            Name = "Dupa",
-            Description = "Dupa",
-            AddressId = 1
-        };
-
-        // Act
-        var result = _validator.TestValidate(command);
-
-        // Assert
-        result.ShouldNotHaveAnyValidationErrors();
-    }
+    }   
 
     [Fact]
     public void ShouldHaveErrorWhenAddressIdIsEmpty()
@@ -126,7 +90,7 @@ public class CreateStockCommandValidatorTests
     }
 
     [Fact]
-    public void ShouldNotHaveErrorWhenAddressIdIsValid()
+    public void ShouldNotHaveAnyErrorsWhenCommandIsValid()
     {
         // Arrange
         var command = new CreateStockCommand

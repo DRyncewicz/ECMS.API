@@ -1,14 +1,16 @@
 ﻿using ecms.Domain.Errors.Stocks;
 using FluentValidation;
 
-namespace ecms.Application.Handlers.Commands.CreateStock;
+namespace ecms.Application.Handlers.Commands.EditStock;
 
-public class CreateStockCommandValidator : AbstractValidator<CreateStockCommand>
+public class EditStockCommandValidator : AbstractValidator<EditStockCommand>
 {
     private const int MaximumLengthName = 50;
     private const int MaximumLengthDescription = 500;
-    public CreateStockCommandValidator()
+    public EditStockCommandValidator()
     {
+        RuleFor(p => p.StockId).NotEmpty().WithErrorCode(StockErrorCodes.MissingId);
+
         RuleFor(p => p.Name)
             .MaximumLength(MaximumLengthName).WithErrorCode(StockErrorCodes.InvalidLengthName)
             .NotEmpty().WithErrorCode(StockErrorCodes.MissingName);
@@ -20,3 +22,4 @@ public class CreateStockCommandValidator : AbstractValidator<CreateStockCommand>
             .NotEmpty().WithErrorCode(StockErrorCodes.MissingAddressId);
     }
 }
+
