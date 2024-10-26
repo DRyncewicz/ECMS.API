@@ -16,7 +16,7 @@ var configuration = builder.Configuration;
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGenWithAuth();
+builder.Services.AddSwaggerGenWithAuth(configuration);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -55,7 +55,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         IReadOnlyList<ApiVersionDescription> descriptions = app.DescribeApiVersions();
-
+        options.OAuthClientId("client");
+        options.OAuthClientSecret("secret");
+        options.OAuthUsePkce();
+        options.OAuth2RedirectUrl("https://localhost:7194/swagger/oauth2-redirect.html");
         foreach (ApiVersionDescription description in descriptions)
         {
             string url = $"/swagger/{description.GroupName}/swagger.json";
