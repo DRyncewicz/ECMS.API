@@ -24,20 +24,10 @@ public static class ConfigureOpenIDConnect
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-           .AddJwtBearer(options =>
-           {
-               options.Authority = "https://auth.ecms.ovh/realms/emcs";
-               options.Audience = "account";
-               options.RequireHttpsMetadata = false;
-               options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-               {
-                   ValidateIssuer = true,
-                   ValidIssuer = "https://auth.ecms.ovh/realms/emcs",
-                   ValidateAudience = true,
-                   ValidAudience = "account",
-                   ValidateLifetime = true
-               };
-           });
+        }).AddJwtBearer(options =>
+        {
+            options.Authority = "https://auth.ecms.ovh/";
+            options.Audience = "https://auth.ecms.ovh/resources";
+        });
     }
 }
