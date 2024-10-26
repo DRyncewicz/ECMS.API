@@ -50,6 +50,9 @@ public class ProductProfile : Profile
             .ForMember(dest => dest.Product, opt => opt.Ignore())
             .ForMember(dest => dest.ProductVariantHistories, opt => opt.Ignore())
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
+            .ForMember(dest => dest.OrderProductVariants, opt => opt.Ignore())
+            .ForMember(dest => dest.ProductVariantAllergens, opt => opt.Ignore())
+            .ForMember(dest => dest.ProductMaterials, opt => opt.Ignore())
             .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
 
         CreateMap<CreateProductCommand, ProductEntity>()
@@ -78,6 +81,9 @@ public class ProductProfile : Profile
             .ForMember(dest => dest.ProductVariantHistories, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
+            .ForMember(dest => dest.OrderProductVariants, opt => opt.Ignore())
+            .ForMember(dest => dest.ProductVariantAllergens, opt => opt.Ignore())
+            .ForMember(dest => dest.ProductMaterials, opt => opt.Ignore())
             .ForMember(dest => dest.Product, opt => opt.Ignore());
 
         CreateMap<ProductEntity, ProductHistoryEntity>()

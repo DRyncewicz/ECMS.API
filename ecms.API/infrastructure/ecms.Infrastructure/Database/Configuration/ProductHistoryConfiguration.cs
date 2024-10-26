@@ -34,8 +34,8 @@ internal class ProductHistoryConfiguration : IEntityTypeConfiguration<ProductHis
 
         builder.Property(p => p.GtuCode)
                .IsRequired(false)
-
                .HasConversion<string>();
+
         builder.Property(p => p.FileGuid)
                .IsRequired(false);
 

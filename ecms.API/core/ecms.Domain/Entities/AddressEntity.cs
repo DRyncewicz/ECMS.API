@@ -15,4 +15,10 @@ public class AddressEntity : Entity
     public string BuildingNumber { get; set; }
 
     public string? ApartmentNumber { get; set; }
+
+    public virtual ICollection<StockEntity> Stocks { get; set; }
+
+    public virtual ICollection<SupplierEntity> Suppliers { get; set; }
+
+    public virtual ICollection<OrderEntity> Orders { get; set; }
 }

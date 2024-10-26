@@ -12,7 +12,14 @@ public class ProductVariantEntity : Entity
     public string Name { get; set; }
 
     public bool IsDeleted { get; set; }
+
     public virtual ProductEntity Product { get; set; }
 
     public virtual ICollection<ProductVariantHistoryEntity> ProductVariantHistories { get; set; }
+
+    public virtual ICollection<OrderProductVariantEntity> OrderProductVariants { get; set; }
+
+    public virtual ICollection<ProductVariantAllergenEntity> ProductVariantAllergens { get; set; }
+
+    public virtual ICollection<ProductMaterialEntity> ProductMaterials { get; set; }
 }
