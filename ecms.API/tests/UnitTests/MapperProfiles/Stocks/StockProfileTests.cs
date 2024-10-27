@@ -44,9 +44,9 @@ namespace ecms.Application.Tests.MapperProfiles.Stocks
             var command = new EditStockCommand
             {
                 AddressId = 1,
-                Name = "Dupa",
-                Description = "Dupa",
-                StockId = 1
+                Name = "NameDupa",
+                Description = "DescriptionDupa",
+                StockId = 2
             };
 
             // Act

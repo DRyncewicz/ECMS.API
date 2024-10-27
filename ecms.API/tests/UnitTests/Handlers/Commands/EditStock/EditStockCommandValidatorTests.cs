@@ -115,5 +115,25 @@ namespace ecms.Application.Handlers.Commands.EditStock.Tests
             // Assert
             result.ShouldNotHaveAnyValidationErrors();
         }
+
+        [Theory]
+        [InlineData(1, "Dupa", "", 1)]
+        public void Should_Not_Have_Errors_When_Command_Is_Valid(int stockId, string name, string description, int addressId)
+        {
+            // Arrange
+            var command = new EditStockCommand
+            {
+                StockId = stockId,
+                Name = name,
+                Description = description,
+                AddressId = addressId
+            };
+
+            // Act
+            var result = _validator.TestValidate(command);
+
+            // Assert
+            result.ShouldNotHaveAnyValidationErrors();
+        }
     }
 }
