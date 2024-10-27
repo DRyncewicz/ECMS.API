@@ -67,8 +67,8 @@ if (app.Environment.IsDevelopment())
             options.SwaggerEndpoint(url, name);
         }
     });
-    app.UseCors("AllowAll");
 }
+app.UseCors("AllowAll");
 if (builder.Environment.EnvironmentName != "Testing")
 {
     app.ApplyMigrations();
