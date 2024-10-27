@@ -2,6 +2,8 @@
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateStock;
+using ecms.Application.Handlers.Commands.DeleteCategory;
+using ecms.Application.Handlers.Commands.DeleteStock;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
@@ -20,6 +22,20 @@ public class StockController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(command, ct);
         return Result.Success(result).Match(
             onSuccess: stockId => Created(string.Empty, stockId),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpDelete("{StockId}")]
+    [ProducesResponseType(typeof(Result<string>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync([FromRoute] int StockId, CancellationToken ct)
+    {
+        var command = new DeleteStockCommand(StockId);
+        var result = await _mediator.Send(command, ct);
+        return Result.Success(result).Match(
+            onSuccess: isDeleted => Ok(isDeleted),
             onFailure: CustomResults.Problem);
     }
 }
