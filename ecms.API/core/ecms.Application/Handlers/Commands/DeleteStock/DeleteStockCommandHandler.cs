@@ -9,6 +9,7 @@ public class DeleteStockCommandHandler(IApplicationDbContext _applicationDbConte
 {
     private const string result = "Cannot delete stock because there are products in. To delete stock, create internal transfer first";
     private const string empty = "";
+
     public async Task<Result<string>> Handle(DeleteStockCommand request, CancellationToken ct)
     {
         var stockToDelete = _applicationDbContext.Stocks.Include(p => p.StockLevels).FirstOrDefault(p => p.Id == request.StockId);

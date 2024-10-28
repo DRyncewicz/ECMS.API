@@ -26,7 +26,7 @@ public class DeleteStockTests : BaseIntegrationTest
         };
 
         var material = new MaterialEntity
-        {            
+        {
             Name = "Material",
             IsActive = true,
             IsDeleted = false,
@@ -45,7 +45,7 @@ public class DeleteStockTests : BaseIntegrationTest
                 Description = "Description",
                 Name = "Name",
                 AddressId = 1,
-                IsDeleted = false,            
+                IsDeleted = false,
             },
 
             new()
@@ -55,7 +55,7 @@ public class DeleteStockTests : BaseIntegrationTest
                 AddressId = 1,
                 IsDeleted = false,
             }
-        };   
+        };
 
         var stockLevel = new StockLevelEntity
         {
@@ -67,7 +67,6 @@ public class DeleteStockTests : BaseIntegrationTest
             CreateDateTimeUtc = DateTimeOffset.UtcNow
         };
 
-        
         ApplicationDbContext.Addresses.Add(address);
         ApplicationDbContext.SaveChanges();
 
@@ -75,20 +74,14 @@ public class DeleteStockTests : BaseIntegrationTest
         ApplicationDbContext.SaveChanges();
 
         ApplicationDbContext.Stocks.AddRange(stocks);
-        ApplicationDbContext.SaveChanges();    
+        ApplicationDbContext.SaveChanges();
 
         ApplicationDbContext.StockLevels.Add(stockLevel);
-        ApplicationDbContext.SaveChanges();
-
-        ApplicationDbContext.Stocks.UpdateRange(stocks);
-        ApplicationDbContext.SaveChanges();
-
-
-
+        ApplicationDbContext.SaveChanges();        
     }
 
     [Fact]
-    public async Task DeleteStockCommand_ShouldThrowError_OnValidRequest()
+    public async Task DeleteStockCommand_ShouldReturnErrorString_OnValidRequest()
     {
         //Arrange
         var command = new DeleteStockCommand(1);
