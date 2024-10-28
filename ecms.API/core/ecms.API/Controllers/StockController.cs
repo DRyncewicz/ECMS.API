@@ -2,6 +2,7 @@
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateStock;
+using ecms.Application.Handlers.Commands.EditStock;
 using ecms.Application.Handlers.Commands.DeleteCategory;
 using ecms.Application.Handlers.Commands.DeleteStock;
 using MediatR;
@@ -22,6 +23,20 @@ public class StockController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(command, ct);
         return Result.Success(result).Match(
             onSuccess: stockId => Created(string.Empty, stockId),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpPut("{StockId}")]
+    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> EditAsync([FromRoute] int StockId, [FromBody] EditStockRequest request, CancellationToken ct)
+    {
+        var command = new EditStockCommand(request, StockId);
+        var result = await _mediator.Send(command, ct);
+        return Result.Success(result).Match(
+            onSuccess: StockId => NoContent(),
             onFailure: CustomResults.Problem);
     }
 
