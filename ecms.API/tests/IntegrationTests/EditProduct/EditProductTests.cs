@@ -89,6 +89,7 @@ public class EditProductTests : BaseIntegrationTest
         };
 
         ApplicationDbContext.ChangeTracker.Clear();
+
         //Act
         var result = await Sender.Send(command);
 

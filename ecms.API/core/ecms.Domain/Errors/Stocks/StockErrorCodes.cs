@@ -9,4 +9,6 @@ public static class StockErrorCodes
     public const string InvalidLengthDescription = nameof(InvalidLengthDescription);
 
     public const string MissingAddressId = nameof(MissingAddressId);
+
+    public const string MissingId = nameof(MissingId);
 }

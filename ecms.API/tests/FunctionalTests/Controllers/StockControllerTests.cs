@@ -1,4 +1,7 @@
 ﻿using ecms.Application.Handlers.Commands.CreateStock;
+using ecms.Application.Handlers.Commands.EditProduct;
+using ecms.Application.Handlers.Commands.EditStock;
+using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
@@ -24,7 +27,17 @@ public class StockControllerTests : BaseFunctionalTest
             ApartmentNumber = "12345",
         };
 
+        var stock = new StockEntity
+        {
+            AddressId = 1,
+            Description = "Description",
+            Name = "Dupa",
+            IsDeleted = false,
+        };
+
         ApplicationDbContext.Addresses.Add(address);
+        ApplicationDbContext.SaveChanges();
+        ApplicationDbContext.Stocks.Add(stock);
         ApplicationDbContext.SaveChanges();
     }
 
@@ -44,5 +57,23 @@ public class StockControllerTests : BaseFunctionalTest
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
+    }
+
+    [Fact]
+    public async Task EditStock_ShouldEditStock_OnValidRequest()
+    {
+        //Arrange
+        var command = new EditStockRequest()
+        {
+            Name = "NameTest",
+            AddressId = 1,
+            Description = "Description",
+        };
+
+        //Act
+        var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Stock/1", command);
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

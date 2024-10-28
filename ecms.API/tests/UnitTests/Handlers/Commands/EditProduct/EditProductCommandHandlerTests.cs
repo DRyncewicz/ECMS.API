@@ -68,10 +68,10 @@ public class EditProductCommandHandlerTests : IClassFixture<MappingTestFixture>
                 },
                 new()
                 {
-                Id = 1,
-                Name = "Test1",
-                Price = new ecms.Domain.ValueObjects.Price(1, ecms.Domain.ValueObjects.Currency.Pln),
-                ProductId = 1
+                    Id = 1,
+                    Name = "Test1",
+                    Price = new ecms.Domain.ValueObjects.Price(1, ecms.Domain.ValueObjects.Currency.Pln),
+                    ProductId = 1
                 }
             }
         };
