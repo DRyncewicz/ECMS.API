@@ -7,7 +7,7 @@ namespace ecms.Infrastructure.Storage;
 
 internal sealed class BlobService : IBlobService
 {
-    private const string ContainerName = "files";
+    private const string ContainerName = "ecms";
     private readonly BlobServiceClient _blobServiceClient;
     private readonly BlobContainerClient _containerClient;
 
@@ -15,7 +15,7 @@ internal sealed class BlobService : IBlobService
     {
         _blobServiceClient = blobServiceClient;
         _containerClient = _blobServiceClient.GetBlobContainerClient(ContainerName);
-        _containerClient.CreateIfNotExistsAsync();
+        _containerClient.CreateIfNotExistsAsync(PublicAccessType.Blob);
     }
 
     public async Task<FileResponse> DownloadAsync(Guid fileId, CancellationToken cancellationToken = default)
