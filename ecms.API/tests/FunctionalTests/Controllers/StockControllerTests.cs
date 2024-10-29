@@ -2,6 +2,7 @@
 using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Handlers.Commands.EditStock;
 using ecms.Application.Models.Dtos.Products;
+using ecms.Application.Handlers.Commands.DeleteStock;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
@@ -76,4 +77,15 @@ public class StockControllerTests : BaseFunctionalTest
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
+
+    [Fact]
+    public async Task DeleteStock_ShouldDeleteStock_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Stock/1");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }
+

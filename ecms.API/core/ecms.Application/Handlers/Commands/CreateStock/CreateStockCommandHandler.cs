@@ -13,7 +13,7 @@ public class CreateStockCommandHandler(IApplicationDbContext _applicationDbConte
     {
         var stockEntity = _mapper.Map<StockEntity>(request);
         stockEntity.IsDeleted = false;
-        
+
         await _applicationDbContext.Stocks.AddAsync(stockEntity, ct);
         await _applicationDbContext.SaveChangesAsync(ct);
 
