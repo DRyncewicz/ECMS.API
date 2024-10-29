@@ -55,7 +55,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         IReadOnlyList<ApiVersionDescription> descriptions = app.DescribeApiVersions();
-        options.OAuthClientId("client");
+        options.OAuthClientId("swagger");
         options.OAuthClientSecret("secret");
         options.OAuthUsePkce();
         options.OAuth2RedirectUrl("https://localhost:7194/swagger/oauth2-redirect.html");
