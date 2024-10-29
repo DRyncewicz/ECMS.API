@@ -104,5 +104,6 @@ public class DeleteStockTests : BaseIntegrationTest
 
         //Assert
         result.Value.Should().Be("");
+        ApplicationDbContext.Stocks.FirstOrDefault(p => p.Id == 2).IsDeleted.Should().Be(true);
     }
 }

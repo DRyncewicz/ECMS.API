@@ -1,5 +1,6 @@
 ﻿using ecms.Application.Abstractions.Data;
 using MediatR;
+using SharedKernal;
 using SharedKernel;
 
 namespace ecms.Application.Handlers.Commands.DeleteCategory;
@@ -13,21 +14,17 @@ public class DeleteCategoryCommandHandler(IApplicationDbContext _applicationDbCo
     {
         var categoryToDelete = _applicationDbContext.Categories.FirstOrDefault(p => p.Id == request.CategoryId);
 
-        if (categoryToDelete != null)
-        {
-            if (_applicationDbContext.Categories.Where(p => p.Id != categoryToDelete.Id).Any(p => p.HierarchyId.IsDescendantOf(categoryToDelete.HierarchyId)))
-            {
-                return Result.Success(result);
-            }
-            else
-            {
-                _applicationDbContext.Categories.Remove(categoryToDelete);
-                await _applicationDbContext.SaveChangesAsync(ct);
-                return Result.Success(empty);
-            }
-        }
+        Ensure.NotNull(categoryToDelete);
 
-        Result.Failure(new Error(nameof(NullReferenceException), $"Category with {request.CategoryId} not found", ErrorType.Failure));
-        throw new Exception();
+        if (_applicationDbContext.Categories.Where(p => p.Id != categoryToDelete.Id).Any(p => p.HierarchyId.IsDescendantOf(categoryToDelete.HierarchyId)))
+        {
+            return Result.Success(result);
+        }
+        else
+        {
+            _applicationDbContext.Categories.Remove(categoryToDelete);
+            await _applicationDbContext.SaveChangesAsync(ct);
+            return Result.Success(empty);
+        }
     }
 }

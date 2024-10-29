@@ -1,6 +1,7 @@
 ﻿using ecms.Application.Abstractions.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SharedKernal;
 using SharedKernel;
 
 namespace ecms.Application.Handlers.Commands.DeleteStock;
@@ -14,20 +15,18 @@ public class DeleteStockCommandHandler(IApplicationDbContext _applicationDbConte
     {
         var stockToDelete = _applicationDbContext.Stocks.Include(p => p.StockLevels).FirstOrDefault(p => p.Id == request.StockId);
 
-        if (stockToDelete != null)
-        {
-            if (stockToDelete.StockLevels.Any(p => p.Quantity > 0))
-            {
-                return Result.Success(result);
-            }
-            else
-            {
-                stockToDelete.IsDeleted = true;
-                return Result.Success(empty);
-            }
-        }
+        Ensure.NotNull(stockToDelete);
 
-        Result.Failure(new Error(nameof(NullReferenceException), $"Stock with {request.StockId} not found", ErrorType.Failure));
-        throw new Exception();
+        if (stockToDelete.StockLevels.Any(p => p.Quantity > 0))
+        {
+            return Result.Success(result);
+        }
+        else
+        {
+            stockToDelete.IsDeleted = true;
+            _applicationDbContext.Stocks.Update(stockToDelete);
+            await _applicationDbContext.SaveChangesAsync(ct);
+            return Result.Success(empty);
+        }
     }
 }
