@@ -22,6 +22,7 @@ public class CategoryProfile : Profile
             .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.HierarchyId, opt => opt.MapFrom(src => src.HierarchyId))
+            .ForMember(dest => dest.FileGuid, opt => opt.MapFrom(src => src.FileGuid))
             .ForMember(dest => dest.AncestorName, opt => opt.Ignore());
 
         CreateMap<EditCategoryCommand, CategoryEntity>()

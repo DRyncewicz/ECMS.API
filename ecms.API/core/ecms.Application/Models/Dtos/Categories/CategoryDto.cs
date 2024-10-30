@@ -11,4 +11,6 @@ public class CategoryDto
     public HierarchyId HierarchyId { get; set; } = new();
 
     public string AncestorName { get; set; } = string.Empty;
+
+    public Guid? FileGuid { get; set; }
 }

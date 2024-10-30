@@ -73,6 +73,7 @@ public class CategoryProfileTests : IClassFixture<MappingTestFixture>
             HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
             Name = "Name",
             Id = 1,
+            FileGuid = Guid.NewGuid(),
         };
 
         //Act
@@ -81,6 +82,7 @@ public class CategoryProfileTests : IClassFixture<MappingTestFixture>
         //Assert
         result.Name.Should().Be(command.Name);
         result.CategoryId.Should().Be(1);
+        result.FileGuid.Should().Be(command.FileGuid);
         result.HierarchyId.Should().Be(command.HierarchyId);
         result.AncestorName.Should().BeEmpty();
     }
