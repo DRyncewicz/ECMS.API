@@ -1,10 +1,9 @@
-﻿using MediatR;
-using SharedKernel;
+﻿namespace ecms.Application.Models.Dtos.Addresses;
 
-namespace ecms.Application.Handlers.Commands.GetOrCreateAddress;
-
-public class GetOrCreateAddressCommand : IRequest<Result<int>>
+public class AddressDto
 {
+    public int AddressId { get; set; }
+
     public string Country { get; set; } = string.Empty;
 
     public string City { get; set; } = string.Empty;
@@ -15,5 +14,5 @@ public class GetOrCreateAddressCommand : IRequest<Result<int>>
 
     public string BuildingNumber { get; set; } = string.Empty;
 
-    public string? ApartmentNumber { get; set; }
+    public string? ApartmentNumber { get; set; } = string.Empty;
 }

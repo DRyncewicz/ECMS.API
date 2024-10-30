@@ -87,5 +87,15 @@ public class StockControllerTests : BaseFunctionalTest
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+
+    [Fact]
+    public async Task GetAllWithAddresses_ShouldReturnAllStocks_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/stock");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }
 
