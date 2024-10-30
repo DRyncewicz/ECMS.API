@@ -1,7 +1,9 @@
 ﻿using Asp.Versioning;
 using ecms.API.Controllers.Base;
 using ecms.Application.Abstractions.Storage;
+using ecms.Infrastructure.Storage;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel;
 
 namespace ecms.API.Controllers;
 
@@ -51,18 +53,24 @@ public class FileController(IBlobService blobService) : BaseController
     /// <summary>
     /// Uploads the file to the cloud and returns the unique name assigned by the service
     /// </summary>
-    /// <param name="file"></param>
+    /// <param name="request"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
     [HttpPost]
-    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(Result<Guid>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> UploadFile(IFormFile file, CancellationToken ct)
+    public async Task<IActionResult> UploadFile([FromBody] AddFileRequest request, CancellationToken ct)
     {
-        Stream stream = file.OpenReadStream();
-        var response = await blobService.UploadAsync(stream, file.ContentType, ct);
+        if (request.File == null || request.File.Length == 0)
+        {
+            return BadRequest(new ProblemDetails { Title = "No file uploaded." });
+        }
 
-        return Created(string.Empty, response);
+        using Stream stream = new MemoryStream(request.File);
+
+        var response = await blobService.UploadAsync(stream, request.ContentType, ct);
+
+        return Created(string.Empty, Result.Success(response));
     }
 }
