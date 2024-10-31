@@ -13,6 +13,7 @@ public class GetAllCategoriesPagedQueryHandler(IApplicationDbContext _applicatio
     public async Task<Result<PagedCategoryViewModel>> Handle(GetAllCategoriesPagedQuery request, CancellationToken ct)
     {
         var categories = _applicationDbContext.Categories.ToList();
+        var allCategories = categories;
         var model = new PagedCategoryViewModel();
 
         model.TotalCount = categories.Count();
@@ -23,13 +24,14 @@ public class GetAllCategoriesPagedQueryHandler(IApplicationDbContext _applicatio
                     .Take(request.PageSize).ToList();
         }
 
-        var categoryDtos = _mapper.Map<List<CategoryDto>>(categories.ToList());
+
+        var categoryDtos = _mapper.Map<List<CategoryDto>>(categories.ToList());        
         foreach (var categoryDto in categoryDtos)
         {
             var ancestorId = categoryDto.HierarchyId.GetAncestor(1);
             if (ancestorId != null)
             {
-                categoryDto.AncestorName = categories.FirstOrDefault(p => p.HierarchyId == ancestorId).Name;
+                categoryDto.AncestorName = allCategories.FirstOrDefault(p => p.HierarchyId == ancestorId).Name;
             }
         }
         model.Categories = categoryDtos;
