@@ -5,6 +5,7 @@ using ecms.Application.Handlers.Commands.CreateCategory;
 using ecms.Application.Handlers.Commands.DeleteCategory;
 using ecms.Application.Handlers.Commands.EditCategory;
 using ecms.Application.Handlers.Queries.GetAllCategoriesPaged;
+using ecms.Application.Handlers.Queries.GetCategoryById;
 using ecms.Application.Models.ViewModels.Categories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,20 @@ public class CategoryController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(query, ct);
         return Result.Success(result).Match(
             onSuccess: categories => Ok(categories),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpGet("{CategoryId}")]
+    [ProducesResponseType(typeof(Result<CategoryViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetByIdAsync([FromRoute] int CategoryId, CancellationToken ct)
+    {
+        var query = new GetCategoryByIdQuery(CategoryId);
+        var result = await _mediator.Send(query, ct);
+        return Result.Success(result).Match(
+            onSuccess: category => Ok(category),
             onFailure: CustomResults.Problem);
     }
 
