@@ -7,8 +7,7 @@ using SharedKernel;
 namespace ecms.Application.Handlers.Queries.GetCategoryById;
 
 public class GetCategoryByIdQueryHandler(IApplicationDbContext _applicationDbContext) : IRequestHandler<GetCategoryByIdQuery, Result<CategoryViewModel>>
-{
-    private const string result = "Category not found";
+{   
     public async Task<Result<CategoryViewModel>> Handle(GetCategoryByIdQuery request, CancellationToken ct)
     {
         var category = _applicationDbContext.Categories.FirstOrDefault(p => p.Id == request.CategoryId);
