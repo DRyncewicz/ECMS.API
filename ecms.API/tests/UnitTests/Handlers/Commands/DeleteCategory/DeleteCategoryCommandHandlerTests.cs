@@ -34,10 +34,37 @@ public class DeleteCategoryCommandHandlerTests
             {
                 Id = 3,
                 HierarchyId = new HierarchyId("/1/2/"),
-                Name = "Main3"
-            }
+                Name = "Main3",
+                Products = [new ProductEntity()
+                {
+                    IsDeleted = true
+                }]
+            },
+             new CategoryEntity
+            {
+                Id = 4,
+                HierarchyId = new HierarchyId("/1/3/"),
+                Name = "Main2",
+                Products = [new ProductEntity()
+                {
+                    IsDeleted = false,
+                }]
+            },
         };
         _applicationDbContext.Setup(p => p.Categories).Returns(categories.AsQueryable().BuildMock().Object);
+    }
+
+    [Fact]
+    public async Task Handle_ShouldReturnResultMessage_IfCategoryExists_AndContainsLinkedProduct()
+    {
+        //Arrange
+        var request = new DeleteCategoryCommand(4);
+
+        //Act
+        var result = await _handler.Handle(request, default);
+
+        //Assert
+        result.Value.Should().Be("Unable to delete category because there are active products in that category, first delete the products or change their categories");
     }
 
     [Fact]
