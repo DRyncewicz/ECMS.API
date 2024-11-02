@@ -95,4 +95,14 @@ public class CategoryControllerTests : BaseFunctionalTest
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
+
+    [Fact]
+    public async Task GetCategoryById_ShouldReturnCategory_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/Category/4");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }
