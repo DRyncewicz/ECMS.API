@@ -1,11 +1,9 @@
-﻿using Azure.Core;
-using ecms.Application.Abstractions.Data;
+﻿using ecms.Application.Abstractions.Data;
 using ecms.Application.Handlers.Queries.GetCategoryById;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using SharedKernel;
 
 namespace UnitTests.Handlers.Queries.GetCategoryById;
 
@@ -46,7 +44,7 @@ public class GetCategoryByIdQueryHandlerTests
     [Fact]
     public async Task Handle_ShouldReturnSuccess_WhenCategoryExists()
     {
-        //Arrange                
+        //Arrange
         var query = new GetCategoryByIdQuery(1);
 
         //Act
@@ -63,7 +61,7 @@ public class GetCategoryByIdQueryHandlerTests
     [Fact]
     public async Task Handle_ShouldThrowException_WhenCategoryDoesntExist()
     {
-        //Arrange                
+        //Arrange
         var query = new GetCategoryByIdQuery(14);
 
         //Act
@@ -76,7 +74,7 @@ public class GetCategoryByIdQueryHandlerTests
     [Fact]
     public async Task Handle_ShouldReturnSuccess_WhenCategoryExist_WithNoAncestor()
     {
-        //Arrange                
+        //Arrange
         var query = new GetCategoryByIdQuery(3);
 
         //Act

@@ -1,5 +1,4 @@
-﻿using ecms.Application.Handlers.Queries.GetAllCategoriesPaged;
-using ecms.Application.Handlers.Queries.GetCategoryById;
+﻿using ecms.Application.Handlers.Queries.GetCategoryById;
 using ecms.Application.Models.ViewModels.Categories;
 using ecms.Domain.Entities;
 using FluentAssertions;
@@ -63,6 +62,6 @@ public class GetCategoryByIdTests : BaseIntegrationTest
         result.Value.Name.Should().Be("TestCategory5");
         result.Value.AncestorName.Should().Be("TestCategory3");
         result.Should().BeOfType<Result<CategoryViewModel>>();
-        result.IsSuccess.Should().BeTrue();       
+        result.IsSuccess.Should().BeTrue();
     }
 }

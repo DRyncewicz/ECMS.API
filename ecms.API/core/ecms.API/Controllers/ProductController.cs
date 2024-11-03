@@ -5,6 +5,7 @@ using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.DeleteProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
+using ecms.Application.Handlers.Queries.GetProductDetailsById;
 using ecms.Application.Handlers.Queries.GetProductsByFilters;
 using ecms.Application.Models.ViewModels.Products;
 using MediatR;
@@ -26,6 +27,20 @@ public class ProductController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(query, ct);
         return Result.Success(result).Match(
             onSuccess: products => Ok(products),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpGet("{ProductId}")]
+    [ProducesResponseType(typeof(Result<ProductDetailsViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetDetailsByIdAsync([FromRoute] int ProductId, CancellationToken ct)
+    {
+        var query = new GetProductDetailsByIdQuery(ProductId);
+        var result = await _mediator.Send(query, ct);
+        return Result.Success(result).Match(
+            onSuccess: product => Ok(product),
             onFailure: CustomResults.Problem);
     }
 

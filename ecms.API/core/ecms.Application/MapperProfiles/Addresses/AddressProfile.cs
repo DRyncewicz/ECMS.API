@@ -29,6 +29,6 @@ public class AddressProfile : Profile
             .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.PostalCode))
             .ForMember(dest => dest.BuildingNumber, opt => opt.MapFrom(src => src.BuildingNumber))
             .ForMember(dest => dest.ApartmentNumber, opt => opt.MapFrom(src => src.ApartmentNumber))
-            .ForMember(dest => dest.AddressId, opt => opt.MapFrom(src => src.Id));            
+            .ForMember(dest => dest.AddressId, opt => opt.MapFrom(src => src.Id));
     }
 }

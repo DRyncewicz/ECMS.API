@@ -6,8 +6,8 @@ public class SupplierEntity : Entity
 {
     public bool IsActive { get; set; }
 
-    public string Name {  get; set; }
-    
+    public string Name { get; set; }
+
     public int AddressId { get; set; }
 
     public virtual ICollection<SupplierOrderEntity> SupplierOrders { get; set; }

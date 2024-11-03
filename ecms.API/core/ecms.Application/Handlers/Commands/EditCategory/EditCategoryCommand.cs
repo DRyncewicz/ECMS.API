@@ -14,6 +14,7 @@ public class EditCategoryCommand : IRequest<Result<int>>
 
     public EditCategoryCommand(EditCategoryRequest request, int id)
     {
+        CategoryId = id;
         AncestorHierarchyId = request.AncestorHierarchyId;
         Name = request.Name;
         FileGuid = request.FileGuid;

@@ -1,15 +1,15 @@
-﻿using ecms.Application.Handlers.Queries.GetProductsByFilters;
+﻿using ecms.Application.Handlers.Queries.GetProductDetailsById;
 using ecms.Application.Models.ViewModels.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using IntegrationTests.Abstractions;
 using SharedKernel;
 
-namespace IntegrationTests.GetProductByFilters;
+namespace IntegrationTests.GetProductDetailsById;
 
-public class GetProductByFiltersTests : BaseIntegrationTest
+public class GetProductDetailsByIdTests : BaseIntegrationTest
 {
-    public GetProductByFiltersTests(IntegrationTestWebAppFactory factory) : base(factory)
+    public GetProductDetailsByIdTests(IntegrationTestWebAppFactory factory) : base(factory)
     {
         Seed();
     }
@@ -50,33 +50,31 @@ public class GetProductByFiltersTests : BaseIntegrationTest
              }
         };
 
-        var category = new CategoryEntity
-        {
-            HierarchyId = new Microsoft.EntityFrameworkCore.HierarchyId(),
-            Name = "TestCategory1",
-        };
-
-        ApplicationDbContext.Categories.Add(category);
-        ApplicationDbContext.SaveChanges();
-
         ApplicationDbContext.Products.AddRange(products);
         ApplicationDbContext.SaveChanges();
     }
 
     [Fact]
-    public async Task GetProductsByFiltersQuery_ShouldReturnSuccessResult_OnValidRequest()
+    public async Task GetProductDetailsById_ShouldReturnSuccessResult_OnValidRequest()
     {
         //Arrange
-        var query = new GetProductsByFiltersQuery();
+        var query = new GetProductDetailsByIdQuery(3);
 
         //Act
         var result = await Sender.Send(query);
 
         //Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<Result<FilteredProductsViewModel>>();
+        result.Value.ProductId.Should().Be(3);
+        result.Value.Name.Should().Be("Test3");
+        result.Value.Description.Should().Be("Test Description");
+        result.Value.AlcoholContent.Should().Be(ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer);
+        result.Value.Vat.Should().Be(23);
+        result.Value.Unit.Should().Be(ecms.Domain.Enums.UnitType.Weight);
+        result.Value.UserId.Should().Be("userId");
+        result.Value.CategoryId.Should().Be(1);
+        result.Value.productVariantDtos.Should().BeEmpty();
+        result.Should().BeOfType<Result<ProductDetailsViewModel>>();
         result.IsSuccess.Should().BeTrue();
-        result.Value.Products.Should().HaveCount(3);
-        result.Value.TotalCount.Should().Be(3);
     }
 }

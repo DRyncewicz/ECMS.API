@@ -1,4 +1,5 @@
-﻿using ecms.Domain.ValueObjects;
+﻿using ecms.Application.Models.Dtos.Allergens;
+using ecms.Domain.ValueObjects;
 
 namespace ecms.Application.Models.Dtos.Products;
 
@@ -11,4 +12,6 @@ public class ProductVariantDto
     public int ProductId { get; set; }
 
     public int Id { get; set; }
+
+    public List<AllergenDto> Allergens { get; set; } = [];
 }

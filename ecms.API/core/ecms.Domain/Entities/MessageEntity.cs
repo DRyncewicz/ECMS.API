@@ -1,5 +1,4 @@
 ﻿using ecms.Domain.Enums;
-using ecms.Domain.ValueObjects;
 using SharedKernel;
 
 namespace ecms.Domain.Entities;

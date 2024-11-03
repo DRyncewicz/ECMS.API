@@ -7,6 +7,7 @@ public class EditStockCommandValidator : AbstractValidator<EditStockCommand>
 {
     private const int MaximumLengthName = 50;
     private const int MaximumLengthDescription = 500;
+
     public EditStockCommandValidator()
     {
         RuleFor(p => p.StockId).NotEmpty().WithErrorCode(StockErrorCodes.MissingId);
@@ -22,4 +23,3 @@ public class EditStockCommandValidator : AbstractValidator<EditStockCommand>
             .NotEmpty().WithErrorCode(StockErrorCodes.MissingAddressId);
     }
 }
-

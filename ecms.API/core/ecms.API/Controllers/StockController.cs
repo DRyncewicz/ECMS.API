@@ -2,16 +2,13 @@
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateStock;
-using ecms.Application.Handlers.Commands.EditStock;
-using ecms.Application.Handlers.Commands.DeleteCategory;
 using ecms.Application.Handlers.Commands.DeleteStock;
+using ecms.Application.Handlers.Commands.EditStock;
+using ecms.Application.Handlers.Queries.GetAllStocksWithAddresses;
+using ecms.Application.Models.ViewModels.Stocks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
-using ecms.Application.Handlers.Queries.GetAllCategoriesPaged;
-using ecms.Application.Models.ViewModels.Categories;
-using ecms.Application.Models.ViewModels.Stocks;
-using ecms.Application.Handlers.Queries.GetAllStocksWithAddresses;
 
 namespace ecms.API.Controllers;
 

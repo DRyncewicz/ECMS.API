@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
+using ecms.Application.Models.Dtos.Allergens;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 
@@ -14,7 +15,12 @@ public class ProductProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price));
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+            .ForMember(dest => dest.Allergens, opt => opt.Ignore());
+
+        CreateMap<AllergenEntity, AllergenDto>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.AllergenId, opt => opt.MapFrom(src => src.Id));
 
         CreateMap<ProductEntity, ProductDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
