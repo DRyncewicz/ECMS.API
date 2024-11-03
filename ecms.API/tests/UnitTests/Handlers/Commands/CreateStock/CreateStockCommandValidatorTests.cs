@@ -49,7 +49,7 @@ public class CreateStockCommandValidatorTests
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Name)
               .WithErrorCode(StockErrorCodes.InvalidLengthName);
-    }    
+    }
 
     [Fact]
     public void ShouldHaveErrorWhenDescriptionExceedsMaximumLength()
@@ -68,7 +68,7 @@ public class CreateStockCommandValidatorTests
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Description)
               .WithErrorCode(StockErrorCodes.InvalidLengthDescription);
-    }   
+    }
 
     [Fact]
     public void ShouldHaveErrorWhenAddressIdIsEmpty()

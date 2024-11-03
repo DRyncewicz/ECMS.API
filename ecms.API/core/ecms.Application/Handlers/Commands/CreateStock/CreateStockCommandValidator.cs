@@ -7,6 +7,7 @@ public class CreateStockCommandValidator : AbstractValidator<CreateStockCommand>
 {
     private const int MaximumLengthName = 50;
     private const int MaximumLengthDescription = 500;
+
     public CreateStockCommandValidator()
     {
         RuleFor(p => p.Name)

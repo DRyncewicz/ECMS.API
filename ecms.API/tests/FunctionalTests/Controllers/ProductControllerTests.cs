@@ -83,7 +83,7 @@ public class ProductControllerTests : BaseFunctionalTest
                     Id = 1,
                     ProductId = 1,
                     Name = "Nejm",
-                    Price = new ecms.Domain.ValueObjects.Price(22, ecms.Domain.ValueObjects.Currency.Pln)
+                    Price = new ecms.Domain.ValueObjects.Price(22, ecms.Domain.ValueObjects.Currency.Pln),
                 },
                 new()
                 {
@@ -102,13 +102,50 @@ public class ProductControllerTests : BaseFunctionalTest
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
+    [Fact]
+    public async Task GetDetailsById_ShouldReturnProduct_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/Product/3");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
     private void Seed()
     {
         var products = new List<ProductEntity>
         {
-             new ProductEntity {Name = "Test1", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, UserId = "userId", CategoryId = 1 },
-             new ProductEntity {Name = "Test2", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, UserId = "userId", CategoryId = 1 },
-             new ProductEntity {Name = "Test3", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, UserId = "userId", CategoryId = 1 }
+             new ProductEntity
+             {
+                 Name = "Test1",
+                 Description = "Test Description",
+                 AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
+                 Vat = 23,
+                 Unit = ecms.Domain.Enums.UnitType.Weight,
+                 UserId = "userId",
+                 CategoryId = 1
+             },
+             new ProductEntity
+             {
+                 Name = "Test2",
+                 Description = "Test Description",
+                 AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
+                 Vat = 23,
+                 Unit = ecms.Domain.Enums.UnitType.Weight,
+                 UserId = "userId",
+                 CategoryId = 1
+             },
+             new ProductEntity
+             {
+                 Name = "Test3",
+                 Description = "Test Description",
+                 AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
+                 Vat = 23,
+                 Unit = ecms.Domain.Enums.UnitType.Weight,
+                 UserId = "userId",
+                 CategoryId = 1
+             }
         };
 
         var category = new CategoryEntity

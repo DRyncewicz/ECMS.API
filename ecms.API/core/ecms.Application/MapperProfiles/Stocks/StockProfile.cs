@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.CreateStock;
 using ecms.Application.Handlers.Commands.EditStock;
 using ecms.Application.Models.Dtos.Stocks;
@@ -36,6 +35,5 @@ public class StockProfile : Profile
             .ForMember(dest => dest.AddressDto, opt => opt.MapFrom(src => src.Address))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.StockId, opt => opt.MapFrom(src => src.Id));
-
     }
 }

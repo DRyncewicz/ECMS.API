@@ -77,7 +77,7 @@ public class DeleteStockTests : BaseIntegrationTest
         ApplicationDbContext.SaveChanges();
 
         ApplicationDbContext.StockLevels.Add(stockLevel);
-        ApplicationDbContext.SaveChanges();        
+        ApplicationDbContext.SaveChanges();
     }
 
     [Fact]

@@ -11,7 +11,7 @@ public class EditStockCommandHandler(IApplicationDbContext _applicationDbContext
 {
     public async Task<Result<int>> Handle(EditStockCommand request, CancellationToken ct)
     {
-        var stockToEdit = _mapper.Map<StockEntity>(request);       
+        var stockToEdit = _mapper.Map<StockEntity>(request);
         _applicationDbContext.Stocks.Update(stockToEdit);
         await _applicationDbContext.SaveChangesAsync(ct);
 

@@ -1,8 +1,5 @@
 ﻿using ecms.Application.Handlers.Commands.CreateStock;
-using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Handlers.Commands.EditStock;
-using ecms.Application.Models.Dtos.Products;
-using ecms.Application.Handlers.Commands.DeleteStock;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
@@ -16,6 +13,7 @@ public class StockControllerTests : BaseFunctionalTest
     {
         Seed();
     }
+
     private void Seed()
     {
         var address = new AddressEntity
@@ -98,4 +96,3 @@ public class StockControllerTests : BaseFunctionalTest
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }
-

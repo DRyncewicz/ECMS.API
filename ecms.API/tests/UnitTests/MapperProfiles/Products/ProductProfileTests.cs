@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
+using ecms.Application.Models.Dtos.Allergens;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;
@@ -201,6 +202,25 @@ namespace ecms.Application.Tests.MapperProfiles.Products
             variantHistoryResult.Name.Should().Be(variantEntity.Name);
             variantHistoryResult.Price.Should().Be(variantEntity.Price);
             variantHistoryResult.IsDeleted.Should().Be(variantEntity.IsDeleted);
+        }
+
+        [Fact]
+        public void Should_Map_AllergenEntity_To_AllergenDto()
+        {
+            // Arrange
+            var allergenEntity = new AllergenEntity
+            {
+                Name = "New Variant",
+                Id = 1,
+            };
+
+            // Act
+            var result = _mapper.Map<AllergenDto>(allergenEntity);
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Name.Should().Be(allergenEntity.Name);
+            result.AllergenId.Should().Be(allergenEntity.Id);
         }
     }
 }

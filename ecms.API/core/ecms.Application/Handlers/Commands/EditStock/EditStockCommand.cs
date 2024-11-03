@@ -18,11 +18,10 @@ public class EditStockCommand : IRequest<Result<int>>
         StockId = id;
         Name = request.Name;
         Description = request.Description;
-        AddressId = request.AddressId;       
+        AddressId = request.AddressId;
     }
 
     public EditStockCommand()
     {
-
     }
 }

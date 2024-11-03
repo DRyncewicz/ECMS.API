@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
-using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.CreateStock;
 using ecms.Domain.Entities;
 using FluentAssertions;

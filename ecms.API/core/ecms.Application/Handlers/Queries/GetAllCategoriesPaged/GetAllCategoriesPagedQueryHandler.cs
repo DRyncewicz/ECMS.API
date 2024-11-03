@@ -24,8 +24,7 @@ public class GetAllCategoriesPagedQueryHandler(IApplicationDbContext _applicatio
                     .Take(request.PageSize).ToList();
         }
 
-
-        var categoryDtos = _mapper.Map<List<CategoryDto>>(categories.ToList());        
+        var categoryDtos = _mapper.Map<List<CategoryDto>>(categories.ToList());
         foreach (var categoryDto in categoryDtos)
         {
             var ancestorId = categoryDto.HierarchyId.GetAncestor(1);

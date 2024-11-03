@@ -15,7 +15,7 @@ public class DeleteStockCommandHandlerTests
     {
         _applicationDbContext = new Mock<IApplicationDbContext>();
         _handler = new DeleteStockCommandHandler(_applicationDbContext.Object);
-        
+
         var stocks = new List<StockEntity>
         {
             new()
@@ -36,7 +36,7 @@ public class DeleteStockCommandHandlerTests
                             Id = 1
                         }
                     }
-                }               
+                }
             },
 
             new()
@@ -49,7 +49,6 @@ public class DeleteStockCommandHandlerTests
                 },
                 StockLevels = new List<StockLevelEntity>()
                 {
-                    
                 }
             },
         };

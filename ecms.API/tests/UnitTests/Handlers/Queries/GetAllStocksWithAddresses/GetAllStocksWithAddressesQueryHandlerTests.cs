@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
-using ecms.Application.Handlers.Queries.GetAllCategoriesPaged;
 using ecms.Application.Handlers.Queries.GetAllStocksWithAddresses;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using Moq;
-using System.Collections.Generic;
 using UnitTests.Mapping;
 
 namespace UnitTests.Handlers.Queries.GetAllStocksWithAddresses;

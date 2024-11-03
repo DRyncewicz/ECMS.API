@@ -13,7 +13,7 @@ namespace IntegrationTests.CreateStock
         }
 
         private void Seed()
-        {            
+        {
             var address = new AddressEntity
             {
                 Country = "Dupa",
@@ -21,7 +21,7 @@ namespace IntegrationTests.CreateStock
                 City = "Dupa",
                 PostalCode = "12345",
                 BuildingNumber = "12345",
-                ApartmentNumber = "12345",              
+                ApartmentNumber = "12345",
             };
 
             ApplicationDbContext.Addresses.Add(address);

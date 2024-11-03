@@ -29,7 +29,7 @@ public class GetAllStocksWithAddressesTests : BaseIntegrationTest
         var stocks = new List<StockEntity>
         {
             new StockEntity
-            {                
+            {
                 Description = "Description",
                 Name = "Name",
                 AddressId = 1,
@@ -37,7 +37,7 @@ public class GetAllStocksWithAddressesTests : BaseIntegrationTest
             },
 
             new()
-            {                
+            {
                 Description = "Description2",
                 Name = "Name2",
                 AddressId = 1,
@@ -63,6 +63,6 @@ public class GetAllStocksWithAddressesTests : BaseIntegrationTest
         result.Should().NotBeNull();
         result.Should().BeOfType<Result<StockViewModel>>();
         result.IsSuccess.Should().BeTrue();
-        result.Value.Stocks.Should().HaveCount(2);        
+        result.Value.Stocks.Should().HaveCount(2);
     }
 }
