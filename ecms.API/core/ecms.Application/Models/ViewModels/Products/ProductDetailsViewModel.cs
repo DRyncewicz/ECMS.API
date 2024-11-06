@@ -23,7 +23,5 @@ public class ProductDetailsViewModel
 
     public int CategoryId { get; set; }
 
-    public string UserId { get; set; } = string.Empty;
-
     public IEnumerable<ProductVariantDto> productVariantDtos { get; set; } = [];
 }

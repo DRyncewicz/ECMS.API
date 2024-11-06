@@ -20,7 +20,6 @@ public class EditProductCommandHandler(IApplicationDbContext _applicationDbConte
         try
         {
             var productToEdit = _mapper.Map<ProductEntity>(request);
-            productToEdit.UserId = _userService.UserId;
             _applicationDbContext.Products.Update(productToEdit);
             await _applicationDbContext.SaveChangesAsync(ct);
 

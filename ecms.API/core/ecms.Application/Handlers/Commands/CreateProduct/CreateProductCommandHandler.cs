@@ -19,7 +19,6 @@ public class CreateProductCommandHandler(IApplicationDbContext _applicationDbCon
         try
         {
             var productEntity = _mapper.Map<ProductEntity>(request);
-            productEntity.UserId = _userService.UserId;
             await _applicationDbContext.Products.AddAsync(productEntity, ct);
             await _applicationDbContext.SaveChangesAsync(ct);
 

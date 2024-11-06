@@ -25,7 +25,6 @@ public class GetProductDetailsByIdTests : BaseIntegrationTest
                  AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
                  Vat = 23,
                  Unit = ecms.Domain.Enums.UnitType.Weight,
-                 UserId = "userId",
                  CategoryId = 1
              },
              new ProductEntity
@@ -35,7 +34,6 @@ public class GetProductDetailsByIdTests : BaseIntegrationTest
                  AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
                  Vat = 23,
                  Unit = ecms.Domain.Enums.UnitType.Weight,
-                 UserId = "userId",
                  CategoryId = 1
              },
              new ProductEntity
@@ -45,7 +43,6 @@ public class GetProductDetailsByIdTests : BaseIntegrationTest
                  AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
                  Vat = 23,
                  Unit = ecms.Domain.Enums.UnitType.Weight,
-                 UserId = "userId",
                  CategoryId = 1
              }
         };
@@ -71,7 +68,6 @@ public class GetProductDetailsByIdTests : BaseIntegrationTest
         result.Value.AlcoholContent.Should().Be(ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer);
         result.Value.Vat.Should().Be(23);
         result.Value.Unit.Should().Be(ecms.Domain.Enums.UnitType.Weight);
-        result.Value.UserId.Should().Be("userId");
         result.Value.CategoryId.Should().Be(1);
         result.Value.productVariantDtos.Should().BeEmpty();
         result.Should().BeOfType<Result<ProductDetailsViewModel>>();

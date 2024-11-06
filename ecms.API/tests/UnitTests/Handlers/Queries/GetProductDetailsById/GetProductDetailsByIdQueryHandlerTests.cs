@@ -90,7 +90,6 @@ public class GetProductDetailsByIdQueryHandlerTests : IClassFixture<MappingTestF
                  AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
                  Vat = 23,
                  Unit = ecms.Domain.Enums.UnitType.Weight,
-                 UserId = "userId",
                  CategoryId = 1,
                  ProductVariants = productVariants,
              },
@@ -102,7 +101,6 @@ public class GetProductDetailsByIdQueryHandlerTests : IClassFixture<MappingTestF
                  AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
                  Vat = 23,
                  Unit = ecms.Domain.Enums.UnitType.Weight,
-                 UserId = "userId",
                  CategoryId = 1
              },
         };
@@ -127,7 +125,6 @@ public class GetProductDetailsByIdQueryHandlerTests : IClassFixture<MappingTestF
         result.Value.AlcoholContent.Should().Be(ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer);
         result.Value.Vat.Should().Be(23);
         result.Value.Unit.Should().Be(ecms.Domain.Enums.UnitType.Weight);
-        result.Value.UserId.Should().Be("userId");
         result.Value.productVariantDtos.Should().HaveCount(2);
         result.Value.CategoryId.Should().Be(1);
         result.Value.Name.Should().Be("Test1");

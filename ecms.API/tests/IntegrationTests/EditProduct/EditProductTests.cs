@@ -30,7 +30,6 @@ public class EditProductTests : BaseIntegrationTest
             Description = "TestDescription",
             IsDeleted = false,
             Unit = ecms.Domain.Enums.UnitType.Piece,
-            UserId = "UserId",
             Vat = 23,
         };
 

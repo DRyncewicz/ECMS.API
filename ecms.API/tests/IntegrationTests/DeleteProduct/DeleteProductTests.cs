@@ -16,9 +16,9 @@ public class DeleteProductTests : BaseIntegrationTest
     {
         var products = new List<ProductEntity>
         {
-             new ProductEntity {Name = "Test1", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, UserId = "userId", CategoryId = 1 },
-             new ProductEntity {Name = "Test2", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, UserId = "userId", CategoryId = 1 },
-             new ProductEntity {Name = "Test3", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, UserId = "userId", CategoryId = 1 }
+             new ProductEntity {Name = "Test1", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, CategoryId = 1 },
+             new ProductEntity {Name = "Test2", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, CategoryId = 1 },
+             new ProductEntity {Name = "Test3", Description = "Test Description", AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer, Vat = 23, Unit = ecms.Domain.Enums.UnitType.Weight, CategoryId = 1 }
         };
 
         var category = new CategoryEntity
