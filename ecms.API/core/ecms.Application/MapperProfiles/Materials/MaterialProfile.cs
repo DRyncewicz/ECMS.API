@@ -52,6 +52,7 @@ public class MaterialProfile : Profile
             .ForMember(dest => dest.ReorderLevel, opt => opt.MapFrom(src => src.ReorderLevel))
             .ForMember(dest => dest.MaterialId, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.CreateDateTimeUtc, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatorUserId, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Material, opt => opt.Ignore())
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());            
