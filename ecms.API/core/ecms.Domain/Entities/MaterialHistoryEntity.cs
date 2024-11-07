@@ -25,5 +25,9 @@ public class MaterialHistoryEntity : Entity
 
     public Guid? FileGuid { get; set; }
 
+    public string CreatorUserId { get; set; }
+
+    public DateTimeOffset CreateDateTimeUtc { get; set; }
+
     public virtual MaterialEntity Material { get; set; }
 }

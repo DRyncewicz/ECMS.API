@@ -36,10 +36,6 @@ internal class ProductConfiguration : IEntityTypeConfiguration<ProductEntity>
         builder.Property(p => p.FileGuid)
                .IsRequired(false);
 
-        builder.Property(p => p.UserId)
-               .HasMaxLength(450)
-               .IsRequired();
-
         builder.Property(p => p.IsDeleted)
                .IsRequired();
 

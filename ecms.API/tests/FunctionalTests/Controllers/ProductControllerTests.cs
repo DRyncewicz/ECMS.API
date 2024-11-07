@@ -123,7 +123,6 @@ public class ProductControllerTests : BaseFunctionalTest
                  AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
                  Vat = 23,
                  Unit = ecms.Domain.Enums.UnitType.Weight,
-                 UserId = "userId",
                  CategoryId = 1
              },
              new ProductEntity
@@ -133,7 +132,6 @@ public class ProductControllerTests : BaseFunctionalTest
                  AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
                  Vat = 23,
                  Unit = ecms.Domain.Enums.UnitType.Weight,
-                 UserId = "userId",
                  CategoryId = 1
              },
              new ProductEntity
@@ -143,7 +141,6 @@ public class ProductControllerTests : BaseFunctionalTest
                  AlcoholContent = ecms.Domain.Enums.AlcoholContentType.UpTo4AndAHalfPercentOrBeer,
                  Vat = 23,
                  Unit = ecms.Domain.Enums.UnitType.Weight,
-                 UserId = "userId",
                  CategoryId = 1
              }
         };

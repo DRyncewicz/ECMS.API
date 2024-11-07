@@ -45,7 +45,6 @@ public class GetProductDetailsByIdQueryHandler(IApplicationDbContext _applicatio
             Unit = product.Unit,
             AlcoholContent = product.AlcoholContent,
             GtuCode = product.GtuCode,
-            UserId = product.UserId,
         };
 
         return Result.Success(model);

@@ -19,8 +19,6 @@ public class ProductEntity : Entity
 
     public Guid? FileGuid { get; set; }
 
-    public string UserId { get; set; }
-
     public int CategoryId { get; set; }
 
     public bool IsDeleted { get; set; }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.MapperProfiles.Categories;
+using ecms.Application.MapperProfiles.Materials;
 using ecms.Application.MapperProfiles.Products;
 using ecms.Application.MapperProfiles.Stocks;
 
@@ -19,6 +20,7 @@ public class MappingTestFixture
             cfg.AddProfile<CategoryProfile>();
             cfg.AddProfile<AddressProfile>();
             cfg.AddProfile<StockProfile>();
+            cfg.AddProfile<MaterialProfile>();
         });
 
         Mapper = ConfigurationProvider.CreateMapper();
