@@ -4,6 +4,7 @@ using ecms.Domain.Entities;
 using FluentAssertions;
 using UnitTests.Mapping;
 
+namespace UnitTests.MapperProfiles.Materials;
 public class MaterialProfileTests : IClassFixture<MappingTestFixture>
 {
     private readonly IMapper _mapper;
@@ -80,14 +81,16 @@ public class MaterialProfileTests : IClassFixture<MappingTestFixture>
             FileGuid = Guid.NewGuid(),
             Description = "Description",
             ReorderLevel = 1,
+            IsDeleted = false,
+            IsActive = true,
         };
 
         //Act
         var result = _mapper.Map<MaterialHistoryEntity>(command);
 
         //Assert
-        result.IsActive.Should().Be(true);
-        result.IsDeleted.Should().Be(false);
+        result.IsActive.Should().Be(command.IsActive);
+        result.IsDeleted.Should().Be(command.IsDeleted);
         result.Name.Should().Be(command.Name);
         result.MaxStockLevel.Should().Be(command.MaxStockLevel);
         result.MinStockLevel.Should().Be(command.MinStockLevel);

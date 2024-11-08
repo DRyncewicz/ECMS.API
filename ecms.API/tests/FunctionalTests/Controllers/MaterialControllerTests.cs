@@ -1,5 +1,6 @@
 ﻿using ecms.Application.Handlers.Commands.CreateMaterial;
 using ecms.Application.Handlers.Commands.CreateProduct;
+using ecms.Application.Handlers.Commands.DeleteMaterial;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;
@@ -35,9 +36,37 @@ public class MaterialControllerTests : BaseFunctionalTest
             IsDeleted = false,
         };
 
+        var material = new MaterialEntity
+        {
+            Name = "DodasekGrubasek",
+            MaxStockLevel = 7,
+            MinStockLevel = 1,
+            UnitOfMeasure = ecms.Domain.Enums.UnitOfMeasureType.Pieces,
+            FileGuid = Guid.NewGuid(),
+            Description = "Description",
+            ReorderLevel = 1,
+            IsDeleted = false,
+            IsActive = true,
+        };
+
+        var stockLevel = new StockLevelEntity
+        {
+            BatchNumber = "BatchNumber",
+            CreateDateTimeUtc = DateTime.Now,
+            IsDeleted = false,
+            LastUpdated = DateTime.Now,
+            MaterialId = 1,
+            Quantity = 1,
+            StockId = 1,
+        };
+
         ApplicationDbContext.Addresses.Add(address);
         ApplicationDbContext.SaveChanges();
         ApplicationDbContext.Stocks.Add(stock);
+        ApplicationDbContext.SaveChanges();
+        ApplicationDbContext.Materials.Add(material);
+        ApplicationDbContext.SaveChanges();
+        ApplicationDbContext.StockLevels.Add(stockLevel);
         ApplicationDbContext.SaveChanges();
     }
 
@@ -64,5 +93,15 @@ public class MaterialControllerTests : BaseFunctionalTest
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
+    }
+
+    [Fact]
+    public async Task DeleteMaterial_ShouldDeleteMaterial_OnValidRequest()
+    {       
+        //Act
+        var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Material/1");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }
