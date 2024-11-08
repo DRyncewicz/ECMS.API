@@ -41,8 +41,8 @@ public class MaterialProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<MaterialEntity, MaterialHistoryEntity>()
-            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true))
-            .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => false))
+            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+            .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => src.IsDeleted))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.MaxStockLevel, opt => opt.MapFrom(src => src.MaxStockLevel))
             .ForMember(dest => dest.MinStockLevel, opt => opt.MapFrom(src => src.MinStockLevel))
