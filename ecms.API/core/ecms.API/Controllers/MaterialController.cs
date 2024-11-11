@@ -3,6 +3,10 @@ using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateMaterial;
 using ecms.Application.Handlers.Commands.DeleteMaterial;
+using ecms.Application.Handlers.Queries.GetMaterialDetailsById;
+using ecms.Application.Handlers.Queries.GetProductDetailsById;
+using ecms.Application.Models.ViewModels.Materials;
+using ecms.Application.Models.ViewModels.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
@@ -35,6 +39,20 @@ public class MaterialController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(command, ct);
         return Result.Success(result).Match(
             onSuccess: isDeleted => Ok(isDeleted),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpGet("{MaterialId}")]
+    [ProducesResponseType(typeof(Result<MaterialDetailsViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetDetailsByIdAsync([FromRoute] int MaterialId, CancellationToken ct)
+    {
+        var query = new GetMaterialDetailsByIdQuery(MaterialId);
+        var result = await _mediator.Send(query, ct);
+        return Result.Success(result).Match(
+            onSuccess: material => Ok(material),
             onFailure: CustomResults.Problem);
     }
 }

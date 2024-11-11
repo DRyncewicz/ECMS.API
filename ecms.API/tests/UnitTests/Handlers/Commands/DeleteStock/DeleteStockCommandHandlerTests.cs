@@ -91,6 +91,6 @@ public class DeleteStockCommandHandlerTests
         Func<Task> act = async () => await _handler.Handle(request, default);
 
         // Assert
-        await act.Should().ThrowAsync<Exception>();
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 }

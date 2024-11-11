@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateMaterial;
+using ecms.Application.Models.ViewModels.Materials;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using UnitTests.Mapping;
@@ -99,5 +100,44 @@ public class MaterialProfileTests : IClassFixture<MappingTestFixture>
         result.Description.Should().Be(command.Description);
         result.ReorderLevel.Should().Be(command.ReorderLevel);
         result.MaterialId.Should().Be(command.Id);
+    }
+
+    [Fact]
+    public void Should_MapFrom_MaterialEntity_To_MaterialDetailsViewModel()
+    {
+        //Arrange
+        var command = new MaterialEntity()
+        {
+            Id = 1,
+            Name = "DodasekGrubasek",
+            MaxStockLevel = 7,
+            MinStockLevel = 1,
+            UnitOfMeasure = ecms.Domain.Enums.UnitOfMeasureType.Pieces,
+            FileGuid = Guid.NewGuid(),
+            Description = "Description",
+            ReorderLevel = 1,
+            IsDeleted = false,
+            IsActive = true,
+            StockLevel = new StockLevelEntity()
+        };
+
+        //Act
+        var result = _mapper.Map<MaterialDetailsViewModel>(command);
+
+        //Assert
+        result.MaterialId.Should().Be(command.Id);
+        result.Name.Should().Be(command.Name);
+        result.IsActive.Should().Be(command.IsActive);
+        result.StockLevel.BatchNumber.Should().Be(command.StockLevel.BatchNumber);
+        result.StockLevel.LastUpdated.Should().Be(command.StockLevel.LastUpdated);
+        result.StockLevel.Quantity.Should().Be(command.StockLevel.Quantity);
+        result.StockLevel.StockId.Should().Be(command.StockLevel.StockId);
+        result.StockLevel.StockLevelId.Should().Be(command.StockLevel.Id);
+        result.MaxStockLevel.Should().Be(command.MaxStockLevel);
+        result.MinStockLevel.Should().Be(command.MinStockLevel);
+        result.UnitOfMeasure.Should().Be(command.UnitOfMeasure);
+        result.FileGuid.Should().Be(command.FileGuid);
+        result.Description.Should().Be(command.Description);
+        result.ReorderLevel.Should().Be(command.ReorderLevel);
     }
 }
