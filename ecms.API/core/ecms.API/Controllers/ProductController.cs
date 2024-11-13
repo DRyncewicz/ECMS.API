@@ -17,7 +17,7 @@ namespace ecms.API.Controllers;
 [ApiVersion(EcmsApiVersion.Version1)]
 public class ProductController(IMediator _mediator) : BaseController
 {
-    [HttpGet("by-filters")]
+    [HttpGet]
     [ProducesResponseType(typeof(Result<FilteredProductsViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]

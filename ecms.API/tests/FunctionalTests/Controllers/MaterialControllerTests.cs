@@ -114,4 +114,14 @@ public class MaterialControllerTests : BaseFunctionalTest
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+
+    [Fact]
+    public async Task GetMaterials_ShouldReturnMaterials_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/Material");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }
