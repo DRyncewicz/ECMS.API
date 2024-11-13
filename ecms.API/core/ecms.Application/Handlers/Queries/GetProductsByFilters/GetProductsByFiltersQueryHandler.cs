@@ -13,7 +13,7 @@ namespace ecms.Application.Handlers.Queries.GetProductsByFilters;
 /// </summary>
 /// <param name="_applicationDbContext"></param>
 /// <param name="_mapper"></param>
-public class GetProductsByFiltersQueryHandler(IApplicationDbContext _applicationDbContext,
+public class GetMaterialsByDetailsQueryHandler(IApplicationDbContext _applicationDbContext,
                                               IMapper _mapper) : IRequestHandler<GetProductsByFiltersQuery, Result<FilteredProductsViewModel>>
 {
     public async Task<Result<FilteredProductsViewModel>> Handle(GetProductsByFiltersQuery request, CancellationToken ct)

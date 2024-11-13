@@ -12,7 +12,7 @@ public class GetProductsByFiltersQueryHandlerTests : IClassFixture<MappingTestFi
 {
     private readonly IMapper _mapper;
     private readonly Mock<IApplicationDbContext> _applicationDbContext;
-    private readonly GetProductsByFiltersQueryHandler _handler;
+    private readonly GetMaterialsByDetailsQueryHandler _handler;
 
     private readonly List<ProductEntity> _products = new List<ProductEntity>
         {
@@ -26,7 +26,7 @@ public class GetProductsByFiltersQueryHandlerTests : IClassFixture<MappingTestFi
     {
         _mapper = fixture.Mapper;
         _applicationDbContext = new Mock<IApplicationDbContext>();
-        _handler = new GetProductsByFiltersQueryHandler(_applicationDbContext.Object, _mapper);
+        _handler = new GetMaterialsByDetailsQueryHandler(_applicationDbContext.Object, _mapper);
         var dbContextResponse = _products.AsQueryable().BuildMock();
         _applicationDbContext.Setup(p => p.Products).Returns(dbContextResponse.Object);
     }

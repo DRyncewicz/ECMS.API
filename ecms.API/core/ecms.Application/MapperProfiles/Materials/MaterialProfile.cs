@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateMaterial;
+using ecms.Application.Models.Dtos.Materials;
 using ecms.Application.Models.ViewModels.Materials;
 using ecms.Domain.Entities;
 
@@ -69,5 +70,16 @@ public class MaterialProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.ReorderLevel, opt => opt.MapFrom(src => src.ReorderLevel))
             .ForMember(dest => dest.MaterialId, opt => opt.MapFrom(src => src.Id));
+
+        CreateMap<MaterialEntity, MaterialDto>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.MaxStockLevel, opt => opt.MapFrom(src => src.MaxStockLevel))
+            .ForMember(dest => dest.MinStockLevel, opt => opt.MapFrom(src => src.MinStockLevel))
+            .ForMember(dest => dest.FileGuid, opt => opt.MapFrom(src => src.FileGuid))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.ReorderLevel, opt => opt.MapFrom(src => src.ReorderLevel))
+            .ForMember(dest => dest.MaterialId, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+            .ForMember(dest => dest.StockId, opt => opt.Ignore());
     }
 }
