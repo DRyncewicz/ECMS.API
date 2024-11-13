@@ -119,7 +119,7 @@ public class MaterialControllerTests : BaseFunctionalTest
     public async Task GetMaterials_ShouldReturnMaterials_OnValidRequest()
     {
         //Act
-        var response = await AuthorizedHttpClient.GetAsync("api/v1/Material/by-filters");
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/Material");
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);

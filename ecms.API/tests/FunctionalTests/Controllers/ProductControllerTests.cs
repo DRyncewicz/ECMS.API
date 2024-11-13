@@ -19,7 +19,7 @@ public class ProductControllerTests : BaseFunctionalTest
     public async Task GetProducts_ShouldReturnProducts_OnValidRequest()
     {
         //Act
-        var response = await AuthorizedHttpClient.GetAsync("api/v1/Product/by-filters");
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/Product");
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);

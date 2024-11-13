@@ -4,7 +4,6 @@ using ecms.Application.Models.Dtos.Materials;
 using ecms.Application.Models.ViewModels.Materials;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SharedKernal;
 using SharedKernel;
 
 namespace ecms.Application.Handlers.Queries.GetMaterialsByFilters;
@@ -14,7 +13,7 @@ public class GetMaterialsByFiltersQueryHandler(IApplicationDbContext _applicatio
 {
     public async Task<Result<FilteredMaterialsViewModel>> Handle(GetMaterialsByFiltersQuery request, CancellationToken ct)
     {
-        var materials = _applicationDbContext.Materials.Include(p => p.StockLevel).Where(p => p.IsDeleted == false);    
+        var materials = _applicationDbContext.Materials.Include(p => p.StockLevel).Where(p => p.IsDeleted == false).AsNoTracking();    
         var model = new FilteredMaterialsViewModel();
 
         if (!string.IsNullOrEmpty(request.Name))

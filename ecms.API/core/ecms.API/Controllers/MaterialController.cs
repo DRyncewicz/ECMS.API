@@ -58,7 +58,7 @@ public class MaterialController(IMediator _mediator) : BaseController
             onFailure: CustomResults.Problem);
     }
 
-    [HttpGet("by-filters")]
+    [HttpGet]
     [ProducesResponseType(typeof(Result<FilteredMaterialsViewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
