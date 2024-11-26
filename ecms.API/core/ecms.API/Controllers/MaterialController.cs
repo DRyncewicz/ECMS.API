@@ -3,6 +3,8 @@ using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateMaterial;
 using ecms.Application.Handlers.Commands.DeleteMaterial;
+using ecms.Application.Handlers.Commands.EditMaterial;
+using ecms.Application.Handlers.Commands.EditStock;
 using ecms.Application.Handlers.Queries.GetMaterialDetailsById;
 using ecms.Application.Handlers.Queries.GetMaterialsByFilters;
 using ecms.Application.Handlers.Queries.GetProductDetailsById;
@@ -68,6 +70,20 @@ public class MaterialController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(query, ct);
         return Result.Success(result).Match(
             onSuccess: materials => Ok(materials),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpPut("{MaterialId}")]
+    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> EditAsync([FromRoute] int MaterialId, [FromBody] EditMaterialRequest request, CancellationToken ct)
+    {
+        var command = new EditMaterialCommand(request, MaterialId);
+        var result = await _mediator.Send(command, ct);
+        return Result.Success(result).Match(
+            onSuccess: StockId => NoContent(),
             onFailure: CustomResults.Problem);
     }
 }
