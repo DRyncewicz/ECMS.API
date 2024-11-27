@@ -11,8 +11,9 @@ public class SupplierProfile : Profile
         CreateMap<CreateSupplierCommand, SupplierEntity>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.AddressId, opt => opt.MapFrom(src => src.AddressId))
+            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true))
+            .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => false))
             .ForMember(dest => dest.Address, opt => opt.Ignore())
-            .ForMember(dest => dest.IsActive, opt => opt.Ignore())
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
             .ForMember(dest => dest.SupplierContacts, opt => opt.Ignore())
             .ForMember(dest => dest.SupplierHistories, opt => opt.Ignore())
@@ -27,6 +28,7 @@ public class SupplierProfile : Profile
             .ForMember(dest => dest.AddressId, opt => opt.MapFrom(src => src.AddressId))
             .ForMember(dest => dest.CreateDateTimeUtc, opt => opt.Ignore())
             .ForMember(dest => dest.CreatorUserId, opt => opt.Ignore())
+            .ForMember(dest => dest.Supplier, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore());
     }
 }
