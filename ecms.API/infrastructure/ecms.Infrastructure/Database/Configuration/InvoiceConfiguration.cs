@@ -32,5 +32,9 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<InvoiceEntity>
         builder.Property(p => p.CreateDateTimeUtc)
                .IsRequired()
                .HasPrecision(7);
+
+        builder.HasOne(p => p.SupplierOrder)
+               .WithMany(p => p.Invoices)
+               .HasForeignKey(p => p.SupplierOrderId);
     }
 }

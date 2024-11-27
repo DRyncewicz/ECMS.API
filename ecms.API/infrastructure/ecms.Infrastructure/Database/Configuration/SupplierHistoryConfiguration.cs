@@ -13,6 +13,9 @@ internal class SupplierHistoryConfiguration : IEntityTypeConfiguration<SupplierH
         builder.Property(p => p.IsActive)
                .IsRequired();
 
+        builder.Property(p => p.IsDeleted)
+               .IsRequired();
+
         builder.Property(p => p.Name)
                .IsRequired()
                .HasMaxLength(70);

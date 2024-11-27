@@ -20,9 +20,5 @@ internal class SupplierOrderConfiguration : IEntityTypeConfiguration<SupplierOrd
         builder.HasOne(p => p.Supplier)
                .WithMany(p => p.SupplierOrders)
                .HasForeignKey(p => p.SupplierId);
-
-        builder.HasOne(p => p.Invoice)
-               .WithOne(p => p.SupplierOrder)
-               .HasForeignKey<SupplierOrderEntity>(p => p.InvoiceId);
     }
 }

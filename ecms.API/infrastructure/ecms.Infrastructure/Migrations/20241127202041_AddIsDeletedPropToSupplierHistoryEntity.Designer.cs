@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.SqlServer.Types;
 using ecms.Infrastructure.Database;
@@ -12,9 +13,11 @@ using ecms.Infrastructure.Database;
 namespace ecms.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241127202041_AddIsDeletedPropToSupplierHistoryEntity")]
+    partial class AddIsDeletedPropToSupplierHistoryEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,12 +139,7 @@ namespace ecms.Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("SupplierOrderId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SupplierOrderId");
 
                     b.ToTable("Invoices", "ecms");
                 });
@@ -818,9 +816,6 @@ namespace ecms.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
@@ -886,6 +881,9 @@ namespace ecms.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -894,6 +892,9 @@ namespace ecms.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InvoiceId")
+                        .IsUnique();
 
                     b.HasIndex("SupplierId");
 
@@ -931,12 +932,6 @@ namespace ecms.Infrastructure.Migrations
 
             modelBuilder.Entity("ecms.Domain.Entities.InvoiceEntity", b =>
                 {
-                    b.HasOne("ecms.Domain.Entities.SupplierOrderEntity", "SupplierOrder")
-                        .WithMany("Invoices")
-                        .HasForeignKey("SupplierOrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.OwnsOne("ecms.Domain.ValueObjects.Price", "TotalPrice", b1 =>
                         {
                             b1.Property<int>("InvoiceEntityId")
@@ -958,8 +953,6 @@ namespace ecms.Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("InvoiceEntityId");
                         });
-
-                    b.Navigation("SupplierOrder");
 
                     b.Navigation("TotalPrice")
                         .IsRequired();
@@ -1264,11 +1257,19 @@ namespace ecms.Infrastructure.Migrations
 
             modelBuilder.Entity("ecms.Domain.Entities.SupplierOrderEntity", b =>
                 {
+                    b.HasOne("ecms.Domain.Entities.InvoiceEntity", "Invoice")
+                        .WithOne("SupplierOrder")
+                        .HasForeignKey("ecms.Domain.Entities.SupplierOrderEntity", "InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ecms.Domain.Entities.SupplierEntity", "Supplier")
                         .WithMany("SupplierOrders")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Invoice");
 
                     b.Navigation("Supplier");
                 });
@@ -1334,6 +1335,12 @@ namespace ecms.Infrastructure.Migrations
             modelBuilder.Entity("ecms.Domain.Entities.CategoryEntity", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ecms.Domain.Entities.InvoiceEntity", b =>
+                {
+                    b.Navigation("SupplierOrder")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ecms.Domain.Entities.MaterialEntity", b =>
@@ -1402,8 +1409,6 @@ namespace ecms.Infrastructure.Migrations
 
             modelBuilder.Entity("ecms.Domain.Entities.SupplierOrderEntity", b =>
                 {
-                    b.Navigation("Invoices");
-
                     b.Navigation("SupplierOrderMaterials");
                 });
 

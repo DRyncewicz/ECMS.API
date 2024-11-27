@@ -15,7 +15,7 @@ public class CreateMaterialCommandHandler(IApplicationDbContext _applicationDbCo
 {
     public async Task<Result<int>> Handle(CreateMaterialCommand request, CancellationToken ct)
     {
-        using var transaction = await _applicationDbContext.BeginTransactionAsync();
+        using var transaction = await _applicationDbContext.BeginTransactionAsync(ct);
         try
         {
             var materialEntity = _mapper.Map<MaterialEntity>(request);

@@ -7,6 +7,8 @@ public class InvoiceEntity : Entity
 {
     public string InvoiceNumber { get; set; }
 
+    public int SupplierOrderId { get; set; }
+
     public Price TotalPrice { get; set; }
 
     public DateTimeOffset CreateDateTimeUtc { get; set; }
