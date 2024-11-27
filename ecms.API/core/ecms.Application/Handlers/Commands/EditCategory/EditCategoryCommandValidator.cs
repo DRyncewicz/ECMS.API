@@ -12,9 +12,11 @@ public class EditCategoryCommandValidator : AbstractValidator<EditCategoryComman
     {
         RuleFor(p => p.CategoryId)
             .NotEmpty().WithErrorCode(CategoryErrorCodes.MissingId);
+
         RuleFor(p => p.Name)
             .Length(MinimumLengthName, MaximumLengthName).WithErrorCode(CategoryErrorCodes.InvalidLengthName)
             .NotEmpty().WithErrorCode(CategoryErrorCodes.MissingName);
+
         RuleFor(p => p.AncestorHierarchyId)
             .NotEmpty().WithErrorCode(CategoryErrorCodes.MissingAncestorHierarchyId);
     }

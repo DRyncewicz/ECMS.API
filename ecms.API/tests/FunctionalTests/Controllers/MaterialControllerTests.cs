@@ -1,7 +1,5 @@
 ﻿using ecms.Application.Handlers.Commands.CreateMaterial;
-using ecms.Application.Handlers.Commands.CreateProduct;
-using ecms.Application.Handlers.Commands.DeleteMaterial;
-using ecms.Application.Models.Dtos.Products;
+using ecms.Application.Handlers.Commands.EditMaterial;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
@@ -123,5 +121,30 @@ public class MaterialControllerTests : BaseFunctionalTest
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task EditMaterial_ShouldEditMaterial_OnValidRequest()
+    {
+        //Arrange
+        var command = new EditMaterialRequest()
+        {            
+            Name = "Name",
+            MaxStockLevel = 7,
+            MinStockLevel = 1,
+            UnitOfMeasure = ecms.Domain.Enums.UnitOfMeasureType.Pieces,
+            FileGuid = Guid.NewGuid(),
+            Description = "Description",
+            ReorderLevel = 3,
+            IsActive = true,
+            BatchNumber = "BatchNumber",
+            StockId = 1,
+        };
+
+        //Act
+        var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Material/1", command);
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

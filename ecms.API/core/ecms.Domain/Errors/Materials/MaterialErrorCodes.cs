@@ -17,4 +17,6 @@ public static class MaterialErrorCodes
     public const string InvalidMinStockLevel = nameof(InvalidMinStockLevel);
 
     public const string InvalidReorderLevel = nameof(InvalidReorderLevel);
+
+    public const string MissingId = nameof(MissingId);
 }

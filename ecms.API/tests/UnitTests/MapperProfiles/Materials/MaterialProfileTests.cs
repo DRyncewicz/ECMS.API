@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateMaterial;
+using ecms.Application.Handlers.Commands.EditMaterial;
 using ecms.Application.Models.Dtos.Materials;
 using ecms.Application.Models.ViewModels.Materials;
 using ecms.Domain.Entities;
@@ -46,28 +47,7 @@ public class MaterialProfileTests : IClassFixture<MappingTestFixture>
         result.FileGuid.Should().Be(command.FileGuid);
         result.IsActive.Should().Be(command.IsActive);
         result.IsDeleted.Should().Be(command.IsDeleted);
-    }
-
-    [Fact]
-    public void Should_MapFrom_CreateMaterialCommand_To_StockLevelEntity()
-    {
-        //Arrange
-        var command = new CreateMaterialCommand()
-        {
-            StockId = 1,
-            BatchNumber = "DodasekGrubasek",
-            IsDeleted = false,            
-        };
-
-        //Act
-        var result = _mapper.Map<StockLevelEntity>(command);
-
-        //Assert
-        result.StockId.Should().Be(command.StockId);
-        result.BatchNumber.Should().Be(command.BatchNumber);
-        result.Quantity.Should().Be(0);
-        result.IsDeleted.Should().Be(false);     
-    }
+    }    
 
     [Fact]
     public void Should_MapFrom_MaterialEntity_To_MaterialHistoryEntity()
@@ -173,5 +153,35 @@ public class MaterialProfileTests : IClassFixture<MappingTestFixture>
         result.FileGuid.Should().Be(command.FileGuid);
         result.Description.Should().Be(command.Description);
         result.ReorderLevel.Should().Be(command.ReorderLevel);
+    }
+
+    [Fact]
+    public void Should_MapFrom_EditMaterialCommand_To_MaterialEntity()
+    {
+        //Arrange
+        var command = new EditMaterialCommand()
+        {
+            Name = "Name",
+            UnitOfMeasure = ecms.Domain.Enums.UnitOfMeasureType.Pieces,
+            Description = "Description",
+            MinStockLevel = 1,
+            MaxStockLevel = 7,
+            ReorderLevel = 1,
+            FileGuid = Guid.NewGuid(),
+            IsActive = true,
+        };
+
+        //Act
+        var result = _mapper.Map<MaterialEntity>(command);
+
+        //Assert
+        result.Name.Should().Be(command.Name);
+        result.FileGuid.Should().Be(command.FileGuid);
+        result.Description.Should().Be(command.Description);
+        result.MinStockLevel.Should().Be(command.MinStockLevel);
+        result.MaxStockLevel.Should().Be(command.MaxStockLevel);
+        result.ReorderLevel.Should().Be(command.ReorderLevel);
+        result.FileGuid.Should().Be(command.FileGuid);
+        result.IsActive.Should().Be(command.IsActive);
     }
 }
