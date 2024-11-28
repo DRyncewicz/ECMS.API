@@ -1,4 +1,5 @@
-﻿using ecms.Infrastructure.Database;
+﻿using Bogus;
+using ecms.Infrastructure.Database;
 
 namespace FunctionalTests.Abstractions;
 
@@ -13,6 +14,7 @@ public class BaseFunctionalTest : IClassFixture<FunctionalTestWebAppFactory>, ID
         HttpClient = factory.CreateClient();
         AuthorizedHttpClient = factory.GetClient(true);
         CreateDb();
+        Faker = new Faker();
     }
 
     protected ApplicationDbContext ApplicationDbContext { get; }
@@ -20,6 +22,8 @@ public class BaseFunctionalTest : IClassFixture<FunctionalTestWebAppFactory>, ID
     protected HttpClient HttpClient { get; }
 
     protected HttpClient AuthorizedHttpClient { get; }
+
+    protected Faker Faker { get; }
 
     private void CreateDb()
     {

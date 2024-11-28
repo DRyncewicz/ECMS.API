@@ -12,6 +12,8 @@ public class SupplierHistoryEntity : Entity
 
     public int AddressId { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public string CreatorUserId { get; set; }
 
     public DateTimeOffset CreateDateTimeUtc { get; set; }
