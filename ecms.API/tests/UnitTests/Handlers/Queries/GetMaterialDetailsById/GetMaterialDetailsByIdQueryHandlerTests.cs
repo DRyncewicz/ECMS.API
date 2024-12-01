@@ -4,7 +4,6 @@ using ecms.Application.Handlers.Queries.GetMaterialDetailsById;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using Moq;
-using System;
 using UnitTests.Mapping;
 
 namespace UnitTests.Handlers.Queries.GetMaterialDetailsById;

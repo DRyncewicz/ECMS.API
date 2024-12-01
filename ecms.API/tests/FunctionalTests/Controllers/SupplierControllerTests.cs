@@ -34,9 +34,22 @@ public class SupplierControllerTests : BaseFunctionalTest
             AddressId = 1,
         };
 
+        var supplierContact = new SupplierContactEntity
+        {
+            SupplierId = 1,
+            IsActive = true,
+            Description = Faker.Commerce.ProductDescription(),
+            Email = Faker.Internet.Email(),
+            PhoneNumber = Faker.Phone.PhoneNumber(),
+            IsCommon = true,
+            RepresentativeName = Faker.Commerce.ProductName(),           
+        };
+
         ApplicationDbContext.Addresses.Add(address);
         ApplicationDbContext.SaveChanges();
         ApplicationDbContext.Suppliers.Add(supplier);
+        ApplicationDbContext.SaveChanges();
+        ApplicationDbContext.SupplierContacts.Add(supplierContact);
         ApplicationDbContext.SaveChanges();
     }
 
@@ -55,5 +68,15 @@ public class SupplierControllerTests : BaseFunctionalTest
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
+    }
+
+    [Fact]
+    public async Task GetDetailsById_Should_ReturnSupplierDetails_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/Supplier/1");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }
