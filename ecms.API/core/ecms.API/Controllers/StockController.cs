@@ -22,7 +22,7 @@ public class StockController(IMediator _mediator) : BaseController
     public async Task<IActionResult> CreateAsync([FromBody] CreateStockCommand command, CancellationToken ct)
     {
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: stockId => Created(string.Empty, stockId),
             onFailure: CustomResults.Problem);
     }
@@ -36,7 +36,7 @@ public class StockController(IMediator _mediator) : BaseController
     {
         var command = new EditStockCommand(request, StockId);
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: StockId => NoContent(),
             onFailure: CustomResults.Problem);
     }
@@ -50,7 +50,7 @@ public class StockController(IMediator _mediator) : BaseController
     {
         var command = new DeleteStockCommand(StockId);
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: isDeleted => Ok(isDeleted),
             onFailure: CustomResults.Problem);
     }
@@ -63,7 +63,7 @@ public class StockController(IMediator _mediator) : BaseController
     public async Task<IActionResult> GetAllWithAddresses([FromQuery] GetAllStocksWithAddressesQuery query, CancellationToken ct)
     {
         var result = await _mediator.Send(query, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: stocks => Ok(stocks),
             onFailure: CustomResults.Problem);
     }

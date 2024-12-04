@@ -42,7 +42,7 @@ public class SupplierControllerTests : BaseFunctionalTest
             Email = Faker.Internet.Email(),
             PhoneNumber = Faker.Phone.PhoneNumber(),
             IsCommon = true,
-            RepresentativeName = Faker.Commerce.ProductName(),           
+            RepresentativeName = Faker.Commerce.ProductName(),
         };
 
         ApplicationDbContext.Addresses.Add(address);
@@ -75,6 +75,16 @@ public class SupplierControllerTests : BaseFunctionalTest
     {
         //Act
         var response = await AuthorizedHttpClient.GetAsync("api/v1/Supplier/1");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task DeleteSupplier_ShouldDeleteSupplier_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Supplier/1");
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
