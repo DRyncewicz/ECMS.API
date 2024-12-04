@@ -1,5 +1,4 @@
 ﻿using ecms.Application.Handlers.Queries.GetSupplierDetailsById;
-using ecms.Application.Models.ViewModels.Materials;
 using ecms.Application.Models.ViewModels.Suppliers;
 using ecms.Domain.Entities;
 using FluentAssertions;
@@ -11,6 +10,7 @@ namespace IntegrationTests.GetSupplierDetailsById;
 public class GetSupplierDetailsByIdTests : BaseIntegrationTest
 {
     private string _supplierName;
+
     public GetSupplierDetailsByIdTests(IntegrationTestWebAppFactory factory) : base(factory)
     {
         Seed();
@@ -83,4 +83,3 @@ public class GetSupplierDetailsByIdTests : BaseIntegrationTest
         result.IsSuccess.Should().BeTrue();
     }
 }
-

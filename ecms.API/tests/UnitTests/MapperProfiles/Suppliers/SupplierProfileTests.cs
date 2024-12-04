@@ -83,7 +83,6 @@ public class SupplierProfileTests : IClassFixture<MappingTestFixture>
         result.AddressId.Should().Be(command.AddressId);
     }
 
-
     [Fact]
     public void Should_MapFrom_SupplierContactEntity_To_SupplierContactDto()
     {
@@ -112,5 +111,27 @@ public class SupplierProfileTests : IClassFixture<MappingTestFixture>
         result.PhoneNumber.Should().Be(command.PhoneNumber);
         result.Description.Should().Be(command.Description);
         result.Email.Should().Be(command.Email);
+    }
+
+    [Fact]
+    public void Should_MapFrom_SupplierEntity_To_SupplierDto()
+    {
+        //Arrange
+        var command = new SupplierEntity()
+        {
+            Id = 1,
+            Name = "DodasekGrubasek",
+            AddressId = 1,
+            IsActive = true,
+        };
+
+        //Act
+        var result = _mapper.Map<SupplierDto>(command);
+
+        //Assert
+        result.IsActive.Should().Be(command.IsActive);
+        result.Id.Should().Be(command.Id);
+        result.Name.Should().Be(command.Name);
+        result.AddressId.Should().Be(command.AddressId);
     }
 }
