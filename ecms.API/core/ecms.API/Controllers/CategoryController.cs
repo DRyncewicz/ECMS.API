@@ -23,7 +23,7 @@ public class CategoryController(IMediator _mediator) : BaseController
     public async Task<IActionResult> CreateAsync([FromBody] CreateCategoryCommand command, CancellationToken ct)
     {
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: categoryId => Created(string.Empty, categoryId),
             onFailure: CustomResults.Problem);
     }
@@ -36,7 +36,7 @@ public class CategoryController(IMediator _mediator) : BaseController
     public async Task<IActionResult> GetAllPagedAsync([FromQuery] GetAllCategoriesPagedQuery query, CancellationToken ct)
     {
         var result = await _mediator.Send(query, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: categories => Ok(categories),
             onFailure: CustomResults.Problem);
     }
@@ -50,7 +50,7 @@ public class CategoryController(IMediator _mediator) : BaseController
     {
         var query = new GetCategoryByIdQuery(CategoryId);
         var result = await _mediator.Send(query, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: category => Ok(category),
             onFailure: CustomResults.Problem);
     }
@@ -64,7 +64,7 @@ public class CategoryController(IMediator _mediator) : BaseController
     {
         var command = new DeleteCategoryCommand(CategoryId);
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: isDeleted => Ok(isDeleted),
             onFailure: CustomResults.Problem);
     }
@@ -78,7 +78,7 @@ public class CategoryController(IMediator _mediator) : BaseController
     {
         var command = new EditCategoryCommand(request, CategoryId);
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: CategoryId => NoContent(),
             onFailure: CustomResults.Problem);
     }

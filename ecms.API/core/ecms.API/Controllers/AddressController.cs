@@ -18,7 +18,7 @@ namespace ecms.API.Controllers
         public async Task<IActionResult> CreateAsync([FromBody] GetOrCreateAddressCommand command, CancellationToken ct)
         {
             var result = await _mediator.Send(command, ct);
-            return Result.Success(result).Match(
+            return result.Match(
                 onSuccess: addressId => Ok(addressId),
                 onFailure: CustomResults.Problem);
         }

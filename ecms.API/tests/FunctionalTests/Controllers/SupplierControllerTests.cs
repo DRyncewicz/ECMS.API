@@ -81,6 +81,16 @@ public class SupplierControllerTests : BaseFunctionalTest
     }
 
     [Fact]
+    public async Task DeleteSupplier_ShouldDeleteSupplier_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Supplier/1");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
     public async Task GetSuppliers_ShouldReturnSuppliers_OnValidRequest()
     {
         //Act
