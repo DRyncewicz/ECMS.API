@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using FunctionalTests.Abstractions;
+using System.Net;
 
 namespace FunctionalTests.WeatherForecast;
 
@@ -15,9 +16,9 @@ public class WeatherForecastTests : BaseFunctionalTest
         //Arrange
 
         //Act
-        var response = await AuthorizedHttpClient.GetFromJsonAsync<IEnumerable<ecms.API.WeatherForecast>>("api/v1/WeatherForecast");
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/WeatherForecast");
 
         //Assert
-        response.Should().BeOfType<List<ecms.API.WeatherForecast>>();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }

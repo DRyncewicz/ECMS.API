@@ -15,7 +15,7 @@ public static class ResultExtensions
 
     public static IActionResult Match<TIn>(
         this Result<TIn> result,
-        Func<TIn, IActionResult> onSuccess,
+        Func<Result<TIn>, IActionResult> onSuccess,
         Func<Result<TIn>, IActionResult> onFailure)
     {
         return result.IsSuccess ? onSuccess(result.Value) : onFailure(result);
