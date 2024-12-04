@@ -23,7 +23,7 @@ public class MaterialController(IMediator _mediator) : BaseController
     public async Task<IActionResult> CreateAsync([FromBody] CreateMaterialCommand command, CancellationToken ct)
     {
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: materialId => Created(string.Empty, materialId),
             onFailure: CustomResults.Problem);
     }
@@ -37,7 +37,7 @@ public class MaterialController(IMediator _mediator) : BaseController
     {
         var command = new DeleteMaterialCommand(MaterialId);
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: isDeleted => Ok(isDeleted),
             onFailure: CustomResults.Problem);
     }
@@ -51,7 +51,7 @@ public class MaterialController(IMediator _mediator) : BaseController
     {
         var query = new GetMaterialDetailsByIdQuery(MaterialId);
         var result = await _mediator.Send(query, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: material => Ok(material),
             onFailure: CustomResults.Problem);
     }
@@ -64,7 +64,7 @@ public class MaterialController(IMediator _mediator) : BaseController
     public async Task<IActionResult> GetByFiltersAsync([FromQuery] GetMaterialsByFiltersQuery query, CancellationToken ct)
     {
         var result = await _mediator.Send(query, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: materials => Ok(materials),
             onFailure: CustomResults.Problem);
     }
@@ -78,7 +78,7 @@ public class MaterialController(IMediator _mediator) : BaseController
     {
         var command = new EditMaterialCommand(request, MaterialId);
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: StockId => NoContent(),
             onFailure: CustomResults.Problem);
     }

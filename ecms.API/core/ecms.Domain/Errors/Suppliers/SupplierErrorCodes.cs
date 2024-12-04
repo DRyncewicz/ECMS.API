@@ -7,4 +7,6 @@ public class SupplierErrorCodes
     public const string InvalidLengthName = nameof(InvalidLengthName);
 
     public const string MissingAddressId = nameof(MissingAddressId);
+
+    public const string NotFound = nameof(NotFound);
 }

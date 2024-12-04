@@ -2,6 +2,7 @@
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateSupplier;
+using ecms.Application.Handlers.Commands.DeleteSupplier;
 using ecms.Application.Handlers.Queries.GetSupplierDetailsById;
 using ecms.Application.Models.ViewModels.Suppliers;
 using MediatR;
@@ -20,7 +21,7 @@ public class SupplierController(IMediator _mediator) : BaseController
     public async Task<IActionResult> CreateAsync([FromBody] CreateSupplierCommand command, CancellationToken ct)
     {
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: supplierId => Created(string.Empty, supplierId),
             onFailure: CustomResults.Problem);
     }
@@ -34,8 +35,22 @@ public class SupplierController(IMediator _mediator) : BaseController
     {
         var query = new GetSupplierDetailsByIdQuery(SupplierId);
         var result = await _mediator.Send(query, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: supplier => Ok(supplier),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpDelete("{SupplierId}")]
+    [ProducesResponseType(typeof(Result<bool>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync([FromRoute] int SupplierId, CancellationToken ct)
+    {
+        var command = new DeleteSupplierCommand(SupplierId);
+        var result = await _mediator.Send(command, ct);
+        return result.Match(
+            onSuccess: isDeleted => Ok(isDeleted),
             onFailure: CustomResults.Problem);
     }
 }

@@ -25,7 +25,7 @@ public class ProductController(IMediator _mediator) : BaseController
     public async Task<IActionResult> GetByFiltersAsync([FromQuery] GetProductsByFiltersQuery query, CancellationToken ct)
     {
         var result = await _mediator.Send(query, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: products => Ok(products),
             onFailure: CustomResults.Problem);
     }
@@ -39,7 +39,7 @@ public class ProductController(IMediator _mediator) : BaseController
     {
         var query = new GetProductDetailsByIdQuery(ProductId);
         var result = await _mediator.Send(query, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: product => Ok(product),
             onFailure: CustomResults.Problem);
     }
@@ -52,7 +52,7 @@ public class ProductController(IMediator _mediator) : BaseController
     public async Task<IActionResult> CreateAsync([FromBody] CreateProductCommand command, CancellationToken ct)
     {
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: productId => Created(string.Empty, productId),
             onFailure: CustomResults.Problem);
     }
@@ -66,7 +66,7 @@ public class ProductController(IMediator _mediator) : BaseController
     {
         var command = new DeleteProductCommand(ProductId);
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: isDeleted => NoContent(),
             onFailure: CustomResults.Problem);
     }
@@ -80,7 +80,7 @@ public class ProductController(IMediator _mediator) : BaseController
     {
         var command = new EditProductCommand(request, ProductId);
         var result = await _mediator.Send(command, ct);
-        return Result.Success(result).Match(
+        return result.Match(
             onSuccess: ProductId => NoContent(),
             onFailure: CustomResults.Problem);
     }
