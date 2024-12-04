@@ -8,6 +8,7 @@ using ecms.Application.Models.ViewModels.Suppliers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
+using UnitTests.Handlers.Queries.GetSuppliersPaged;
 
 namespace ecms.API.Controllers;
 
@@ -51,6 +52,19 @@ public class SupplierController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(command, ct);
         return result.Match(
             onSuccess: isDeleted => Ok(isDeleted),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(Result<PagedSupplierViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAllPagedAsync([FromQuery] GetSuppliersPagedQuery query, CancellationToken ct)
+    {
+        var result = await _mediator.Send(query, ct);
+        return Result.Success(result).Match(
+            onSuccess: suppliers => Ok(suppliers),
             onFailure: CustomResults.Problem);
     }
 }

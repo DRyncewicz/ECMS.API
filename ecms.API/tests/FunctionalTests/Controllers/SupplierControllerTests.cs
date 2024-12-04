@@ -89,4 +89,14 @@ public class SupplierControllerTests : BaseFunctionalTest
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+
+    [Fact]
+    public async Task GetSuppliers_ShouldReturnSuppliers_OnValidRequest()
+    {
+        //Act
+        var response = await AuthorizedHttpClient.GetAsync("api/v1/Supplier");
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }
