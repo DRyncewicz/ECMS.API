@@ -36,7 +36,7 @@ public class DeleteSupplierCommandHandler(IApplicationDbContext _applicationDbCo
             var supplierHistory = _mapper.Map<SupplierHistoryEntity>(supplierToDelete);
             supplierHistory.CreateDateTimeUtc = _dateTimeProvider.UtcNow;
             supplierHistory.CreatorUserId = _userService.UserId;
-            _applicationDbContext.SupplierHistories.Add(supplierHistory);
+            await _applicationDbContext.SupplierHistories.AddAsync(supplierHistory, ct);
             await _applicationDbContext.SaveChangesAsync(ct);
 
             transaction.Commit();

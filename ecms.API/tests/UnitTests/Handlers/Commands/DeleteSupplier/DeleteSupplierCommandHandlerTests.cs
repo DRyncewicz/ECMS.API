@@ -90,4 +90,20 @@ public class DeleteSupplierCommandHandlerTests : IClassFixture<MappingTestFixtur
         result.Value.Should().Be(true);
         _transaction.Verify(p => p.Commit(), Times.Once);
     }
+
+    [Fact]
+    public async Task Handle_ShouldRollBackTransaction_WhenExceptionOccurs()
+    {
+        //Arrange
+        var request = new DeleteSupplierCommand(1);
+        _applicationDbContext.Setup(p => p.SupplierHistories.AddAsync(It.IsAny<SupplierHistoryEntity>(), It.IsAny<CancellationToken>()))
+                             .ThrowsAsync(new Exception());
+
+        //Act
+        Func<Task> act = async () => await _handler.Handle(request, default);
+
+        //Assert
+        await act.Should().ThrowAsync<Exception>();
+        _transaction.Verify(p => p.Rollback(), Times.Once);
+    }
 }
