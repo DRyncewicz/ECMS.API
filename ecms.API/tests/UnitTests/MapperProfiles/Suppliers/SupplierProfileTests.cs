@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateSupplier;
+using ecms.Application.Handlers.Commands.EditSupplier;
 using ecms.Application.Models.Dtos.Suppliers;
 using ecms.Application.Models.ViewModels.Suppliers;
 using ecms.Domain.Entities;
@@ -18,7 +19,7 @@ public class SupplierProfileTests : IClassFixture<MappingTestFixture>
     }
 
     [Fact]
-    public void Should_MapFrom_CreateSupplierCommand_To_MaterialEntity()
+    public void Should_MapFrom_CreateSupplierCommand_To_SupplierEntity()
     {
         //Arrange
         var command = new CreateSupplierCommand()
@@ -133,5 +134,85 @@ public class SupplierProfileTests : IClassFixture<MappingTestFixture>
         result.Id.Should().Be(command.Id);
         result.Name.Should().Be(command.Name);
         result.AddressId.Should().Be(command.AddressId);
+    }
+
+    [Fact]
+    public void Should_MapFrom_EditSupplierCommand_To_SupplierEntity()
+    {
+        //Arrange
+        var command = new EditSupplierCommand()
+        {
+            SupplierId = 1,
+            Name = "Name",
+            AddressId = 1,
+        };
+
+        //Act
+        var result = _mapper.Map<SupplierEntity>(command);
+
+        //Assert
+        result.Id.Should().Be(command.SupplierId);
+        result.Name.Should().Be(command.Name);
+        result.AddressId.Should().Be(command.AddressId);
+    }
+
+    [Fact]
+    public void Should_MapFrom_SupplierContactEntity_To_CreateSupplierContactDto()
+    {
+        //Arrange
+        var command = new SupplierContactEntity()
+        {
+            Id = 1,
+            RepresentativeName = "Patrykos",
+            IsCommon = true,
+            SupplierId = 1,
+            PhoneNumber = "6954934543",
+            Email = "email@email.pl",
+            Description = "Description",
+            IsActive = true,
+        };
+
+        //Act
+        var result = _mapper.Map<CreateSupplierContactDto>(command);
+
+        //Assert
+        result.Id.Should().Be(command.Id);
+        result.IsActive.Should().Be(command.IsActive);
+        result.IsCommon.Should().Be(command.IsCommon);
+        result.RepresentativeName.Should().Be(command.RepresentativeName);
+        result.SupplierId.Should().Be(command.SupplierId);
+        result.PhoneNumber.Should().Be(command.PhoneNumber);
+        result.Description.Should().Be(command.Description);
+        result.Email.Should().Be(command.Email);
+    }
+
+    [Fact]
+    public void Should_MapFrom_CreateSupplierContactDto_To_SupplierContactEntity()
+    {
+        //Arrange
+        var command = new CreateSupplierContactDto()
+        {
+            Id = 1,
+            RepresentativeName = "Patrykos",
+            IsCommon = true,
+            SupplierId = 1,
+            PhoneNumber = "6954934543",
+            Email = "email@email.pl",
+            Description = "Description",
+            IsActive = true,
+        };
+
+        //Act
+        var result = _mapper.Map<SupplierContactEntity>(command);
+
+        //Assert
+        result.Id.Should().Be(command.Id);
+        result.IsActive.Should().Be(command.IsActive);
+        result.IsCommon.Should().Be(command.IsCommon);
+        result.RepresentativeName.Should().Be(command.RepresentativeName);
+        result.SupplierId.Should().Be(command.SupplierId);
+        result.PhoneNumber.Should().Be(command.PhoneNumber);
+        result.Description.Should().Be(command.Description);
+        result.Email.Should().Be(command.Email);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.CreateSupplier;
+using ecms.Application.Handlers.Commands.EditSupplier;
 using ecms.Application.Models.Dtos.Suppliers;
 using ecms.Application.Models.ViewModels.Suppliers;
 using ecms.Domain.Entities;
@@ -55,5 +56,25 @@ public class SupplierProfile : Profile
             .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        CreateMap<EditSupplierCommand, SupplierEntity>()
+            .ForMember(dest => dest.AddressId, opt => opt.MapFrom(src => src.AddressId))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.SupplierId))
+            .ForMember(dest => dest.Address, opt => opt.Ignore())
+            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
+            .ForMember(dest => dest.SupplierContacts, opt => opt.Ignore())
+            .ForMember(dest => dest.SupplierHistories, opt => opt.Ignore())
+            .ForMember(dest => dest.SupplierOrders, opt => opt.Ignore());
+
+        CreateMap<SupplierContactEntity, CreateSupplierContactDto>().ReverseMap()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.SupplierId, opt => opt.MapFrom(src => src.SupplierId))
+            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+            .ForMember(dest => dest.IsCommon, opt => opt.MapFrom(src => src.IsCommon))
+            .ForMember(dest => dest.RepresentativeName, opt => opt.MapFrom(src => src.RepresentativeName))
+            .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
+            .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 }

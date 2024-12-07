@@ -1,5 +1,7 @@
 ﻿using Bogus;
 using ecms.Application.Handlers.Commands.CreateSupplier;
+using ecms.Application.Handlers.Commands.EditSupplier;
+using ecms.Application.Models.Dtos.Suppliers;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
@@ -98,5 +100,38 @@ public class SupplierControllerTests : BaseFunctionalTest
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task EditSupplier_ShouldEditSupplier_OnValidRequest()
+    {
+        //Arrange
+        var supplierContacts = new List<CreateSupplierContactDto>
+        {
+            new()
+            {
+            SupplierId = 1,
+            IsActive = true,
+            Description = "DeliveryMan",
+            Email = "example@email.com",
+            PhoneNumber = "0700",
+            IsCommon = true,
+            RepresentativeName = "Jakub",
+            }
+        };
+
+        var command = new EditSupplierRequest()
+        {
+            Name = "Name",
+            AddressId = 1,
+            SupplierId = 1,
+            Contacts = supplierContacts
+        };
+
+        //Act
+        var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Supplier/1", command);
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }
