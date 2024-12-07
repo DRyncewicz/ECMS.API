@@ -53,6 +53,7 @@ public class SupplierControllerTests : BaseFunctionalTest
         ApplicationDbContext.SaveChanges();
         ApplicationDbContext.SupplierContacts.Add(supplierContact);
         ApplicationDbContext.SaveChanges();
+        ApplicationDbContext.ChangeTracker.Clear();
     }
 
     [Fact]
@@ -110,13 +111,14 @@ public class SupplierControllerTests : BaseFunctionalTest
         {
             new()
             {
-            SupplierId = 1,
-            IsActive = true,
-            Description = "DeliveryMan",
-            Email = "example@email.com",
-            PhoneNumber = "0700",
-            IsCommon = true,
-            RepresentativeName = "Jakub",
+                Id = 1,
+                SupplierId = 1,
+                IsActive = true,
+                Description = "DeliveryMan",
+                Email = "example@email.com",
+                PhoneNumber = "0700",
+                IsCommon = true,
+                RepresentativeName = "Jakub",
             }
         };
 
