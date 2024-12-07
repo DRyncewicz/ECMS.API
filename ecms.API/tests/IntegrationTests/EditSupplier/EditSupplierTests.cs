@@ -77,7 +77,7 @@ public class EditSupplierTests : BaseIntegrationTest
             SupplierId = 1,
             Name = "Name",
             AddressId = 1,
-            Contacts = supplierContacts
+            Contacts = supplierContacts,
         };
 
         //Act
