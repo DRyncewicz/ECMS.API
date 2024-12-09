@@ -1,5 +1,4 @@
-﻿using ecms.Application.Handlers.Commands.EditProduct;
-using ecms.Domain.Enums;
+﻿using ecms.Domain.Enums;
 using MediatR;
 using SharedKernel;
 
@@ -46,6 +45,5 @@ public class EditMaterialCommand : IRequest<Result<int>>
 
     public EditMaterialCommand()
     {
-
     }
 }

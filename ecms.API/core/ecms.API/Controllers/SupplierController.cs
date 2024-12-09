@@ -3,6 +3,7 @@ using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateSupplier;
 using ecms.Application.Handlers.Commands.DeleteSupplier;
+using ecms.Application.Handlers.Commands.EditSupplier;
 using ecms.Application.Handlers.Queries.GetSupplierDetailsById;
 using ecms.Application.Models.ViewModels.Suppliers;
 using MediatR;
@@ -65,6 +66,20 @@ public class SupplierController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(query, ct);
         return Result.Success(result).Match(
             onSuccess: suppliers => Ok(suppliers),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpPut("{SupplierId}")]
+    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> EditAsync([FromRoute] int SupplierId, [FromBody] EditSupplierRequest request, CancellationToken ct)
+    {
+        var command = new EditSupplierCommand(request, SupplierId);
+        var result = await _mediator.Send(command, ct);
+        return result.Match(
+            onSuccess: SupplierId => NoContent(),
             onFailure: CustomResults.Problem);
     }
 }

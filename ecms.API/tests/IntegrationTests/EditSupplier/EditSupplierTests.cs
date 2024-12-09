@@ -1,17 +1,14 @@
-﻿using Bogus;
-using ecms.Application.Handlers.Commands.CreateSupplier;
-using ecms.Application.Handlers.Commands.EditSupplier;
+﻿using ecms.Application.Handlers.Commands.EditSupplier;
 using ecms.Application.Models.Dtos.Suppliers;
 using ecms.Domain.Entities;
 using FluentAssertions;
-using FunctionalTests.Abstractions;
-using System.Net;
+using IntegrationTests.Abstractions;
 
-namespace FunctionalTests.Controllers;
+namespace IntegrationTests.EditSupplier;
 
-public class SupplierControllerTests : BaseFunctionalTest
+public class EditSupplierTests : BaseIntegrationTest
 {
-    public SupplierControllerTests(FunctionalTestWebAppFactory factory) : base(factory)
+    public EditSupplierTests(IntegrationTestWebAppFactory factory) : base(factory)
     {
         Seed();
     }
@@ -57,53 +54,6 @@ public class SupplierControllerTests : BaseFunctionalTest
     }
 
     [Fact]
-    public async Task CreateSupplier_ShouldCreateSupplier_OnValidRequest()
-    {
-        //Arrange
-        var command = new CreateSupplierCommand()
-        {
-            Name = "Kfd",
-            AddressId = 1,
-        };
-
-        //Act
-        var response = await AuthorizedHttpClient.PostAsJsonAsync("api/v1/Supplier", command);
-
-        //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
-    }
-
-    [Fact]
-    public async Task GetDetailsById_Should_ReturnSupplierDetails_OnValidRequest()
-    {
-        //Act
-        var response = await AuthorizedHttpClient.GetAsync("api/v1/Supplier/1");
-
-        //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
-
-    [Fact]
-    public async Task DeleteSupplier_ShouldDeleteSupplier_OnValidRequest()
-    {
-        //Act
-        var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Supplier/1");
-
-        //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
-
-    [Fact]
-    public async Task GetSuppliers_ShouldReturnSuppliers_OnValidRequest()
-    {
-        //Act
-        var response = await AuthorizedHttpClient.GetAsync("api/v1/Supplier");
-
-        //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
-
-    [Fact]
     public async Task EditSupplier_ShouldEditSupplier_OnValidRequest()
     {
         //Arrange
@@ -122,18 +72,30 @@ public class SupplierControllerTests : BaseFunctionalTest
             }
         };
 
-        var command = new EditSupplierRequest()
+        var command = new EditSupplierCommand()
         {
+            SupplierId = 1,
             Name = "Name",
             AddressId = 1,
-            SupplierId = 1,
-            Contacts = supplierContacts
+            Contacts = supplierContacts,
         };
 
         //Act
-        var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Supplier/1", command);
+        var result = await Sender.Send(command);
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        result.Value.Should().Be(1);
+        var supplier = ApplicationDbContext.Suppliers.First(p => p.Id == 1);
+        supplier.Name.Should().Be("Name");
+        supplier.IsActive.Should().Be(true);
+        supplier.IsDeleted.Should().Be(false);
+        supplier.AddressId.Should().Be(1);
+        var supplierContact = ApplicationDbContext.SupplierContacts.First(p => p.Id == 1);
+        supplierContact.IsActive.Should().Be(true);
+        supplierContact.Description.Should().Be("DeliveryMan");
+        supplierContact.Email.Should().Be("example@email.com");
+        supplierContact.PhoneNumber.Should().Be("0700");
+        supplierContact.RepresentativeName.Should().Be("Jakub");
+        supplierContact.IsCommon.Should().Be(true);
     }
 }
