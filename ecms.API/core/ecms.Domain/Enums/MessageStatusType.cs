@@ -6,5 +6,5 @@ public enum MessageStatusType
     Sent = 2,
     ConfigurationError = 3,
     AuthorizedError = 4,
-    ServerEror = 5,
+    ServerError = 5,
 }

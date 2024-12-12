@@ -6,6 +6,7 @@ using ecms.API.OpenApi;
 using ecms.Application;
 using ecms.Infrastructure;
 using ecms.Infrastructure.Authorization;
+using Hangfire;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,6 +52,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseHangfireDashboard(options: new DashboardOptions
+    {
+        Authorization = [],
+        DarkModeEnabled = true
+    });
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
@@ -71,6 +77,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAll");
 if (builder.Environment.EnvironmentName != "Testing")
 {
+    app.UseBackgroundJobs();
     app.ApplyMigrations();
 }
 

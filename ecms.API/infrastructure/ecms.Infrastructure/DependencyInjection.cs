@@ -4,8 +4,10 @@ using ecms.Application.Abstractions.Data;
 using ecms.Application.Abstractions.Storage;
 using ecms.Infrastructure.Authorization;
 using ecms.Infrastructure.Database;
+using ecms.Infrastructure.Services.EmailService;
 using ecms.Infrastructure.Storage;
 using ecms.Infrastructure.Time;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,10 @@ public static class DependencyInjection
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         AddDatabase(services, configuration);
         AddStorage(services, configuration);
+        AddBackgroundJobs(services, configuration);
+        services.AddFluentEmail("noreply@gmail.com");
+        services.AddScoped<IEmailService, EmailService>();
+        services.Configure<SmtpOptions>(configuration.GetSection(SmtpOptions.SmtpSectionName));
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         return services;
@@ -42,5 +48,13 @@ public static class DependencyInjection
         string? connectionString = configuration.GetConnectionString("BlobStorage");
         Ensure.NotNullOrEmpty(connectionString);
         services.AddSingleton(_ => new BlobServiceClient(connectionString));
+    }
+
+    private static void AddBackgroundJobs(IServiceCollection services, IConfiguration configuration)
+    {
+        string? connectionString = configuration.GetConnectionString("Database");
+        Ensure.NotNullOrEmpty(connectionString);
+        services.AddHangfire(p => p.UseSqlServerStorage(connectionString));
+        services.AddHangfireServer(p => p.SchedulePollingInterval = TimeSpan.FromSeconds(1));
     }
 }
