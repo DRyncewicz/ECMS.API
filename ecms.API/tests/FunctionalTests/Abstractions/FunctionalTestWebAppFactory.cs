@@ -1,4 +1,5 @@
 ﻿using ecms.Infrastructure.Database;
+using Hangfire;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,18 @@ public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
+            var hangfireServiceDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IBackgroundJobClient));
+            if (hangfireServiceDescriptor != null)
+            {
+                services.Remove(hangfireServiceDescriptor);
+            }
+
+            var hangfireServerDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IHostedService) && d.ImplementationType?.Name == "BackgroundJobServer");
+            if (hangfireServerDescriptor != null)
+            {
+                services.Remove(hangfireServerDescriptor);
+            }
+
             services.Configure<TestAuthHandlerOptions>(options => options.DefaultUserId = "1");
 
             services.AddAuthentication(options =>

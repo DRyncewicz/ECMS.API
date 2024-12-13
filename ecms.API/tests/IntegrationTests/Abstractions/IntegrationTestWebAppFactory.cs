@@ -1,12 +1,14 @@
 ﻿using ecms.Application.Abstractions.Auth;
 using ecms.Infrastructure.Authorization;
 using ecms.Infrastructure.Database;
+using Hangfire;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Moq;
 using System.Security.Claims;
 
@@ -33,6 +35,18 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
+            var hangfireServiceDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IBackgroundJobClient));
+            if (hangfireServiceDescriptor != null)
+            {
+                services.Remove(hangfireServiceDescriptor);
+            }
+
+            var hangfireServerDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IHostedService) && d.ImplementationType?.Name == "BackgroundJobServer");
+            if (hangfireServerDescriptor != null)
+            {
+                services.Remove(hangfireServerDescriptor);
+            }
+
             var descriptor = services.SingleOrDefault(
                 d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
 
@@ -47,7 +61,6 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
                     .GetRequiredService<IConfiguration>()
                     .GetConnectionString("Database"), conf => conf.UseHierarchyId());
             });
-
             var sp = services.BuildServiceProvider();
             using (var scope = sp.CreateScope())
             {
