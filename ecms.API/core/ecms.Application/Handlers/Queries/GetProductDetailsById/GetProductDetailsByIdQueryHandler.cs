@@ -5,7 +5,6 @@ using ecms.Application.Models.Dtos.Products;
 using ecms.Application.Models.ViewModels.Products;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SharedKernal;
 using SharedKernel;
 
 namespace ecms.Application.Handlers.Queries.GetProductDetailsById;
@@ -15,7 +14,8 @@ public class GetProductDetailsByIdQueryHandler(IApplicationDbContext _applicatio
 {
     public async Task<Result<ProductDetailsViewModel>> Handle(GetProductDetailsByIdQuery request, CancellationToken ct)
     {
-        var product = _applicationDbContext.Products.Include(p => p.ProductVariants)
+        var product = _applicationDbContext.Products.AsNoTracking()
+                                                    .Include(p => p.ProductVariants)
                                                     .ThenInclude(p => p.ProductVariantAllergens)
                                                     .ThenInclude(p => p.Allergen)
                                                     .AsSplitQuery()
@@ -23,7 +23,10 @@ public class GetProductDetailsByIdQueryHandler(IApplicationDbContext _applicatio
 
         var productVariantDtos = new List<ProductVariantDto>();
 
-        Ensure.NotNull(product);
+        if (product is null)
+        {
+            return Result.Failure<ProductDetailsViewModel>(Error.NotFound("404", $"There is no record with ID {request.ProductId}"));
+        }
 
         foreach (var productVariant in product.ProductVariants)
         {

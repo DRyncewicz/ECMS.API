@@ -13,7 +13,10 @@ namespace ecms.Application.Handlers.Queries.GetAllStocksWithAddresses
     {
         public async Task<Result<StockViewModel>> Handle(GetAllStocksWithAddressesQuery request, CancellationToken ct)
         {
-            var stocks = _applicationDbContext.Stocks.Include(p => p.Address).ToList();
+            var stocks = _applicationDbContext.Stocks.AsNoTracking()
+                                                     .Include(p => p.Address)
+                                                     .Where(x => !x.IsDeleted)
+                                                     .ToList();
             var model = new StockViewModel();
 
             var stockDtos = _mapper.Map<List<StockDto>>(stocks);

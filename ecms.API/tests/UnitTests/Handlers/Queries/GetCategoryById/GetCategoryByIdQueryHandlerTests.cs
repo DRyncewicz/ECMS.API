@@ -59,16 +59,17 @@ public class GetCategoryByIdQueryHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldThrowException_WhenCategoryDoesntExist()
+    public async Task Handle_ShouldEarlyReturnResultFailure_WhenCategoryDoesntExist()
     {
         //Arrange
         var query = new GetCategoryByIdQuery(14);
 
         //Act
-        Func<Task> act = async () => await _handler.Handle(query, default);
+        var result = await _handler.Handle(query, default);
 
         // Assert
-        await act.Should().ThrowAsync<ArgumentNullException>();
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().NotBeNull();
     }
 
     [Fact]
