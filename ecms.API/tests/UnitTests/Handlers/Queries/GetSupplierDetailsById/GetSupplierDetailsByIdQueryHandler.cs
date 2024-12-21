@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
-using ecms.Application.Handlers.Queries.GetMaterialDetailsById;
 using ecms.Application.Handlers.Queries.GetSupplierDetailsById;
 using ecms.Domain.Entities;
 using FluentAssertions;
@@ -106,19 +105,20 @@ public class GetSupplierDetailsByIdQueryHandlerTests : IClassFixture<MappingTest
         result.Value.Name.Should().Be("SupplierName2");
         result.Value.IsActive.Should().Be(true);
         result.Value.AddressId.Should().Be(1);
-        result.Value.ContactDtos.Should().BeEmpty();       
+        result.Value.ContactDtos.Should().BeEmpty();
     }
 
     [Fact]
-    public async Task Handle_ShouldThrowException_WhenMaterialDoesntExist()
+    public async Task Handle_ShouldEarlyReturnResultFailure_WhenMaterialDoesntExist()
     {
         //Arrange
         var query = new GetSupplierDetailsByIdQuery(10);
 
         //Act
-        Func<Task> act = async () => await _handler.Handle(query, default);
+        var result = await _handler.Handle(query, default);
 
-        //Assert
-        await act.Should().ThrowAsync<ArgumentNullException>();
+        // Assert
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().NotBeNull();
     }
 }

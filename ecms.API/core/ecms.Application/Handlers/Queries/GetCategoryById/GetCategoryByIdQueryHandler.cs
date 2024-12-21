@@ -1,7 +1,7 @@
 ﻿using ecms.Application.Abstractions.Data;
 using ecms.Application.Models.ViewModels.Categories;
 using MediatR;
-using SharedKernal;
+using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
 namespace ecms.Application.Handlers.Queries.GetCategoryById;
@@ -10,9 +10,14 @@ public class GetCategoryByIdQueryHandler(IApplicationDbContext _applicationDbCon
 {
     public async Task<Result<CategoryViewModel>> Handle(GetCategoryByIdQuery request, CancellationToken ct)
     {
-        var category = _applicationDbContext.Categories.FirstOrDefault(p => p.Id == request.CategoryId);
+        var category = _applicationDbContext.Categories.AsNoTracking()
+                                                       .FirstOrDefault(p => p.Id == request.CategoryId);
 
-        Ensure.NotNull(category);
+        if (category is null)
+        {
+            return Result.Failure<CategoryViewModel>(Error.NotFound("404", $"There is no record with ID {request.CategoryId}"));
+        }
+
         var ancestorId = category.HierarchyId.GetAncestor(1);
         var model = new CategoryViewModel
         {

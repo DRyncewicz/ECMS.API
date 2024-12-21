@@ -14,6 +14,7 @@ public class GetMaterialDetailsByIdQueryHandlerTests : IClassFixture<MappingTest
     private readonly Mock<IApplicationDbContext> _applicationDbContext;
     private readonly GetMaterialDetailsByIdQueryHandler _handler;
     private readonly Guid fileGuid = Guid.NewGuid();
+
     public GetMaterialDetailsByIdQueryHandlerTests(MappingTestFixture fixture)
     {
         _mapper = fixture.Mapper;
@@ -42,7 +43,7 @@ public class GetMaterialDetailsByIdQueryHandlerTests : IClassFixture<MappingTest
                     IsDeleted = false,
                     LastUpdated = new DateTime(2024, 9, 22),
                     MaterialId = 1,
-                    Quantity = 1,    
+                    Quantity = 1,
                     StockId = 1,
                 }
             }
@@ -76,20 +77,20 @@ public class GetMaterialDetailsByIdQueryHandlerTests : IClassFixture<MappingTest
         result.Value.StockLevel.StockLevelId.Should().Be(1);
         result.Value.StockLevel.LastUpdated.Should().Be(new DateTime(2024, 9, 22));
         result.Value.StockLevel.Quantity.Should().Be(1);
-        result.Value.StockLevel.StockId.Should().Be(1);       
+        result.Value.StockLevel.StockId.Should().Be(1);
     }
 
     [Fact]
-    public async Task Handle_ShouldThrowException_WhenMaterialDoesntExist()
+    public async Task Handle_ShouldEarlyReturnResultFailure_WhenMaterialDoesntExist()
     {
         //Arrange
         var query = new GetMaterialDetailsByIdQuery(10);
 
         //Act
-        Func<Task> act = async () => await _handler.Handle(query, default);
+        var result = await _handler.Handle(query, default);
 
-        //Assert
-        await act.Should().ThrowAsync<ArgumentNullException>();
+        // Assert
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().NotBeNull();
     }
 }
-
