@@ -10,7 +10,7 @@ internal class ProductMaterialHistoryConfiguration : IEntityTypeConfiguration<Pr
     {
         builder.HasKey(p => p.Id);
 
-        builder.Property(p => p.ProductId)
+        builder.Property(p => p.ProductVariantId)
                .IsRequired();
 
         builder.Property(p => p.MaterialId)
@@ -26,7 +26,7 @@ internal class ProductMaterialHistoryConfiguration : IEntityTypeConfiguration<Pr
                .IsRequired()
                .HasPrecision(7);
 
-        builder.Property(p => p.CreatorUsedId)
+        builder.Property(p => p.CreatorUserId)
                .IsRequired()
                .HasMaxLength(450);
 

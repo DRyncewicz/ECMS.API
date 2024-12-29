@@ -5,6 +5,7 @@ using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.DeleteProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
+using ecms.Application.Handlers.Commands.LinkProductVariantMaterials;
 using ecms.Application.Handlers.Queries.GetProductDetailsById;
 using ecms.Application.Handlers.Queries.GetProductsByFilters;
 using ecms.Application.Models.ViewModels.Products;
@@ -82,6 +83,20 @@ public class ProductController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(command, ct);
         return result.Match(
             onSuccess: ProductId => NoContent(),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpPut("ProductVariant/{ProductVariantId:int}/ProductMaterial")]
+    [ProducesResponseType(typeof(Result<bool>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> LinkProductVariantMaterials([FromRoute] int ProductVariantId, [FromBody] LinkProductVariantMaterialsRequest request, CancellationToken ct)
+    {
+        var command = new LinkProductVariantMaterialsCommand(request, ProductVariantId);
+        var result = await _mediator.Send(command, ct);
+        return result.Match(
+            onSuccess: _ => NoContent(),
             onFailure: CustomResults.Problem);
     }
 }
