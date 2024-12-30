@@ -6,7 +6,7 @@ public class ProductMaterialHistoryEntity : Entity
 {
     public int ProductMaterialId { get; set; }
 
-    public int ProductId { get; set; }
+    public int ProductVariantId { get; set; }
 
     public int MaterialId { get; set; }
 
@@ -16,7 +16,7 @@ public class ProductMaterialHistoryEntity : Entity
 
     public DateTimeOffset CreateDateTimeUtc { get; set; }
 
-    public string CreatorUsedId { get; set; }
+    public string CreatorUserId { get; set; }
 
     public virtual ProductMaterialEntity ProductMaterial { get; set; }
 }

@@ -26,7 +26,7 @@ public class MaterialProfile : Profile
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
             .ForMember(dest => dest.MaterialHistories, opt => opt.Ignore())
             .ForMember(dest => dest.SuppliersOrderMaterials, opt => opt.Ignore())
-            .ForMember(dest => dest.Id, opt => opt.Ignore());       
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<EditMaterialCommand, MaterialEntity>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.MaterialId))
