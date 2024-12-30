@@ -8,6 +8,7 @@ using FluentAssertions;
 using UnitTests.Mapping;
 
 namespace UnitTests.MapperProfiles.Materials;
+
 public class MaterialProfileTests : IClassFixture<MappingTestFixture>
 {
     private readonly IMapper _mapper;
@@ -47,7 +48,7 @@ public class MaterialProfileTests : IClassFixture<MappingTestFixture>
         result.FileGuid.Should().Be(command.FileGuid);
         result.IsActive.Should().Be(command.IsActive);
         result.IsDeleted.Should().Be(command.IsDeleted);
-    }    
+    }
 
     [Fact]
     public void Should_MapFrom_MaterialEntity_To_MaterialHistoryEntity()
@@ -147,7 +148,7 @@ public class MaterialProfileTests : IClassFixture<MappingTestFixture>
         //Assert
         result.MaterialId.Should().Be(command.Id);
         result.Name.Should().Be(command.Name);
-        result.IsActive.Should().Be(command.IsActive);        
+        result.IsActive.Should().Be(command.IsActive);
         result.MaxStockLevel.Should().Be(command.MaxStockLevel);
         result.MinStockLevel.Should().Be(command.MinStockLevel);
         result.FileGuid.Should().Be(command.FileGuid);
