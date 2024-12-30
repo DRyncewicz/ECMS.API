@@ -19,12 +19,4 @@ public static class MaterialErrorCodes
     public const string InvalidReorderLevel = nameof(InvalidReorderLevel);
 
     public const string MissingId = nameof(MissingId);
-
-    public const string MissingProductVariantId = nameof(MissingProductVariantId);
-
-    public const string InvalidProductMaterialsAmount = nameof(InvalidProductMaterialsAmount);
-
-    public const string InvalidQuantity = nameof(InvalidQuantity);
-
-    public const string MissingQuantity = nameof(MissingQuantity);
 }

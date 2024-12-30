@@ -1,5 +1,5 @@
 ﻿using ecms.Application.Models.Dtos.Materials;
-using ecms.Domain.Errors.Materials;
+using ecms.Domain.Errors.ProductMaterials;
 using FluentValidation.TestHelper;
 
 namespace ecms.Application.Handlers.Commands.LinkProductVariantMaterials.Tests
@@ -28,7 +28,7 @@ namespace ecms.Application.Handlers.Commands.LinkProductVariantMaterials.Tests
 
             // Assert
             result.ShouldHaveValidationErrorFor(c => c.ProductVariantId)
-                .WithErrorCode(MaterialErrorCodes.MissingProductVariantId);
+                .WithErrorCode(ProductMaterialErrorCodes.MissingProductVariantId);
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace ecms.Application.Handlers.Commands.LinkProductVariantMaterials.Tests
 
             // Assert
             result.ShouldHaveValidationErrorFor(c => c.ProductMaterialDtos)
-                .WithErrorCode(MaterialErrorCodes.InvalidProductMaterialsAmount);
+                .WithErrorCode(ProductMaterialErrorCodes.InvalidProductMaterialsAmount);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace ecms.Application.Handlers.Commands.LinkProductVariantMaterials.Tests
 
             // Assert
             result.ShouldHaveValidationErrorFor("ProductMaterialDtos[0].MaterialId")
-                .WithErrorCode(MaterialErrorCodes.MissingId);
+                .WithErrorCode(ProductMaterialErrorCodes.MissingMaterialId);
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace ecms.Application.Handlers.Commands.LinkProductVariantMaterials.Tests
 
             // Assert
             result.ShouldHaveValidationErrorFor("ProductMaterialDtos[0].Quantity")
-                .WithErrorCode(MaterialErrorCodes.MissingQuantity);
+                .WithErrorCode(ProductMaterialErrorCodes.MissingQuantity);
         }
 
         [Fact]
@@ -121,7 +121,7 @@ namespace ecms.Application.Handlers.Commands.LinkProductVariantMaterials.Tests
 
             // Assert
             result.ShouldHaveValidationErrorFor("ProductMaterialDtos[0].Quantity")
-                .WithErrorCode(MaterialErrorCodes.InvalidQuantity);
+                .WithErrorCode(ProductMaterialErrorCodes.InvalidQuantity);
         }
 
         [Fact]
