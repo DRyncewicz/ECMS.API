@@ -4,7 +4,7 @@ namespace ecms.Application.Models.Dtos.Products;
 
 public class CreateProductVariantDto
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    public Price Price { get; set; }
+    public Price Price { get; set; } = new Price(0, Currency.Usd);
 }

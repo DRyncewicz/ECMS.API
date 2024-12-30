@@ -15,6 +15,8 @@ public class SupplierOrderMaterialEntity : Entity
 
     public int Quantity { get; set; }
 
+    public double Discount { get; set; }
+
     public virtual MaterialEntity Material { get; set; }
 
     public virtual StockTransactionEntity StockTransaction { get; set; }

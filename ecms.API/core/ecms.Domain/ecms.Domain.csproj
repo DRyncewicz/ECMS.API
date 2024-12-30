@@ -15,4 +15,8 @@
     <ProjectReference Include="..\..\SharedKernal\SharedKernal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Errors\NewFolder\" />
+  </ItemGroup>
+
 </Project>
