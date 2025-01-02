@@ -6,5 +6,5 @@ public class CreateProductVariantDto
 {
     public string Name { get; set; } = string.Empty;
 
-    public Price Price { get; set; } = new Price(0, Currency.Usd);
+    public Price Price { get; set; }
 }

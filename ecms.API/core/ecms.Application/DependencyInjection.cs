@@ -1,4 +1,6 @@
 ﻿using ecms.Application.Abstractions.Behaviors;
+using ecms.Application.Abstractions.Emails;
+using ecms.Application.Helpers.Emails;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -19,6 +21,7 @@ public static class DependencyInjection
 
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly, includeInternalTypes: true);
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddScoped<IEmailGenerator, EmailGenerator>();
 
         return services;
     }

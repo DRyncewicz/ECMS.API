@@ -1,7 +1,7 @@
 ﻿using ecms.API.Controllers.Base;
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
-using ecms.Application.Handlers.Commands.GetOrCreateAddress;
+using ecms.Application.Handlers.Commands.Address.GetOrCreateAddress;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel;

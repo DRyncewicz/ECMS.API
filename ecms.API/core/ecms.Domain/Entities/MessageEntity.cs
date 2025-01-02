@@ -22,4 +22,6 @@ public class MessageEntity : Entity
     public int ErrorAttempts { get; set; }
 
     public DateTimeOffset CreateDateTimeUtc { get; set; }
+
+    public virtual SupplierOrderEntity SupplierOrder { get; set; }
 }

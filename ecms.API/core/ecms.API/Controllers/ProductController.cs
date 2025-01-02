@@ -2,12 +2,12 @@
 using ecms.API.Controllers.Base;
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
-using ecms.Application.Handlers.Commands.CreateProduct;
-using ecms.Application.Handlers.Commands.DeleteProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Handlers.Commands.LinkProductVariantMaterials;
+using ecms.Application.Handlers.Commands.Product.CreateProduct;
+using ecms.Application.Handlers.Commands.Product.DeleteProduct;
 using ecms.Application.Handlers.Queries.GetProductDetailsById;
-using ecms.Application.Handlers.Queries.GetProductsByFilters;
+using ecms.Application.Handlers.Queries.Product.GetProductsByFilters;
 using ecms.Application.Models.ViewModels.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

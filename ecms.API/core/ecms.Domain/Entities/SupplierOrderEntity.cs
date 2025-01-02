@@ -11,7 +11,11 @@ public class SupplierOrderEntity : Entity
 
     public StatusType Status { get; set; }
 
+    public int? MessageId { get; set; }
+
     public virtual SupplierEntity Supplier { get; set; }
+
+    public virtual MessageEntity Message { get; set; }
 
     public virtual ICollection<InvoiceEntity> Invoices { get; set; }
 

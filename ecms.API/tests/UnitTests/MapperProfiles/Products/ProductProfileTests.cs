@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
+using ecms.Application.Handlers.Commands.Product.CreateProduct;
 using ecms.Application.Models.Dtos.Allergens;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
@@ -104,7 +104,7 @@ namespace ecms.Application.Tests.MapperProfiles.Products
         public void Should_Map_CreateProductCommand_To_ProductEntity()
         {
             // Arrange
-            var command = new CreateProductCommand
+            var command = new CreateProductCommand()
             {
                 FileGuid = Guid.NewGuid(),
                 Name = "New Product",

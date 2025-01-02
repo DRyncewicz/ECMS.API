@@ -10,15 +10,20 @@ internal class SupplierOrderConfiguration : IEntityTypeConfiguration<SupplierOrd
     {
         builder.HasKey(p => p.Id);
 
-        builder.Property(p => p.DeliveryDate)
-            .IsRequired();
+        builder.Property(p => p.MessageId);
+
+        builder.Property(p => p.DeliveryDate);
 
         builder.Property(p => p.Status)
-            .IsRequired()
-            .HasConversion<string>();
+               .IsRequired()
+               .HasConversion<string>();
 
         builder.HasOne(p => p.Supplier)
                .WithMany(p => p.SupplierOrders)
                .HasForeignKey(p => p.SupplierId);
+
+        builder.HasOne(p => p.Message)
+               .WithOne(p => p.SupplierOrder)
+               .HasForeignKey<SupplierOrderEntity>(p => p.MessageId);
     }
 }

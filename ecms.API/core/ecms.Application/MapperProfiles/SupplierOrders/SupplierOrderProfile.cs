@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.CreateSupplierOrder;
-using ecms.Application.Models.Dtos.Suppliers;
+using ecms.Application.Handlers.Commands.SupplierOrder.CreateSupplierOrder;
+using ecms.Application.Models.Dtos.SupplierOrders;
 using ecms.Domain.Entities;
 
 namespace ecms.Application.MapperProfiles.SupplierOrders;
@@ -14,6 +14,9 @@ public class SupplierOrderProfile : Profile
             .ForMember(dest => dest.DeliveryDate, opt => opt.MapFrom(src => src.DeliveryDate))
             .ForMember(dest => dest.SupplierOrderMaterials, opt => opt.Ignore())
             .ForMember(dest => dest.Supplier, opt => opt.Ignore())
+            .ForMember(dest => dest.Status, opt => opt.Ignore())
+            .ForMember(dest => dest.MessageId, opt => opt.Ignore())
+            .ForMember(dest => dest.Message, opt => opt.Ignore())
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
             .ForMember(dest => dest.Invoices, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore());

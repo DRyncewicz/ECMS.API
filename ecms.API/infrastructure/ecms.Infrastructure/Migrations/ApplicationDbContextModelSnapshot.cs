@@ -882,8 +882,11 @@ namespace ecms.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("DeliveryDate")
+                    b.Property<DateTimeOffset?>("DeliveryDate")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<int?>("MessageId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -893,6 +896,10 @@ namespace ecms.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MessageId")
+                        .IsUnique()
+                        .HasFilter("[MessageId] IS NOT NULL");
 
                     b.HasIndex("SupplierId");
 
@@ -907,14 +914,17 @@ namespace ecms.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
+
                     b.Property<bool>("IsDelivered")
                         .HasColumnType("bit");
 
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
 
                     b.Property<int>("SupplierOrderId")
                         .HasColumnType("int");
@@ -1263,11 +1273,17 @@ namespace ecms.Infrastructure.Migrations
 
             modelBuilder.Entity("ecms.Domain.Entities.SupplierOrderEntity", b =>
                 {
+                    b.HasOne("ecms.Domain.Entities.MessageEntity", "Message")
+                        .WithOne("SupplierOrder")
+                        .HasForeignKey("ecms.Domain.Entities.SupplierOrderEntity", "MessageId");
+
                     b.HasOne("ecms.Domain.Entities.SupplierEntity", "Supplier")
                         .WithMany("SupplierOrders")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Message");
 
                     b.Navigation("Supplier");
                 });
@@ -1345,6 +1361,12 @@ namespace ecms.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("SuppliersOrderMaterials");
+                });
+
+            modelBuilder.Entity("ecms.Domain.Entities.MessageEntity", b =>
+                {
+                    b.Navigation("SupplierOrder")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ecms.Domain.Entities.OrderEntity", b =>

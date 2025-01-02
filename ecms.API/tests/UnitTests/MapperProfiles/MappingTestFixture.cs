@@ -5,6 +5,7 @@ using ecms.Application.MapperProfiles.ProductMaterials;
 using ecms.Application.MapperProfiles.Products;
 using ecms.Application.MapperProfiles.StockLevels;
 using ecms.Application.MapperProfiles.Stocks;
+using ecms.Application.MapperProfiles.SupplierOrders;
 using ecms.Application.MapperProfiles.Suppliers;
 
 namespace UnitTests.Mapping;
@@ -27,6 +28,7 @@ public class MappingTestFixture
             cfg.AddProfile<StockLevelProfile>();
             cfg.AddProfile<SupplierProfile>();
             cfg.AddProfile<ProductMaterialProfile>();
+            cfg.AddProfile<SupplierOrderProfile>();
         });
 
         Mapper = ConfigurationProvider.CreateMapper();

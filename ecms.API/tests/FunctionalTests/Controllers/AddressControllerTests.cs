@@ -1,4 +1,4 @@
-﻿using ecms.Application.Handlers.Commands.GetOrCreateAddress;
+﻿using ecms.Application.Handlers.Commands.Address.GetOrCreateAddress;
 using ecms.Domain.Entities;
 using ecms.Infrastructure.Database;
 using FluentAssertions;
@@ -46,7 +46,7 @@ public class AddressControllerTests : BaseFunctionalTest
     public async Task GetOrCreate_ShouldReturnAddressId_OnValidRequest()
     {
         //Arrange
-        var command = new GetOrCreateAddressCommand
+        var command = new GetOrCreateAddressCommand()
         {
             Country = "Poland",
             City = "Koszalin",

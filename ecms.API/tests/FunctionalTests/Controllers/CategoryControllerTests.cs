@@ -1,5 +1,5 @@
-﻿using ecms.Application.Handlers.Commands.CreateCategory;
-using ecms.Application.Handlers.Commands.EditCategory;
+﻿using ecms.Application.Handlers.Commands.Category.CreateCategory;
+using ecms.Application.Handlers.Commands.Category.EditCategory;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;

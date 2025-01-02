@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.CreateMaterial;
-using ecms.Application.Handlers.Commands.EditMaterial;
+using ecms.Application.Handlers.Commands.Material.CreateMaterial;
+using ecms.Application.Handlers.Commands.Material.EditMaterial;
 using ecms.Application.Models.Dtos.Materials;
 using ecms.Application.Models.ViewModels.Materials;
 using ecms.Domain.Entities;

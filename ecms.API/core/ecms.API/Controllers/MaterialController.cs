@@ -1,11 +1,11 @@
 ﻿using ecms.API.Controllers.Base;
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
-using ecms.Application.Handlers.Commands.CreateMaterial;
 using ecms.Application.Handlers.Commands.DeleteMaterial;
-using ecms.Application.Handlers.Commands.EditMaterial;
-using ecms.Application.Handlers.Queries.GetMaterialDetailsById;
-using ecms.Application.Handlers.Queries.GetMaterialsByFilters;
+using ecms.Application.Handlers.Commands.Material.CreateMaterial;
+using ecms.Application.Handlers.Commands.Material.EditMaterial;
+using ecms.Application.Handlers.Queries.Material.GetMaterialDetailsById;
+using ecms.Application.Handlers.Queries.Material.GetMaterialsByFilters;
 using ecms.Application.Models.ViewModels.Materials;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
