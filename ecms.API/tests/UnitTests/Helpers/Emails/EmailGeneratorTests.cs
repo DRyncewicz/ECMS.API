@@ -45,7 +45,7 @@ public class EmailGeneratorTests
         var result = _emailGenerator.GenerateSupplierOrderSubject(language);
 
         //Assert
-        result.Should().Be("Order dated 22.09.2025");
+        result.Should().Be($"Order dated {_dateTimeProvider.Object.UtcNow.ToString("d")}");
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class EmailGeneratorTests
         var result = _emailGenerator.GenerateOrderWelcomeMessageContent(language, date, supplierOrderId);
 
         //Assert
-        result.Should().Be("Dzień dobry.\r\nPiszę, aby przesłać nasze zamówienie do dostawy w dniu 22.09.2025. Dodatkowo, proszę zanotować nasz wewnętrzny numer zamówienia: 1. Poniżej znajdują się szczegóły:\r\n");
+        result.Should().Be($"Dzień dobry.\r\nPiszę, aby przesłać nasze zamówienie do dostawy w dniu {dateText}. Dodatkowo, proszę zanotować nasz wewnętrzny numer zamówienia: 1. Poniżej znajdują się szczegóły:\r\n");
     }
 
     [Fact]
