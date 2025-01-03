@@ -13,7 +13,9 @@ public class SupplierOrderMaterialEntity : Entity
 
     public Price PricePerUnit { get; set; }
 
-    public int Quantity { get; set; }
+    public double Quantity { get; set; }
+
+    public double Discount { get; set; }
 
     public virtual MaterialEntity Material { get; set; }
 

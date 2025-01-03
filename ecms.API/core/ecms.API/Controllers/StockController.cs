@@ -1,10 +1,10 @@
 ﻿using ecms.API.Controllers.Base;
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
-using ecms.Application.Handlers.Commands.CreateStock;
-using ecms.Application.Handlers.Commands.DeleteStock;
-using ecms.Application.Handlers.Commands.EditStock;
-using ecms.Application.Handlers.Queries.GetAllStocksWithAddresses;
+using ecms.Application.Handlers.Commands.Stock.CreateStock;
+using ecms.Application.Handlers.Commands.Stock.DeleteStock;
+using ecms.Application.Handlers.Commands.Stock.EditStock;
+using ecms.Application.Handlers.Queries.Stock.GetAllStocksWithAddresses;
 using ecms.Application.Models.ViewModels.Stocks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

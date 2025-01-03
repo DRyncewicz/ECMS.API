@@ -1,7 +1,7 @@
 ﻿using Bogus;
-using ecms.Application.Handlers.Commands.CreateSupplier;
 using ecms.Application.Handlers.Commands.EditSupplier;
-using ecms.Application.Models.Dtos.Suppliers;
+using ecms.Application.Handlers.Commands.Supplier.CreateSupplier;
+using ecms.Application.Models.Dtos.SupplierOrders;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;

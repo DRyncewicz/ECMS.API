@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.CreateCategory;
-using ecms.Application.Handlers.Commands.EditCategory;
+using ecms.Application.Handlers.Commands.Category.CreateCategory;
+using ecms.Application.Handlers.Commands.Category.EditCategory;
 using ecms.Application.Models.Dtos.Categories;
 using ecms.Domain.Entities;
 

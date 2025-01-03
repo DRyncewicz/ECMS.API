@@ -1,5 +1,5 @@
-﻿using ecms.Application.Handlers.Commands.CreateMaterial;
-using ecms.Application.Handlers.Commands.EditMaterial;
+﻿using ecms.Application.Handlers.Commands.Material.CreateMaterial;
+using ecms.Application.Handlers.Commands.Material.EditMaterial;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
@@ -95,7 +95,7 @@ public class MaterialControllerTests : BaseFunctionalTest
 
     [Fact]
     public async Task DeleteMaterial_ShouldDeleteMaterial_OnValidRequest()
-    {       
+    {
         //Act
         var response = await AuthorizedHttpClient.DeleteAsync("api/v1/Material/1");
 
@@ -128,7 +128,7 @@ public class MaterialControllerTests : BaseFunctionalTest
     {
         //Arrange
         var command = new EditMaterialRequest()
-        {            
+        {
             Name = "Name",
             MaxStockLevel = 7,
             MinStockLevel = 1,

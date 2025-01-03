@@ -1,6 +1,6 @@
-﻿using ecms.Application.Handlers.Commands.CreateProduct;
-using ecms.Application.Handlers.Commands.EditProduct;
+﻿using ecms.Application.Handlers.Commands.EditProduct;
 using ecms.Application.Handlers.Commands.LinkProductVariantMaterials;
+using ecms.Application.Handlers.Commands.Product.CreateProduct;
 using ecms.Application.Models.Dtos.Materials;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;

@@ -1,5 +1,5 @@
-﻿using ecms.Application.Handlers.Commands.CreateStock;
-using ecms.Application.Handlers.Commands.EditStock;
+﻿using ecms.Application.Handlers.Commands.Stock.CreateStock;
+using ecms.Application.Handlers.Commands.Stock.EditStock;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using FunctionalTests.Abstractions;

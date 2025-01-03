@@ -1,11 +1,11 @@
 ﻿using ecms.API.Controllers.Base;
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
-using ecms.Application.Handlers.Commands.CreateCategory;
-using ecms.Application.Handlers.Commands.DeleteCategory;
-using ecms.Application.Handlers.Commands.EditCategory;
-using ecms.Application.Handlers.Queries.GetAllCategoriesPaged;
-using ecms.Application.Handlers.Queries.GetCategoryById;
+using ecms.Application.Handlers.Commands.Category.CreateCategory;
+using ecms.Application.Handlers.Commands.Category.DeleteCategory;
+using ecms.Application.Handlers.Commands.Category.EditCategory;
+using ecms.Application.Handlers.Queries.Category.GetAllCategoriesPaged;
+using ecms.Application.Handlers.Queries.Category.GetCategoryById;
 using ecms.Application.Models.ViewModels.Categories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

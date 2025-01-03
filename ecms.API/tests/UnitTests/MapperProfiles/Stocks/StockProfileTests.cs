@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.CreateStock;
-using ecms.Application.Handlers.Commands.EditStock;
+using ecms.Application.Handlers.Commands.Stock.CreateStock;
+using ecms.Application.Handlers.Commands.Stock.EditStock;
 using ecms.Application.Models.Dtos.Stocks;
 using ecms.Domain.Entities;
 using FluentAssertions;

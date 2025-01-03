@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.CreateMaterial;
-using ecms.Application.Handlers.Commands.EditMaterial;
+using ecms.Application.Handlers.Commands.Material.CreateMaterial;
+using ecms.Application.Handlers.Commands.Material.EditMaterial;
 using ecms.Application.Models.Dtos.StockLevels;
 using ecms.Domain.Entities;
 using FluentAssertions;
@@ -82,5 +82,4 @@ public class StockLevelProfileTests : IClassFixture<MappingTestFixture>
         result.BatchNumber.Should().Be(command.BatchNumber);
         result.Quantity.Should().Be(default);
     }
-
 }

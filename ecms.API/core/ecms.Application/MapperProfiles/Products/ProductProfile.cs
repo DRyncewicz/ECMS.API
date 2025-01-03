@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.CreateProduct;
 using ecms.Application.Handlers.Commands.EditProduct;
+using ecms.Application.Handlers.Commands.Product.CreateProduct;
 using ecms.Application.Models.Dtos.Allergens;
 using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;

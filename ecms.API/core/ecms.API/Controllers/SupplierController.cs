@@ -1,10 +1,10 @@
 ﻿using ecms.API.Controllers.Base;
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
-using ecms.Application.Handlers.Commands.CreateSupplier;
-using ecms.Application.Handlers.Commands.DeleteSupplier;
 using ecms.Application.Handlers.Commands.EditSupplier;
-using ecms.Application.Handlers.Queries.GetSupplierDetailsById;
+using ecms.Application.Handlers.Commands.Supplier.CreateSupplier;
+using ecms.Application.Handlers.Commands.Supplier.DeleteSupplier;
+using ecms.Application.Handlers.Queries.Supplier.GetSupplierDetailsById;
 using ecms.Application.Models.ViewModels.Suppliers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

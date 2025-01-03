@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ecms.Application.Handlers.Commands.GetOrCreateAddress;
+using ecms.Application.Handlers.Commands.Address.GetOrCreateAddress;
 using ecms.Application.Models.Dtos.Addresses;
 using ecms.Domain.Entities;
 
