@@ -2,6 +2,8 @@
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.SupplierOrder.CreateSupplierOrder;
+using ecms.Application.Handlers.Queries.SupplierOrder;
+using ecms.Application.Models.ViewModels.SupplierOrders;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
@@ -20,6 +22,19 @@ public class SupplierOrderController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(command, ct);
         return result.Match(
             onSuccess: supplierOrderId => Created(string.Empty, supplierOrderId),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(Result<SupplierOrdersViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAllPagedAsync([FromQuery] GetSupplierOrdersPagedQuery query, CancellationToken ct)
+    {
+        var result = await _mediator.Send(query, ct);
+        return Result.Success(result).Match(
+            onSuccess: supplierOrders => Ok(supplierOrders),
             onFailure: CustomResults.Problem);
     }
 }

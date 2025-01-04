@@ -30,8 +30,4 @@
     <ProjectReference Include="..\..\core\ecms.Application\ecms.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handlers\Queries\SupplierOrder\" />
-  </ItemGroup>
-
 </Project>

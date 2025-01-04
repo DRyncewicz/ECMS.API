@@ -20,6 +20,7 @@ public class CreateSupplierOrderCommandHandler(IApplicationDbContext _applicatio
         {
             var supplierOrder = _mapper.Map<SupplierOrderEntity>(request);
             supplierOrder.Status = Domain.Enums.StatusType.Pending;
+            supplierOrder.CreateDateTimeUtc = _dateTimeProvider.UtcNow;
             await _applicationDbContext.SupplierOrders.AddAsync(supplierOrder, ct);
             await _applicationDbContext.SaveChangesAsync(ct);
 

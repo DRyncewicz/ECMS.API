@@ -19,4 +19,6 @@ public class SupplierContactEntity : Entity
     public string Description { get; set; }
 
     public virtual SupplierEntity Supplier { get; set; }
+
+    public virtual ICollection<SupplierOrderEntity> SupplierOrders { get; set; }
 }

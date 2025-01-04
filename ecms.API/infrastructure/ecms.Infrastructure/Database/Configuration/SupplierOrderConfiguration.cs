@@ -20,10 +20,17 @@ internal class SupplierOrderConfiguration : IEntityTypeConfiguration<SupplierOrd
 
         builder.HasOne(p => p.Supplier)
                .WithMany(p => p.SupplierOrders)
-               .HasForeignKey(p => p.SupplierId);
+               .HasForeignKey(p => p.SupplierId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(p => p.Message)
                .WithOne(p => p.SupplierOrder)
-               .HasForeignKey<SupplierOrderEntity>(p => p.MessageId);
+               .HasForeignKey<SupplierOrderEntity>(p => p.MessageId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(p => p.SupplierContact)
+               .WithMany(p => p.SupplierOrders)
+               .HasForeignKey(p => p.SupplierContactId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

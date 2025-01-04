@@ -7,7 +7,13 @@ public class SupplierOrderEntity : Entity
 {
     public int SupplierId { get; set; }
 
-    public DateTimeOffset? DeliveryDate { get; set; }
+    public int SupplierContactId { get; set; }
+
+    public DateTime? DeliveryDate { get; set; }
+
+    public DateTimeOffset CreateDateTimeUtc { get; set; }
+
+    public DateTimeOffset? EditDateTimeUtc { get; set; }
 
     public StatusType Status { get; set; }
 
@@ -16,6 +22,8 @@ public class SupplierOrderEntity : Entity
     public virtual SupplierEntity Supplier { get; set; }
 
     public virtual MessageEntity Message { get; set; }
+
+    public virtual SupplierContactEntity SupplierContact { get; set; }
 
     public virtual ICollection<InvoiceEntity> Invoices { get; set; }
 

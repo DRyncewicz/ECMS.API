@@ -90,7 +90,7 @@ public class CreateSupplierOrderCommandHandlerTests : IClassFixture<MappingTestF
             SupplierContactId = 1,
             SupplierOrderMaterialDtos = supplierOrderMaterialDtos,
             Language = LanguageType.English,
-            DeliveryDate = new DateTimeOffset(2025, 9, 22, 12, 0, 0, TimeSpan.Zero)
+            DeliveryDate = new DateTime(2025, 9, 22, 12, 0, 0)
         };
         _applicationDbContext.Setup(p => p.SupplierOrders).Returns(new Mock<DbSet<SupplierOrderEntity>>().Object);
         _applicationDbContext.Setup(p => p.SupplierOrderMaterials).Returns(new Mock<DbSet<SupplierOrderMaterialEntity>>().Object);
@@ -124,7 +124,7 @@ public class CreateSupplierOrderCommandHandlerTests : IClassFixture<MappingTestF
             SupplierContactId = 1,
             SupplierOrderMaterialDtos = supplierOrderMaterialDtos,
             Language = LanguageType.English,
-            DeliveryDate = new DateTimeOffset(2025, 9, 22, 12, 0, 0, TimeSpan.Zero)
+            DeliveryDate = new DateTime(2025, 9, 22, 12, 0, 0)
         };
         _applicationDbContext.Setup(p => p.SupplierOrders).Returns(new Mock<DbSet<SupplierOrderEntity>>().Object);
         _applicationDbContext.Setup(p => p.SupplierOrderMaterials).Returns(new Mock<DbSet<SupplierOrderMaterialEntity>>().Object);
@@ -158,7 +158,7 @@ public class CreateSupplierOrderCommandHandlerTests : IClassFixture<MappingTestF
             SupplierContactId = 1,
             SupplierOrderMaterialDtos = supplierOrderMaterialDtos,
             Language = LanguageType.English,
-            DeliveryDate = new DateTimeOffset(2025, 9, 22, 12, 0, 0, TimeSpan.Zero)
+            DeliveryDate = new DateTime(2025, 9, 22, 12, 0, 0)
         };
         _applicationDbContext.Setup(p => p.SupplierOrders.AddAsync(It.IsAny<SupplierOrderEntity>(), It.IsAny<CancellationToken>()))
                              .ThrowsAsync(new Exception("Simulated exception"));

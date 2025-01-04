@@ -12,6 +12,8 @@ public class SupplierOrderProfile : Profile
         CreateMap<CreateSupplierOrderCommand, SupplierOrderEntity>()
             .ForMember(dest => dest.SupplierId, opt => opt.MapFrom(src => src.SupplierId))
             .ForMember(dest => dest.DeliveryDate, opt => opt.MapFrom(src => src.DeliveryDate))
+            .ForMember(dest => dest.CreateDateTimeUtc, opt => opt.Ignore())
+            .ForMember(dest => dest.EditDateTimeUtc, opt => opt.Ignore())
             .ForMember(dest => dest.SupplierOrderMaterials, opt => opt.Ignore())
             .ForMember(dest => dest.Supplier, opt => opt.Ignore())
             .ForMember(dest => dest.Status, opt => opt.Ignore())
@@ -19,6 +21,7 @@ public class SupplierOrderProfile : Profile
             .ForMember(dest => dest.Message, opt => opt.Ignore())
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
             .ForMember(dest => dest.Invoices, opt => opt.Ignore())
+            .ForMember(dest => dest.SupplierContact, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<CreateSupplierOrderMaterialDto, SupplierOrderMaterialEntity>()
@@ -33,5 +36,17 @@ public class SupplierOrderProfile : Profile
             .ForMember(dest => dest.Material, opt => opt.Ignore())
             .ForMember(dest => dest.StockTransaction, opt => opt.Ignore())
             .ForMember(dest => dest.SupplierOrderId, opt => opt.Ignore());
+
+        CreateMap<SupplierOrderEntity, SupplierOrderDto>()
+            .ForMember(dest => dest.SupplierOrderId, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.SupplierId, opt => opt.MapFrom(src => src.SupplierId))
+            .ForMember(dest => dest.SupplierContactId, opt => opt.MapFrom(src => src.SupplierContactId))
+            .ForMember(dest => dest.DeliveryDate, opt => opt.MapFrom(src => src.DeliveryDate))
+            .ForMember(dest => dest.SendMessage, opt => opt.MapFrom(src => src.MessageId != null))
+            .ForMember(dest => dest.CreateDateTimeUtc, opt => opt.MapFrom(src => src.CreateDateTimeUtc))
+            .ForMember(dest => dest.EditDateTimeUtc, opt => opt.MapFrom(src => src.EditDateTimeUtc))
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+            .ForMember(dest => dest.MessageId, opt => opt.MapFrom(src => src.MessageId))
+            .ForMember(dest => dest.TotalPrice, opt => opt.Ignore());
     }
 }
