@@ -2,6 +2,7 @@
 using ecms.Application.Abstractions.Data;
 using ecms.Application.Models.Dtos.SupplierOrders;
 using ecms.Application.Models.ViewModels.SupplierOrders;
+using ecms.Domain.Entities;
 using ecms.Domain.ValueObjects;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -14,20 +15,24 @@ public class GetSupplierOrdersPagedQueryHandler(IApplicationDbContext _applicati
 {
     public async Task<Result<SupplierOrdersViewModel>> Handle(GetSupplierOrdersPagedQuery request, CancellationToken ct)
     {
-        var supplierOrders = _applicationDbContext.SupplierOrders.Include(p => p.SupplierOrderMaterials).OrderByDescending(p => p.CreateDateTimeUtc).ToList();
-        await _applicationDbContext.SaveChangesAsync(ct);
+        var supplierOrders = _applicationDbContext.SupplierOrders.Include(p => p.SupplierOrderMaterials).OrderByDescending(p => p.CreateDateTimeUtc);
 
         var model = new SupplierOrdersViewModel();
         model.TotalCount = supplierOrders.Count();
 
+        var supplierOrderList = new List<SupplierOrderEntity>();
+
         if (request.CurrentPage > 0 && request.PageSize > 0)
         {
-            supplierOrders = supplierOrders.Skip(request.CurrentPage * request.PageSize - request.PageSize)
-                                           .Take(request.PageSize)
-                                           .ToList();
+            supplierOrderList = await supplierOrders.Skip(request.CurrentPage * request.PageSize - request.PageSize)
+                                           .Take(request.PageSize).ToListAsync(ct);
+        }
+        else
+        {
+            supplierOrderList = supplierOrders.ToList();
         }
 
-        model.SupplierOrders = supplierOrders.Select(supplierOrder =>
+        model.SupplierOrders = supplierOrderList.Select(supplierOrder =>
         {
             var totalAmount = supplierOrder.SupplierOrderMaterials.Sum(material => material.PricePerUnit.Amount * material.Quantity);
 
