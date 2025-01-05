@@ -15,7 +15,7 @@ public class CreateSupplierOrderCommand : IRequest<Result<int>>
 
     public LanguageType Language { get; set; }
 
-    public DateTimeOffset? DeliveryDate { get; set; }
+    public DateTime? DeliveryDate { get; set; }
 
     public bool SendMessage { get; set; }
 }

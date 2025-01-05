@@ -1,15 +1,15 @@
-﻿using ecms.Application.Handlers.Commands.SupplierOrder.CreateSupplierOrder;
-using ecms.Application.Models.Dtos.SupplierOrders;
+﻿using ecms.Application.Handlers.Queries.SupplierOrder;
+using ecms.Application.Models.ViewModels.SupplierOrders;
 using ecms.Domain.Entities;
 using FluentAssertions;
-using FunctionalTests.Abstractions;
-using System.Net;
+using IntegrationTests.Abstractions;
+using SharedKernel;
 
-namespace FunctionalTests.Controllers;
+namespace IntegrationTests.SupplierOrder.GetSupplierOrdersPaged;
 
-public class SupplierOrderControllerTests : BaseFunctionalTest
+public class GetSupplierOrdersPagedTests : BaseIntegrationTest
 {
-    public SupplierOrderControllerTests(FunctionalTestWebAppFactory factory) : base(factory)
+    public GetSupplierOrdersPagedTests(IntegrationTestWebAppFactory factory) : base(factory)
     {
         Seed();
     }
@@ -91,44 +91,19 @@ public class SupplierOrderControllerTests : BaseFunctionalTest
     }
 
     [Fact]
-    public async Task CreateSupplierOrder_ShouldCreateSupplierOrder_OnValidRequest()
+    public async Task GetSupplierOrdersPaged_ShouldReturnSuccessResult_OnValidRequest()
     {
         //Arrange
-        var supplierOrderMaterialDtos = new List<CreateSupplierOrderMaterialDto>
-        {
-            new()
-            {
-                MaterialId = 1,
-                Discount = 23,
-                PricePerUnit = new ecms.Domain.ValueObjects.Price(25, ecms.Domain.ValueObjects.Currency.Usd),
-                Quantity = 17,
-            }
-        };
-
-        var command = new CreateSupplierOrderCommand()
-        {
-            SupplierId = 1,
-            DeliveryDate = new DateTime(2025, 09, 22),
-            Language = ecms.Domain.Enums.LanguageType.English,
-            SendMessage = true,
-            SupplierContactId = 1,
-            SupplierOrderMaterialDtos = supplierOrderMaterialDtos
-        };
+        var query = new GetSupplierOrdersPagedQuery();
 
         //Act
-        var response = await AuthorizedHttpClient.PostAsJsonAsync("api/v1/SupplierOrder", command);
+        var result = await Sender.Send(query);
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
-    }
-
-    [Fact]
-    public async Task GetSupplierOrders_ShouldReturnSupplierOrders_OnValidRequest()
-    {
-        //Act
-        var response = await AuthorizedHttpClient.GetAsync("api/v1/SupplierOrder");
-
-        //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        result.Should().NotBeNull();
+        result.Should().BeOfType<Result<SupplierOrdersViewModel>>();
+        result.IsSuccess.Should().BeTrue();
+        result.Value.SupplierOrders.Should().HaveCount(1);
+        result.Value.TotalCount.Should().Be(1);
     }
 }

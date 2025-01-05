@@ -23,7 +23,7 @@ public class SupplierOrderProfileTests : IClassFixture<MappingTestFixture>
         var command = new CreateSupplierOrderCommand()
         {
             SupplierId = 1,
-            DeliveryDate = new DateTimeOffset(2025, 9, 22, 12, 0, 0, TimeSpan.Zero),
+            DeliveryDate = new DateTime(2025, 9, 22, 12, 0, 0),
         };
 
         //Act
@@ -32,6 +32,8 @@ public class SupplierOrderProfileTests : IClassFixture<MappingTestFixture>
         //Assert
         result.SupplierId.Should().Be(command.SupplierId);
         result.DeliveryDate.Should().Be(command.DeliveryDate);
+        result.CreateDateTimeUtc.Should().Be(default);
+        result.EditDateTimeUtc.Should().BeNull();
     }
 
     [Fact]
@@ -55,5 +57,36 @@ public class SupplierOrderProfileTests : IClassFixture<MappingTestFixture>
         result.IsDelivered.Should().Be(false);
         result.PricePerUnit.Should().Be(command.PricePerUnit);
         result.Discount.Should().Be(command.Discount);
+    }
+
+    [Fact]
+    public void Should_MapFrom_SupplierOrderEntity_To_SupplierOrderDto()
+    {
+        //Arrange
+        var command = new SupplierOrderEntity()
+        {
+            Id = 1,
+            SupplierId = 1,
+            SupplierContactId = 1,
+            DeliveryDate = new DateTime(2025, 9, 22),
+            CreateDateTimeUtc = new DateTimeOffset(2025, 9, 22, 12, 0, 0, TimeSpan.Zero),
+            EditDateTimeUtc = new DateTimeOffset(2024, 9, 22, 12, 0, 0, 0, TimeSpan.Zero),
+            Status = ecms.Domain.Enums.StatusType.Pending,
+            MessageId = 1,
+        };
+
+        //Act
+        var result = _mapper.Map<SupplierOrderDto>(command);
+
+        //Assert
+        result.SupplierOrderId.Should().Be(command.Id);
+        result.SupplierId.Should().Be(command.SupplierId);
+        result.SupplierContactId.Should().Be(command.SupplierContactId);
+        result.DeliveryDate.Should().Be(command.DeliveryDate);
+        result.CreateDateTimeUtc.Should().Be(command.CreateDateTimeUtc);
+        result.EditDateTimeUtc.Should().Be(command.EditDateTimeUtc);
+        result.Status.Should().Be(command.Status);
+        result.MessageId.Should().Be(command.MessageId);
+        result.SendMessage.Should().Be(true);
     }
 }
