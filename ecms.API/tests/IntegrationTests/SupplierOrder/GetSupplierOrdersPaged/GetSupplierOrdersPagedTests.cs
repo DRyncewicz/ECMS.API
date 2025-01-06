@@ -1,4 +1,4 @@
-﻿using ecms.Application.Handlers.Queries.SupplierOrder;
+﻿using ecms.Application.Handlers.Queries.SupplierOrder.GetSupplierOrdersPaged;
 using ecms.Application.Models.ViewModels.SupplierOrders;
 using ecms.Domain.Entities;
 using FluentAssertions;

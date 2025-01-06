@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
+using ecms.Application.Handlers.Queries.SupplierOrder.GetSupplierOrdersPaged;
 using ecms.Application.Models.Dtos.SupplierOrders;
 using ecms.Application.Models.ViewModels.SupplierOrders;
 using ecms.Domain.Entities;

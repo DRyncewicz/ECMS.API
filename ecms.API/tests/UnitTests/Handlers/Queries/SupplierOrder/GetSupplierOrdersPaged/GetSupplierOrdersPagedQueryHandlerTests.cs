@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
 using ecms.Application.Handlers.Queries.SupplierOrder;
+using ecms.Application.Handlers.Queries.SupplierOrder.GetSupplierOrdersPaged;
 using ecms.Domain.Entities;
+using ecms.Domain.ValueObjects;
 using FluentAssertions;
 using Moq;
 using UnitTests.Mapping;
@@ -55,42 +57,42 @@ public class GetSupplierOrdersPagedQueryHandlerTests : IClassFixture<MappingTest
             Id = 1,
             SupplierOrderId = 1,
             Quantity = 1,
-            PricePerUnit = new ecms.Domain.ValueObjects.Price(10, ecms.Domain.ValueObjects.Currency.Usd)
+            PricePerUnit = new Price(10, Currency.Usd)
         },
         new()
         {
             Id = 2,
             SupplierOrderId = 2,
             Quantity = 1,
-            PricePerUnit = new ecms.Domain.ValueObjects.Price(10, ecms.Domain.ValueObjects.Currency.Usd)
+            PricePerUnit = new Price(10, Currency.Usd)
         },
         new()
         {
             Id = 3,
             SupplierOrderId = 3,
             Quantity = 1,
-            PricePerUnit = new ecms.Domain.ValueObjects.Price(10, ecms.Domain.ValueObjects.Currency.Usd)
+            PricePerUnit = new Price(10, Currency.Usd)
         },
         new()
         {
             Id = 4,
             SupplierOrderId = 4,
             Quantity = 1,
-            PricePerUnit = new ecms.Domain.ValueObjects.Price(10, ecms.Domain.ValueObjects.Currency.Usd)
+            PricePerUnit = new Price(10, Currency.Usd)
         },
         new()
         {
             Id = 5,
             SupplierOrderId = 5,
             Quantity = 1,
-            PricePerUnit = new ecms.Domain.ValueObjects.Price(10, ecms.Domain.ValueObjects.Currency.Usd)
+            PricePerUnit = new Price(10, Currency.Usd)
         },
         new()
         {
             Id = 6,
             SupplierOrderId = 6,
             Quantity = 1,
-            PricePerUnit = new ecms.Domain.ValueObjects.Price(10, ecms.Domain.ValueObjects.Currency.Usd)
+            PricePerUnit = new Price(10, Currency.Usd)
         }
     };
 

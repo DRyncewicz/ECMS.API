@@ -2,7 +2,7 @@
 using MediatR;
 using SharedKernel;
 
-namespace ecms.Application.Handlers.Queries.SupplierOrder;
+namespace ecms.Application.Handlers.Queries.SupplierOrder.GetSupplierOrdersPaged;
 
 public class GetSupplierOrdersPagedQuery : IRequest<Result<SupplierOrdersViewModel>>
 {
