@@ -5,6 +5,7 @@ using ecms.Application.Handlers.Queries.SupplierOrder.GetSupplierOrdersPaged;
 using ecms.Domain.Entities;
 using ecms.Domain.ValueObjects;
 using FluentAssertions;
+using MockQueryable.Moq;
 using Moq;
 using UnitTests.Mapping;
 
@@ -101,7 +102,7 @@ public class GetSupplierOrdersPagedQueryHandlerTests : IClassFixture<MappingTest
         _mapper = fixture.Mapper;
         _applicationDbContext = new Mock<IApplicationDbContext>();
         _handler = new GetSupplierOrdersPagedQueryHandler(_applicationDbContext.Object, _mapper);
-        var dbContextResponseSupplierOrders = _supplierOrders.AsQueryable().BuildMock();
+        var dbContextResponseSupplierOrders = _supplierOrders.AsQueryable().BuildMockDbSet();
         _applicationDbContext.Setup(p => p.SupplierOrders).Returns(dbContextResponseSupplierOrders.Object);
     }
 

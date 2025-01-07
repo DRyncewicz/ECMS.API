@@ -25,12 +25,12 @@ public class GetSupplierOrdersPagedQueryHandler(IApplicationDbContext _applicati
 
         if (request.CurrentPage > 0 && request.PageSize > 0)
         {
-            supplierOrderList = supplierOrders.Skip(request.CurrentPage * request.PageSize - request.PageSize)
-                                           .Take(request.PageSize).ToList();
+            supplierOrderList = await supplierOrders.Skip(request.CurrentPage * request.PageSize - request.PageSize)
+                                           .Take(request.PageSize).ToListAsync();
         }
         else
         {
-            supplierOrderList = supplierOrders.ToList();
+            supplierOrderList = await supplierOrders.ToListAsync();
         }
 
         model.SupplierOrders = supplierOrderList.Select(supplierOrder =>
