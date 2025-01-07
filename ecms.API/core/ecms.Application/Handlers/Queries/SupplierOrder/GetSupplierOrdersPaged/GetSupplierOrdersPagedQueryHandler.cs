@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Abstractions.Data;
+using ecms.Application.Handlers.Queries.SupplierOrder.GetSupplierOrdersPaged;
 using ecms.Application.Models.Dtos.SupplierOrders;
 using ecms.Application.Models.ViewModels.SupplierOrders;
 using ecms.Domain.Entities;
@@ -24,12 +25,12 @@ public class GetSupplierOrdersPagedQueryHandler(IApplicationDbContext _applicati
 
         if (request.CurrentPage > 0 && request.PageSize > 0)
         {
-            supplierOrderList = supplierOrders.Skip(request.CurrentPage * request.PageSize - request.PageSize)
-                                           .Take(request.PageSize).ToList();
+            supplierOrderList = await supplierOrders.Skip(request.CurrentPage * request.PageSize - request.PageSize)
+                                           .Take(request.PageSize).ToListAsync(ct);
         }
         else
         {
-            supplierOrderList = supplierOrders.ToList();
+            supplierOrderList = await supplierOrders.ToListAsync(ct);
         }
 
         model.SupplierOrders = supplierOrderList.Select(supplierOrder =>
