@@ -140,6 +140,9 @@ public class MaterialProfileTests : IClassFixture<MappingTestFixture>
             IsDeleted = false,
             IsActive = true,
             StockLevel = new StockLevelEntity()
+            {
+                StockId = 1,
+            }
         };
 
         //Act
@@ -154,6 +157,7 @@ public class MaterialProfileTests : IClassFixture<MappingTestFixture>
         result.FileGuid.Should().Be(command.FileGuid);
         result.Description.Should().Be(command.Description);
         result.ReorderLevel.Should().Be(command.ReorderLevel);
+        result.StockId.Should().Be(command.StockLevel.StockId);
     }
 
     [Fact]

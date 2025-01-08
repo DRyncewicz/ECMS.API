@@ -83,6 +83,6 @@ public class MaterialProfile : Profile
             .ForMember(dest => dest.ReorderLevel, opt => opt.MapFrom(src => src.ReorderLevel))
             .ForMember(dest => dest.MaterialId, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
-            .ForMember(dest => dest.StockId, opt => opt.Ignore());
+            .ForMember(dest => dest.StockId, opt => opt.MapFrom(src => src.StockLevel.StockId));
     }
 }
