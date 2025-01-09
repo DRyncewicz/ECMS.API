@@ -73,10 +73,10 @@ public class SupplierOrderProfile : Profile
 
         CreateMap<EditSupplierOrderCommand, SupplierOrderEntity>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.SupplierOrderId))
-            .ForMember(dest => dest.SupplierOrderMaterials, opt => opt.MapFrom(src => src.EditSupplierOrderMaterialDtos))
             .ForMember(dest => dest.SupplierId, opt => opt.MapFrom(src => src.SupplierId))
             .ForMember(dest => dest.SupplierContactId, opt => opt.MapFrom(src => src.SupplierContactId))
             .ForMember(dest => dest.DeliveryDate, opt => opt.MapFrom(src => src.DeliveryDate))
+            .ForMember(dest => dest.SupplierOrderMaterials, opt => opt.Ignore())
             .ForMember(dest => dest.CreateDateTimeUtc, opt => opt.Ignore())
             .ForMember(dest => dest.EditDateTimeUtc, opt => opt.Ignore())
             .ForMember(dest => dest.Supplier, opt => opt.Ignore())

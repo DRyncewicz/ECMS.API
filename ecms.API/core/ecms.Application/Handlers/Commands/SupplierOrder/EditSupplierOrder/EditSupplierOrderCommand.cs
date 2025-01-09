@@ -25,7 +25,7 @@ public class EditSupplierOrderCommand : IRequest<Result<int>>
     {
         SupplierOrderId = id;
         SupplierId = request.SupplierId;
-        SupplierContactId = request.SupplierId;
+        SupplierContactId = request.SupplierContactId;
         Language = request.Language;
         DeliveryDate = request.DeliveryDate;
         SendMessage = request.SendMessage;

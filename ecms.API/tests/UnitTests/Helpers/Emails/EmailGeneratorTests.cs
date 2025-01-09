@@ -77,4 +77,34 @@ public class EmailGeneratorTests
         //Assert
         result.Should().Be("Dzień dobry.\r\nPiszę, aby przesłać nasze zamówienie do dostawy. Dodatkowo, proszę zanotować nasz wewnętrzny numer zamówienia: 1. Poniżej znajdują się szczegóły:\r\n");
     }
+
+    [Fact]
+    public void GenerateEditedOrderWelcomeMessageContent_Should_ReturnCorrectMessage()
+    {
+        //Arrange
+        var language = LanguageType.English;
+        var date = new DateTimeOffset(2025, 9, 22, 12, 0, 0, TimeSpan.Zero);
+        var dateText = date.ToString("d");
+        var supplierOrderId = 1;
+
+        //Act
+        var result = _emailGenerator.GenerateEditedOrderWelcomeMessageContent(language, supplierOrderId, date);
+
+        //Assert
+        result.Should().Be($"Good afternoon.\r\nI hope this message finds you well. Please update our order 1 for delivery on {dateText}. Below are the updated details:\r\n");
+    }
+
+    [Fact]
+    public void GenerateEditedOrderWelcomeMessageContent_Should_ReturnCorrectMessage_IfDateIsNull()
+    {
+        //Arrange
+        var language = LanguageType.English;
+        var supplierOrderId = 1;
+
+        //Act
+        var result = _emailGenerator.GenerateEditedOrderWelcomeMessageContent(language, supplierOrderId, null);
+
+        //Assert
+        result.Should().Be($"Good afternoon.\r\nI hope this message finds you well. Please update our order 1. Below are the updated details:\r\n");
+    }
 }

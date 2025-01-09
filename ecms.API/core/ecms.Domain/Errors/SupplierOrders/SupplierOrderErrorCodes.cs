@@ -23,4 +23,6 @@ public class SupplierOrderErrorCodes
     public const string InvalidQuantity = nameof(InvalidQuantity);
 
     public const string InvalidPricePerUnit = nameof(InvalidPricePerUnit);
+
+    public const string MissingSupplierOrderId = nameof(MissingSupplierOrderId);
 }

@@ -9,4 +9,6 @@ public interface IEmailGenerator
     string GenerateSupplierOrderSubject(LanguageType language);
 
     string GenerateOrderWelcomeMessageContent(LanguageType language, DateTimeOffset? date, int supplierOrderId);
+
+    string GenerateEditedOrderWelcomeMessageContent(LanguageType language, int supplierOrderId, DateTimeOffset? date);
 }

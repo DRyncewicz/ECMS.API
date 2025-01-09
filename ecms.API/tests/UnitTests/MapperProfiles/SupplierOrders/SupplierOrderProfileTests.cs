@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Handlers.Commands.SupplierOrder.CreateSupplierOrder;
+using ecms.Application.Handlers.Commands.SupplierOrder.EditSupplierOrder;
 using ecms.Application.Models.Dtos.SupplierOrders;
 using ecms.Application.Models.ViewModels.SupplierOrders;
 using ecms.Domain.Entities;
@@ -169,5 +170,51 @@ public class SupplierOrderProfileTests : IClassFixture<MappingTestFixture>
         result.SupplierOrderMaterialDtos.Should().BeEmpty();
         result.SupplierContactDto.Should().NotBeNull();
         result.SupplierDto.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void Should_MapFrom_EditSupplierOrderCommand_To_SupplierOrderEntity()
+    {
+        //Arrange
+        var command = new EditSupplierOrderCommand()
+        {
+            SupplierOrderId = 1,
+            SupplierId = 1,
+            SupplierContactId = 1,
+            DeliveryDate = new DateTime(2025, 9, 22),
+        };
+
+        //Act
+        var result = _mapper.Map<SupplierOrderEntity>(command);
+
+        //Assert
+        result.Id.Should().Be(command.SupplierOrderId);
+        result.SupplierId.Should().Be(command.SupplierId);
+        result.SupplierContactId.Should().Be(command.SupplierContactId);
+        result.DeliveryDate.Should().Be(command.DeliveryDate);
+    }
+
+    [Fact]
+    public void Should_MapFrom_EditSupplierOrderMaterialDto_To_SupplierOrderMaterialEntity()
+    {
+        //Arrange
+        var command = new EditSupplierOrderMaterialDto()
+        {
+            SupplierOrderMaterialId = 1,
+            MaterialId = 1,
+            Quantity = 1,
+            PricePerUnit = new Price(25, Currency.Usd),
+            Discount = 1,
+        };
+
+        //Act
+        var result = _mapper.Map<SupplierOrderMaterialEntity>(command);
+
+        //Assert
+        result.Id.Should().Be(command.SupplierOrderMaterialId);
+        result.MaterialId.Should().Be(command.MaterialId);
+        result.Quantity.Should().Be(command.Quantity);
+        result.PricePerUnit.Should().Be(command.PricePerUnit);
+        result.Discount.Should().Be(command.Discount);
     }
 }

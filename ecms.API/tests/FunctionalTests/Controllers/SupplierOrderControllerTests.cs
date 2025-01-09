@@ -1,6 +1,8 @@
 ﻿using ecms.Application.Handlers.Commands.SupplierOrder.CreateSupplierOrder;
+using ecms.Application.Handlers.Commands.SupplierOrder.EditSupplierOrder;
 using ecms.Application.Models.Dtos.SupplierOrders;
 using ecms.Domain.Entities;
+using ecms.Domain.ValueObjects;
 using FluentAssertions;
 using FunctionalTests.Abstractions;
 using System.Net;
@@ -140,5 +142,39 @@ public class SupplierOrderControllerTests : BaseFunctionalTest
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task EditSupplierOrder_ShouldEditSupplierOrder_OnValidRequest()
+    {
+        // Arrange
+        var editSupplierOrderMaterialDtos = new List<EditSupplierOrderMaterialDto>
+        {
+            new()
+            {
+                SupplierOrderMaterialId = 1,
+                MaterialId = 1,
+                Quantity = 20,
+                PricePerUnit = new Price(30, Currency.Usd),
+                Discount = 10,
+            }
+        };
+
+        var request = new EditSupplierOrderRequest()
+        {
+            SupplierOrderId = 1,
+            SupplierId = 1,
+            SupplierContactId = 1,
+            Language = ecms.Domain.Enums.LanguageType.English,
+            DeliveryDate = new DateTime(2025, 09, 22),
+            SendMessage = true,
+            EditSupplierOrderMaterialDtos = editSupplierOrderMaterialDtos
+        };
+
+        // Act
+        var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/SupplierOrder/1", request);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

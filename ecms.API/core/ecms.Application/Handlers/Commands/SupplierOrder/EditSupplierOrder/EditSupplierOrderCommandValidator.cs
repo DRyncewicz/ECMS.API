@@ -14,6 +14,8 @@ public class EditSupplierOrderCommandValidator : AbstractValidator<EditSupplierO
 
         RuleFor(p => p.SupplierId).NotEmpty().WithErrorCode(SupplierOrderErrorCodes.MissingSupplierId);
 
+        RuleFor(p => p.SupplierOrderId).NotEmpty().WithErrorCode(SupplierOrderErrorCodes.MissingSupplierOrderId);
+
         RuleFor(p => p.Language).NotEmpty().WithErrorCode(SupplierOrderErrorCodes.MissingLanguage)
             .IsInEnum();
 

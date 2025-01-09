@@ -2,6 +2,7 @@
 using ecms.API.Extensions;
 using ecms.API.Infrastructure;
 using ecms.Application.Handlers.Commands.SupplierOrder.CreateSupplierOrder;
+using ecms.Application.Handlers.Commands.SupplierOrder.EditSupplierOrder;
 using ecms.Application.Handlers.Queries.SupplierOrder.GetSupplierOrderDetailsById;
 using ecms.Application.Handlers.Queries.SupplierOrder.GetSupplierOrdersPaged;
 using ecms.Application.Models.ViewModels.SupplierOrders;
@@ -50,6 +51,20 @@ public class SupplierOrderController(IMediator _mediator) : BaseController
         var result = await _mediator.Send(query, ct);
         return result.Match(
             onSuccess: supplierOrder => Ok(supplierOrder),
+            onFailure: CustomResults.Problem);
+    }
+
+    [HttpPut("{SupplierOrderId}")]
+    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> EditAsync([FromRoute] int SupplierOrderId, [FromBody] EditSupplierOrderRequest request, CancellationToken ct)
+    {
+        var command = new EditSupplierOrderCommand(request, SupplierOrderId);
+        var result = await _mediator.Send(command, ct);
+        return result.Match(
+            onSuccess: SupplierOrderId => NoContent(),
             onFailure: CustomResults.Problem);
     }
 }

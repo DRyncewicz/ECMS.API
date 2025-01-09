@@ -56,4 +56,19 @@ public class EmailGenerator(IDateTimeProvider _dateTimeProvider) : IEmailGenerat
         }
         return string.Format(EmailConstants.SupplierOrders.GetContentByLanguage(language), dateText, supplierOrderId);
     }
+
+    public string GenerateEditedOrderWelcomeMessageContent(LanguageType language, int supplierOrderId, DateTimeOffset? date)
+    {
+        string dateText;
+
+        if (date is null)
+        {
+            return string.Format(EmailConstants.SupplierOrders.GetEditedUnknownDateTextByLanguage(language), supplierOrderId);
+        }
+        else
+        {
+            dateText = date.Value.ToString("d");
+        }
+        return string.Format(EmailConstants.SupplierOrders.GetEditedContentByLanguage(language), supplierOrderId, dateText);
+    }
 }
