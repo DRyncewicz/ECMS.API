@@ -53,7 +53,7 @@ public class EditSupplierOrderCommandHandler(IApplicationDbContext _applicationD
 
             if (request.SendMessage == true)
             {
-                var updatedSupplierOrderMaterials = supplierOrderMaterialToAddDtos.Union(supplierOrderMaterialToEditDtos).ToList();
+                var updatedSupplierOrderMaterials = supplierOrderMaterialToAddDtos.Union(supplierOrderMaterialToEditDtos);
                 var emailAddress = _applicationDbContext.SupplierContacts.First(p => p.Id == request.SupplierContactId).Email;
                 var materialSummary = _applicationDbContext.Materials.Where(p => updatedSupplierOrderMaterials.Select(m => m.MaterialId).Contains(p.Id))
                                                                      .ToDictionary(p => p.Name, p => updatedSupplierOrderMaterials.First(m => m.MaterialId == p.Id).Quantity);

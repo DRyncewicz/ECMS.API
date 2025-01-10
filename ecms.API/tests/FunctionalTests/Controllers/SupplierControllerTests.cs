@@ -134,6 +134,6 @@ public class SupplierControllerTests : BaseFunctionalTest
         var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Supplier/1", command);
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }

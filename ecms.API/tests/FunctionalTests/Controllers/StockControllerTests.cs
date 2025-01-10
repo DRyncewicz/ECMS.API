@@ -73,7 +73,7 @@ public class StockControllerTests : BaseFunctionalTest
         var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Stock/1", command);
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
     [Fact]

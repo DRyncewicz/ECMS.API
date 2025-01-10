@@ -101,7 +101,7 @@ public class ProductControllerTests : BaseFunctionalTest
         var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Product/1", command);
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
     [Fact]
@@ -134,7 +134,7 @@ public class ProductControllerTests : BaseFunctionalTest
         var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Product/ProductVariant/1/ProductMaterial", command);
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
     private void Seed()

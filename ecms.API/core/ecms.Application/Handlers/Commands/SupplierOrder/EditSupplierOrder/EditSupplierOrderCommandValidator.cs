@@ -8,7 +8,7 @@ public class EditSupplierOrderCommandValidator : AbstractValidator<EditSupplierO
 {
     public EditSupplierOrderCommandValidator(IDateTimeProvider _dateTimeProvider)
     {
-        RuleFor(p => p.DeliveryDate).Must(p => p.HasValue && p.Value > _dateTimeProvider.UtcNow.AddHours(1))
+        RuleFor(p => p.DeliveryDate).Must(p => p.Value > _dateTimeProvider.UtcNow.AddHours(1))
             .When(p => p.DeliveryDate != null)
             .WithErrorCode(SupplierOrderErrorCodes.InvalidDeliveryDate);
 

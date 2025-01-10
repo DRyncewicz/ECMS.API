@@ -28,7 +28,7 @@ public class StockController(IMediator _mediator) : BaseController
     }
 
     [HttpPut("{StockId}")]
-    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -37,7 +37,7 @@ public class StockController(IMediator _mediator) : BaseController
         var command = new EditStockCommand(request, StockId);
         var result = await _mediator.Send(command, ct);
         return result.Match(
-            onSuccess: StockId => NoContent(),
+            onSuccess: StockId => Ok(StockId),
             onFailure: CustomResults.Problem);
     }
 
