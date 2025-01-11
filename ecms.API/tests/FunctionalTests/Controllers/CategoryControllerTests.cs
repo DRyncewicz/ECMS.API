@@ -93,7 +93,7 @@ public class CategoryControllerTests : BaseFunctionalTest
         var response = await AuthorizedHttpClient.PutAsJsonAsync("api/v1/Category/1", command);
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
     [Fact]

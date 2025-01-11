@@ -70,7 +70,7 @@ public class MaterialController(IMediator _mediator) : BaseController
     }
 
     [HttpPut("{MaterialId}")]
-    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(Result<int>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -79,7 +79,7 @@ public class MaterialController(IMediator _mediator) : BaseController
         var command = new EditMaterialCommand(request, MaterialId);
         var result = await _mediator.Send(command, ct);
         return result.Match(
-            onSuccess: StockId => NoContent(),
+            onSuccess: MaterialId => Ok(MaterialId),
             onFailure: CustomResults.Problem);
     }
 }
