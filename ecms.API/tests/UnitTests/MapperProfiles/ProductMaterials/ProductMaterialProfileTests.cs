@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ecms.Application.Models.Dtos.Materials;
+using ecms.Application.Models.Dtos.Products;
 using ecms.Domain.Entities;
 using FluentAssertions;
 using UnitTests.Mapping;
@@ -74,5 +75,30 @@ public class ProductMaterialProfileTests : IClassFixture<MappingTestFixture>
         result.MaterialId.Should().Be(command.MaterialId);
         result.IsDeleted.Should().Be(false);
         result.Quantity.Should().Be(command.Quantity);
+    }
+
+    [Fact]
+    public void Should_MapFrom_ProductMaterialEntity_To_ProductMaterialListItemDto()
+    {
+        //Arrange
+        var command = new ProductMaterialEntity()
+        {
+            Id = 1,
+            MaterialId = 1,
+            Quantity = 12,
+            Material = new MaterialEntity()
+            {
+                Name = "MaterialName"
+            }
+        };
+
+        //Act
+        var result = _mapper.Map<ProductMaterialListItemDto>(command);
+
+        //Assert
+        result.ProductMaterialId.Should().Be(command.Id);
+        result.MaterialId.Should().Be(command.MaterialId);
+        result.Quantity.Should().Be(command.Quantity);
+        result.Name.Should().Be(command.Material.Name);
     }
 }
