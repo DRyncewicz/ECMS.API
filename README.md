@@ -1,20 +1,14 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+#ECMS.API 🚀
+ECMS.API is a collaborative two-person project consisting of three core applications:
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Web API – built using Clean Architecture with CQRS for structured and scalable backend development.
+Identity Server – implemented with Duende IdentityServer, serving as an Authentication as a Service (AaaS) solution for multiple projects.
+Frontend – developed with Blazor WebAssembly (WASM) for a modern and interactive client-side experience.
+My Role in the Project:
+🔹 Code Supervision – ensuring clean, maintainable, and scalable code architecture.
+🔹 Project Template & CI/CD Pipelines – setting up a robust project foundation with automated deployment pipelines.
+🔹 Docker Containerization – implementing containerized environments for all applications.
+🔹 VPS Administration – managing the deployment and infrastructure on a dedicated Linux VPS.
+🔹 Frontend Development – building and maintaining the Blazor WASM frontend.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+🏗️ Fully containerized and deployed on a VPS, ensuring a scalable and secure environment!
